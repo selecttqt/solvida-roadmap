@@ -17,7 +17,7 @@
             
             --border-subtle: rgba(255, 255, 255, 0.08);
             --border-active: rgba(255, 255, 255, 0.2);
-            --border-edit: rgba(234, 179, 8, 0.5);
+            --border-edit: rgba(234, 179, 8, 0.5); /* Yellow for edit mode */
             
             --text-primary: #F2F2F2;
             --text-secondary: #9CA3AF;
@@ -38,38 +38,432 @@
             --grad-brand: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
             --grad-surface: radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.08), transparent 25%),
                             radial-gradient(circle at 85% 30%, rgba(168, 85, 247, 0.08), transparent 25%);
+
+            /* Spacing */
+            --radius-lg: 16px;
+            --radius-md: 8px;
+            --radius-sm: 4px;
         }
 
+        /* --- Light Mode Overrides --- */
         [data-theme="light"] {
             --bg-deep: #F8FAFC;
             --bg-panel: #FFFFFF;
             --bg-panel-hover: #F1F5F9;
             --bg-sticky: #FFFFFF;
+            
             --border-subtle: #E2E8F0;
             --border-active: #94A3B8;
+            
             --text-primary: #0F172A;
             --text-secondary: #475569;
             --text-tertiary: #94A3B8;
+            
             --brand-primary: #4F46E5;
             --brand-glow: rgba(79, 70, 229, 0.2);
+            
             --grid-color: rgba(0, 0, 0, 0.03);
-            --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            
             --grad-surface: radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.03), transparent 25%),
                             radial-gradient(circle at 85% 30%, rgba(168, 85, 247, 0.03), transparent 25%);
         }
 
+        /* --- Global Reset & Base --- */
         * { margin: 0; padding: 0; box-sizing: border-box; transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; }
-        body { font-family: 'Montserrat', sans-serif; background-color: var(--bg-deep); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; background-image: var(--grad-surface); font-size: 16px; }
-        body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(var(--grid-color) 1px, transparent 1px), linear-gradient(90deg, var(--grid-color) 1px, transparent 1px); background-size: 40px 40px; z-index: -1; pointer-events: none; }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: var(--grad-surface);
+            font-size: 16px; 
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
         h1, h2, h3, h4, button, input { font-family: 'Montserrat', sans-serif; letter-spacing: -0.02em; color: var(--text-primary); }
         
-        .container { width: 95%; max-width: 1800px; margin: 0 auto; padding: 50px 20px; }
+        .container {
+            width: 95%; 
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
 
-        /* Buttons */
-        .theme-toggle, .github-btn { background: var(--bg-panel); border: 1px solid var(--border-subtle); color: var(--text-primary); padding: 10px 16px; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; }
+        /* --- Buttons --- */
+        .theme-toggle, .github-btn {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-primary);
+            padding: 10px 16px;
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 500;
+        }
         .theme-toggle:hover, .github-btn:hover { border-color: var(--border-active); }
-        .github-btn.primary { background: var(--brand-primary); color: white; border: none; }
+        
+        .github-btn.primary {
+            background: var(--brand-primary);
+            color: white;
+            border: none;
+        }
         .github-btn.primary:hover { opacity: 0.9; }
+
+        .btn-small {
+            background: rgba(255,255,255,0.05);
+            border: 1px dashed var(--border-active);
+            color: var(--text-secondary);
+            font-size: 11px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 5px;
+            display: none; /* Hidden by default, shown in edit mode */
+            font-family: 'Montserrat', sans-serif;
+        }
+        .btn-small:hover { background: rgba(255,255,255,0.1); color: var(--text-primary); }
+        
+        .add-feature-btn {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px dashed var(--brand-primary);
+            color: var(--brand-primary);
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            display: none;
+        }
+        .add-feature-btn:hover { background: rgba(99, 102, 241, 0.2); }
+
+        .delete-btn {
+            color: #ef4444;
+            cursor: pointer;
+            font-weight: bold;
+            margin-left: 8px;
+            opacity: 0.6;
+            display: none; 
+        }
+        .delete-btn:hover { opacity: 1; }
+
+        .delete-feature-btn {
+            color: #ef4444;
+            font-size: 11px;
+            cursor: pointer;
+            margin-left: 10px;
+            display: none;
+            border: 1px solid #ef4444;
+            background: transparent;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .local-edit-btn {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .local-edit-btn:hover { border-color: var(--brand-primary); color: var(--brand-primary); }
+        body.edit-mode .local-edit-btn { border-color: var(--brand-primary); color: var(--brand-primary); background: rgba(99, 102, 241, 0.1); }
+
+        /* --- Header --- */
+        .header { margin-bottom: 60px; }
+        .header-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; }
+        .brand h1 {
+            font-size: 52px; 
+            font-weight: 800;
+            margin-bottom: 5px;
+            background: linear-gradient(to right, var(--text-primary), var(--text-tertiary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .brand .subtitle {
+            color: var(--accent-cyan);
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .header-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .stat-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-subtle);
+            padding: 20px 30px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-card);
+        }
+        .stat-label { font-size: 12px; text-transform: uppercase; color: var(--text-tertiary); letter-spacing: 0.05em; margin-bottom: 5px; font-weight: 600; }
+        .stat-value { font-size: 20px; font-weight: 700; color: var(--text-primary); }
+
+        /* --- Exec Summary --- */
+        .exec-summary { margin-bottom: 60px; }
+        .exec-grid { display: grid; grid-template-columns: 2fr 3fr; gap: 40px; align-items: center; }
+        .exec-text p { color: var(--text-secondary); margin-bottom: 20px; font-size: 16px; line-height: 1.7; }
+        .milestone-track { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+        .milestone-node {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-subtle);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            text-align: center;
+        }
+        .node-date { display: block; font-size: 12px; color: var(--brand-primary); font-weight: 700; text-transform: uppercase; margin-bottom: 6px; }
+        .node-title { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+
+        /* --- Gantt Chart --- */
+        .gantt-wrapper { margin-bottom: 80px; }
+        .gantt-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding: 0 10px; }
+        .gantt-title { display: flex; align-items: center; gap: 12px; }
+        
+        .tool-btn {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            padding: 10px 20px;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 600;
+        }
+        .tool-btn:hover { border-color: var(--text-primary); color: var(--text-primary); }
+        .tool-btn.active { background: rgba(234, 179, 8, 0.1); border-color: #eab308; color: #eab308; }
+
+        .gantt-panel {
+            background: var(--bg-deep);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-card);
+            overflow: hidden;
+        }
+        .gantt-scroller { overflow-x: auto; padding-bottom: 10px; }
+        
+        /* Fixed Table Layout for Uniformity */
+        .gantt-table { 
+            width: 100%; 
+            border-collapse: separate; 
+            border-spacing: 0; 
+            min-width: 1400px;
+            table-layout: fixed; 
+        }
+        
+        .gantt-table th {
+            background: var(--bg-panel);
+            color: var(--text-secondary);
+            font-size: 11px;
+            text-transform: uppercase;
+            padding: 15px 10px;
+            font-weight: 700;
+            border-bottom: 1px solid var(--border-subtle);
+            border-right: 1px solid var(--border-subtle);
+            position: sticky; top: 0; z-index: 10;
+        }
+        
+        .gantt-table th:first-child { 
+            width: 250px; 
+            text-align: left; padding-left: 20px; 
+            position: sticky; left: 0; 
+            background: var(--bg-panel); 
+            z-index: 20;
+            border-right: 2px solid var(--border-subtle);
+        }
+
+        .gantt-row td {
+            background: var(--bg-sticky);
+            border-bottom: 1px solid var(--border-subtle);
+            border-right: 1px dashed var(--border-subtle);
+            height: 60px; 
+            padding: 4px;
+        }
+        .gantt-label-cell {
+            position: sticky; left: 0;
+            background: var(--bg-sticky) !important;
+            z-index: 10;
+            border-right: 2px solid var(--border-subtle) !important;
+            padding: 0 20px !important;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .gantt-bar {
+            height: 36px;
+            border-radius: 6px;
+            background: var(--grad-brand);
+            font-size: 11px;
+            color: white;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: grab;
+            white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+        }
+        .gantt-bar::after {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: skewX(-20deg); animation: shimmer 3s infinite;
+        }
+        @keyframes shimmer { 100% { left: 200%; } }
+
+        /* --- Sprint Blocks --- */
+        .timeline-wrapper { position: relative; padding-left: 30px; }
+        .timeline-wrapper::before {
+            content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px;
+            background: linear-gradient(180deg, var(--brand-primary), var(--border-subtle) 20%, var(--border-subtle) 90%, transparent);
+        }
+
+        .sprint-block { margin-bottom: 40px; position: relative; opacity: 0; animation: fadeIn 0.5s forwards; }
+        .sprint-block:nth-child(1) { animation-delay: 0.1s; }
+        .sprint-block:nth-child(2) { animation-delay: 0.2s; }
+        .sprint-block:nth-child(3) { animation-delay: 0.3s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .sprint-dot {
+            position: absolute; left: -34px; top: 28px; width: 11px; height: 11px;
+            border-radius: 50%; background: var(--bg-deep); border: 2px solid var(--brand-primary);
+            box-shadow: 0 0 10px var(--brand-glow); z-index: 2;
+        }
+
+        .sprint-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            transition: all 0.3s;
+            box-shadow: var(--shadow-card);
+            overflow: hidden;
+        }
+        .sprint-card:hover { border-color: var(--border-active); transform: translateY(-2px); }
+
+        .card-header {
+            padding: 25px 30px;
+            border-bottom: 1px solid var(--border-subtle);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .card-title h3 { font-size: 20px; font-weight: 700; color: var(--text-primary); }
+        .card-meta { font-size: 13px; color: var(--text-tertiary); font-weight: 500; }
+
+        .card-body {
+            padding: 30px;
+            display: grid;
+            grid-template-columns: 60% 40%;
+            gap: 40px;
+        }
+        @media (max-width: 1000px) { .card-body { grid-template-columns: 1fr; } }
+
+        .column-left { display: flex; flex-direction: column; gap: 30px; }
+        
+        .feature-block { 
+            position: relative; 
+            padding-bottom: 20px;
+            border-bottom: 1px dashed var(--border-subtle);
+        }
+        .feature-block:last-child { border-bottom: none; padding-bottom: 0; }
+
+        .section-header-group { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .section-title { 
+            color: var(--text-secondary); 
+            font-size: 12px; 
+            text-transform: uppercase; 
+            letter-spacing: 0.1em; 
+            font-weight: 700;
+        }
+        
+        .feature-title-input {
+            font-size: 14px; color: var(--text-primary); font-weight: 600; margin-bottom: 10px;
+            display: none; 
+        }
+        .feature-title-input.visible { display: block; }
+
+        .deliv-list { list-style: none; }
+        .deliv-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        .deliv-list li::before {
+            content: "▹"; position: absolute; left: 0; color: var(--brand-primary); font-size: 14px;
+        }
+
+        .action-items-container {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-subtle);
+            display: none;
+            background: rgba(249, 115, 22, 0.03);
+            border-radius: 6px;
+            padding: 15px;
+        }
+        .action-items-container.active { display: block; }
+
+        .action-list { list-style: none; }
+        .action-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            color: var(--accent-orange);
+            font-size: 14px;
+        }
+        .action-list li::before {
+            content: "⚠"; position: absolute; left: 0; font-size: 12px;
+        }
+
+        .insight-box {
+            background: rgba(255,255,255,0.02);
+            border-radius: var(--radius-md);
+            padding: 25px;
+            height: 100%;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            background: linear-gradient(180deg, rgba(16, 185, 129, 0.05) 0%, transparent 100%);
+        }
+        [data-theme="light"] .insight-box { background: rgba(0,0,0,0.02); }
+
+        .insight-title { 
+            font-size: 12px; text-transform: uppercase; font-weight: 700; 
+            letter-spacing: 0.05em; margin-bottom: 12px; display: block; 
+            color: var(--accent-green); 
+        }
+        .insight-text { font-size: 15px; color: var(--text-secondary); line-height: 1.7; }
+
+        .future-phase {
+            margin-top: 80px; position: relative; border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg); padding: 80px; text-align: center;
+            background: radial-gradient(circle at center, rgba(34, 211, 238, 0.05) 0%, transparent 70%);
+            overflow: hidden;
+        }
+        .future-phase h2 { font-size: 36px; color: var(--text-primary); margin-bottom: 15px; }
 
         /* Modal */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
@@ -86,100 +480,50 @@
         .toast.success { border-color: var(--accent-green); }
         .toast.error { border-color: var(--accent-orange); }
 
-        /* Existing Styles... */
-        .btn-small { background: rgba(255,255,255,0.05); border: 1px dashed var(--border-active); color: var(--text-secondary); font-size: 11px; padding: 4px 8px; border-radius: 4px; cursor: pointer; margin-top: 5px; display: none; font-family: 'Montserrat', sans-serif; }
-        .btn-small:hover { background: rgba(255,255,255,0.1); color: var(--text-primary); }
-        .add-feature-btn { background: rgba(99, 102, 241, 0.1); border: 1px dashed var(--brand-primary); color: var(--brand-primary); width: 100%; padding: 10px; margin-top: 20px; border-radius: 6px; cursor: pointer; font-family: 'Montserrat', sans-serif; font-weight: 600; display: none; }
-        .delete-btn { color: #ef4444; cursor: pointer; font-weight: bold; margin-left: 8px; opacity: 0.6; display: none; }
-        .delete-btn:hover { opacity: 1; }
-        .delete-feature-btn { color: #ef4444; font-size: 11px; cursor: pointer; margin-left: 10px; display: none; border: 1px solid #ef4444; background: transparent; padding: 2px 6px; border-radius: 4px; }
-        .local-edit-btn { background: transparent; border: 1px solid var(--border-subtle); color: var(--text-secondary); font-size: 11px; padding: 4px 10px; border-radius: 4px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 5px; }
-        .local-edit-btn:hover { border-color: var(--brand-primary); color: var(--brand-primary); }
-        body.edit-mode .local-edit-btn { border-color: var(--brand-primary); color: var(--brand-primary); background: rgba(99, 102, 241, 0.1); }
-        
-        .header { margin-bottom: 60px; }
-        .header-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; }
-        .brand h1 { font-size: 52px; font-weight: 800; margin-bottom: 5px; background: linear-gradient(to right, var(--text-primary), var(--text-tertiary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .brand .subtitle { color: var(--accent-cyan); font-size: 18px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; }
-        .header-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-        .stat-card { background: var(--bg-panel); border: 1px solid var(--border-subtle); padding: 20px 30px; border-radius: var(--radius-md); box-shadow: var(--shadow-card); }
-        .stat-label { font-size: 12px; text-transform: uppercase; color: var(--text-tertiary); letter-spacing: 0.05em; margin-bottom: 5px; font-weight: 600; }
-        .stat-value { font-size: 20px; font-weight: 700; color: var(--text-primary); }
-        .exec-summary { margin-bottom: 60px; }
-        .exec-grid { display: grid; grid-template-columns: 2fr 3fr; gap: 40px; align-items: center; }
-        .exec-text p { color: var(--text-secondary); margin-bottom: 20px; font-size: 16px; line-height: 1.7; }
-        .milestone-track { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
-        .milestone-node { background: var(--bg-panel); border: 1px solid var(--border-subtle); padding: 20px; border-radius: var(--radius-md); text-align: center; }
-        .node-date { display: block; font-size: 12px; color: var(--brand-primary); font-weight: 700; text-transform: uppercase; margin-bottom: 6px; }
-        .node-title { font-size: 14px; font-weight: 600; color: var(--text-primary); }
-        .gantt-wrapper { margin-bottom: 80px; }
-        .gantt-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding: 0 10px; }
-        .gantt-title { display: flex; align-items: center; gap: 12px; }
-        .tool-btn { background: var(--bg-panel); border: 1px solid var(--border-subtle); color: var(--text-secondary); padding: 10px 20px; border-radius: var(--radius-sm); font-size: 13px; cursor: pointer; transition: all 0.2s; font-weight: 600; }
-        .tool-btn:hover { border-color: var(--text-primary); color: var(--text-primary); }
-        .tool-btn.active { background: rgba(234, 179, 8, 0.1); border-color: #eab308; color: #eab308; }
-        .gantt-panel { background: var(--bg-deep); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); box-shadow: var(--shadow-card); overflow: hidden; }
-        .gantt-scroller { overflow-x: auto; padding-bottom: 10px; }
-        .gantt-table { width: 100%; border-collapse: separate; border-spacing: 0; min-width: 1400px; table-layout: fixed; }
-        .gantt-table th { background: var(--bg-panel); color: var(--text-secondary); font-size: 11px; text-transform: uppercase; padding: 15px 10px; font-weight: 700; border-bottom: 1px solid var(--border-subtle); border-right: 1px solid var(--border-subtle); position: sticky; top: 0; z-index: 10; }
-        .gantt-table th:first-child { width: 250px; text-align: left; padding-left: 20px; position: sticky; left: 0; background: var(--bg-panel); z-index: 20; border-right: 2px solid var(--border-subtle); }
-        .gantt-row td { background: var(--bg-sticky); border-bottom: 1px solid var(--border-subtle); border-right: 1px dashed var(--border-subtle); height: 60px; padding: 4px; }
-        .gantt-label-cell { position: sticky; left: 0; background: var(--bg-sticky) !important; z-index: 10; border-right: 2px solid var(--border-subtle) !important; padding: 0 20px !important; font-size: 13px; font-weight: 600; color: var(--text-primary); }
-        .gantt-bar { height: 36px; border-radius: 6px; background: var(--grad-brand); font-size: 11px; color: white; font-weight: 600; display: flex; align-items: center; justify-content: center; cursor: grab; white-space: nowrap; position: relative; overflow: hidden; }
-        .gantt-bar::after { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transform: skewX(-20deg); animation: shimmer 3s infinite; }
-        @keyframes shimmer { 100% { left: 200%; } }
-        .timeline-wrapper { position: relative; padding-left: 30px; }
-        .timeline-wrapper::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: linear-gradient(180deg, var(--brand-primary), var(--border-subtle) 20%, var(--border-subtle) 90%, transparent); }
-        .sprint-block { margin-bottom: 40px; position: relative; opacity: 0; animation: fadeIn 0.5s forwards; }
-        .sprint-block:nth-child(1) { animation-delay: 0.1s; }
-        .sprint-block:nth-child(2) { animation-delay: 0.2s; }
-        .sprint-block:nth-child(3) { animation-delay: 0.3s; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .sprint-dot { position: absolute; left: -34px; top: 28px; width: 11px; height: 11px; border-radius: 50%; background: var(--bg-deep); border: 2px solid var(--brand-primary); box-shadow: 0 0 10px var(--brand-glow); z-index: 2; }
-        .sprint-card { background: var(--bg-panel); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); transition: all 0.3s; box-shadow: var(--shadow-card); overflow: hidden; }
-        .sprint-card:hover { border-color: var(--border-active); transform: translateY(-2px); }
-        .card-header { padding: 25px 30px; border-bottom: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; }
-        .card-title h3 { font-size: 20px; font-weight: 700; color: var(--text-primary); }
-        .card-meta { font-size: 13px; color: var(--text-tertiary); font-weight: 500; }
-        .card-body { padding: 30px; display: grid; grid-template-columns: 60% 40%; gap: 40px; }
-        @media (max-width: 1000px) { .card-body { grid-template-columns: 1fr; } }
-        .column-left { display: flex; flex-direction: column; gap: 30px; }
-        .feature-block { position: relative; padding-bottom: 20px; border-bottom: 1px dashed var(--border-subtle); }
-        .feature-block:last-child { border-bottom: none; padding-bottom: 0; }
-        .section-header-group { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .section-title { color: var(--text-secondary); font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
-        .feature-title-input { font-size: 14px; color: var(--text-primary); font-weight: 600; margin-bottom: 10px; display: none; }
-        .feature-title-input.visible { display: block; }
-        .deliv-list { list-style: none; }
-        .deliv-list li { position: relative; padding-left: 20px; margin-bottom: 10px; color: var(--text-primary); font-size: 15px; line-height: 1.5; }
-        .deliv-list li::before { content: "▹"; position: absolute; left: 0; color: var(--brand-primary); font-size: 14px; }
-        .action-items-container { margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--border-subtle); display: none; background: rgba(249, 115, 22, 0.03); border-radius: 6px; padding: 15px; }
-        .action-items-container.active { display: block; }
-        .action-list { list-style: none; }
-        .action-list li { position: relative; padding-left: 20px; margin-bottom: 10px; color: var(--accent-orange); font-size: 14px; }
-        .action-list li::before { content: "⚠"; position: absolute; left: 0; font-size: 12px; }
-        .insight-box { background: rgba(255,255,255,0.02); border-radius: var(--radius-md); padding: 25px; height: 100%; border: 1px solid rgba(16, 185, 129, 0.2); background: linear-gradient(180deg, rgba(16, 185, 129, 0.05) 0%, transparent 100%); }
-        [data-theme="light"] .insight-box { background: rgba(0,0,0,0.02); }
-        .insight-title { font-size: 12px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em; margin-bottom: 12px; display: block; color: var(--accent-green); }
-        .insight-text { font-size: 15px; color: var(--text-secondary); line-height: 1.7; }
-        .future-phase { margin-top: 80px; position: relative; border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 80px; text-align: center; background: radial-gradient(circle at center, rgba(34, 211, 238, 0.05) 0%, transparent 70%); overflow: hidden; }
-        .future-phase h2 { font-size: 36px; color: var(--text-primary); margin-bottom: 15px; }
+        /* --- Editing States --- */
         body.edit-mode .gantt-bar { cursor: grabbing; opacity: 0.8; box-shadow: 0 0 15px var(--brand-glow); }
         body.edit-mode .cell-drag-over { background: rgba(99, 102, 241, 0.1) !important; box-shadow: inset 0 0 0 1px var(--brand-primary); }
-        body.edit-mode [contenteditable="true"] { border: 1px dashed var(--border-edit); padding: 2px; border-radius: 4px; background: rgba(234, 179, 8, 0.05); outline: none; }
+        
+        body.edit-mode [contenteditable="true"] {
+            border: 1px dashed var(--border-edit);
+            padding: 2px;
+            border-radius: 4px;
+            background: rgba(234, 179, 8, 0.05);
+            outline: none;
+        }
+        
         body.edit-mode .btn-small { display: inline-block; }
         body.edit-mode .delete-btn { display: inline-block; }
         body.edit-mode .action-toggle-btn { display: inline-flex; }
         body.edit-mode .add-feature-btn { display: block; }
         body.edit-mode .delete-feature-btn { display: inline-block; }
         body.edit-mode .feature-title-input { display: block; border-bottom: 1px solid var(--border-edit); padding: 5px; }
-        .action-toggle-btn { display: none; align-items: center; gap: 5px; font-size: 11px; color: var(--text-secondary); cursor: pointer; border: 1px solid var(--border-subtle); padding: 4px 10px; border-radius: 4px; margin-left: auto; }
-        .action-toggle-btn.active { background: rgba(239, 68, 68, 0.1); color: #ef4444; border-color: #ef4444; }
+
+        .action-toggle-btn {
+            display: none;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border: 1px solid var(--border-subtle);
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-left: auto;
+        }
+        .action-toggle-btn.active { 
+            background: rgba(239, 68, 68, 0.1); 
+            color: #ef4444; 
+            border-color: #ef4444; 
+        }
+
+        /* Phase Colors */
         .phase-1 .gantt-bar, .phase-1 .sprint-dot { background: var(--grad-brand); }
         .phase-2 .gantt-bar, .phase-2 .sprint-dot { background: linear-gradient(135deg, #ec4899 0%, #be185d 100%); border-color: #ec4899; }
         .phase-3 .gantt-bar, .phase-3 .sprint-dot { background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-color: #10b981; }
         .phase-4 .gantt-bar, .phase-4 .sprint-dot { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); border-color: #f59e0b; }
         .phase-5 .gantt-bar, .phase-5 .sprint-dot { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border-color: #3b82f6; }
+
         .badge { display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 100px; font-size: 11px; font-weight: 600; text-transform: uppercase; }
         .badge-outline { border: 1px solid var(--border-active); color: var(--text-secondary); }
         .badge-glow { background: rgba(99, 102, 241, 0.1); color: var(--brand-primary); border: 1px solid rgba(99, 102, 241, 0.2); }
@@ -238,6 +582,7 @@
                     </div>
                 </div>
             </div>
+            
             <div class="header-stats">
                 <div class="stat-card">
                     <div class="stat-label">Timeline Horizon</div>
@@ -311,16 +656,64 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="gantt-row phase-1"><td class="gantt-label-cell">01. Solvida Lite Product Launch</td><td class="gantt-cell" data-sprint="s1"><div class="gantt-bar" draggable="false">Sprint 1</div></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td></tr>
-                            <tr class="gantt-row phase-1"><td class="gantt-label-cell">02. Fiat Settlement & Platform</td><td class="gantt-cell"></td><td class="gantt-cell"><div class="gantt-bar" draggable="false">Sprint 2</div></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td></tr>
-                            <tr class="gantt-row phase-2"><td class="gantt-label-cell">03. Solvida Pro Complete</td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"><div class="gantt-bar" draggable="false">Sprint 3</div></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td></tr>
-                            <tr class="gantt-row phase-2"><td class="gantt-label-cell">04. UX & Brand Polish</td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"><div class="gantt-bar" draggable="false">Sprint 4</div></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td></tr>
-                            <tr class="gantt-row phase-3"><td class="gantt-label-cell">05. Admin Dashboard</td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"><div class="gantt-bar" draggable="false">Sprint 5</div></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td></tr>
-                            <tr class="gantt-row phase-3"><td class="gantt-label-cell">06. Security & Support</td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"><div class="gantt-bar" draggable="false">Sprint 6</div></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td></tr>
-                            <tr class="gantt-row phase-4"><td class="gantt-label-cell">07. Website Additions</td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"><div class="gantt-bar" draggable="false">Sprint 7</div></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td></tr>
-                            <tr class="gantt-row phase-4"><td class="gantt-label-cell">08. Regional Expansion</td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"><div class="gantt-bar" draggable="false">Sprint 8</div></td><td class="gantt-cell"></td><td class="gantt-cell"></td></tr>
-                            <tr class="gantt-row phase-5"><td class="gantt-label-cell">09. Staking & Earn</td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"><div class="gantt-bar" draggable="false">Sprint 9</div></td><td class="gantt-cell"></td></tr>
-                            <tr class="gantt-row phase-5"><td class="gantt-label-cell">10. Card + Final Ops</td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"><div class="gantt-bar" draggable="false">Sprint 10</div></td></tr>
+                            <tr class="gantt-row phase-1">
+                                <td class="gantt-label-cell">01. Solvida Lite Product Launch</td>
+                                <td class="gantt-cell" data-sprint="s1"><div class="gantt-bar" draggable="false">Sprint 1</div></td>
+                                <td class="gantt-cell" data-sprint="s2"></td><td class="gantt-cell" data-sprint="s3"></td><td class="gantt-cell" data-sprint="s4"></td><td class="gantt-cell" data-sprint="s5"></td><td class="gantt-cell" data-sprint="s6"></td><td class="gantt-cell" data-sprint="s7"></td><td class="gantt-cell" data-sprint="s8"></td><td class="gantt-cell" data-sprint="s9"></td><td class="gantt-cell" data-sprint="s10"></td>
+                            </tr>
+                            <tr class="gantt-row phase-1">
+                                <td class="gantt-label-cell">02. Fiat Settlement & Platform</td>
+                                <td class="gantt-cell" data-sprint="s1"></td>
+                                <td class="gantt-cell" data-sprint="s2"><div class="gantt-bar" draggable="false">Sprint 2</div></td>
+                                <td class="gantt-cell" data-sprint="s3"></td><td class="gantt-cell" data-sprint="s4"></td><td class="gantt-cell" data-sprint="s5"></td><td class="gantt-cell" data-sprint="s6"></td><td class="gantt-cell" data-sprint="s7"></td><td class="gantt-cell" data-sprint="s8"></td><td class="gantt-cell" data-sprint="s9"></td><td class="gantt-cell" data-sprint="s10"></td>
+                            </tr>
+                            <tr class="gantt-row phase-2">
+                                <td class="gantt-label-cell">03. Solvida Pro Complete</td>
+                                <td class="gantt-cell" data-sprint="s1"></td><td class="gantt-cell" data-sprint="s2"></td>
+                                <td class="gantt-cell" data-sprint="s3"><div class="gantt-bar" draggable="false">Sprint 3</div></td>
+                                <td class="gantt-cell" data-sprint="s4"></td><td class="gantt-cell" data-sprint="s5"></td><td class="gantt-cell" data-sprint="s6"></td><td class="gantt-cell" data-sprint="s7"></td><td class="gantt-cell" data-sprint="s8"></td><td class="gantt-cell" data-sprint="s9"></td><td class="gantt-cell" data-sprint="s10"></td>
+                            </tr>
+                            <tr class="gantt-row phase-2">
+                                <td class="gantt-label-cell">04. UX & Brand Polish</td>
+                                <td class="gantt-cell" data-sprint="s1"></td><td class="gantt-cell" data-sprint="s2"></td><td class="gantt-cell" data-sprint="s3"></td>
+                                <td class="gantt-cell" data-sprint="s4"><div class="gantt-bar" draggable="false">Sprint 4</div></td>
+                                <td class="gantt-cell" data-sprint="s5"></td><td class="gantt-cell" data-sprint="s6"></td><td class="gantt-cell" data-sprint="s7"></td><td class="gantt-cell" data-sprint="s8"></td><td class="gantt-cell" data-sprint="s9"></td><td class="gantt-cell" data-sprint="s10"></td>
+                            </tr>
+                            <tr class="gantt-row phase-3">
+                                <td class="gantt-label-cell">05. Admin Dashboard</td>
+                                <td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td>
+                                <td class="gantt-cell" data-sprint="s5"><div class="gantt-bar" draggable="false">Sprint 5</div></td>
+                                <td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td>
+                            </tr>
+                            <tr class="gantt-row phase-3">
+                                <td class="gantt-label-cell">06. Security & Support</td>
+                                <td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td>
+                                <td class="gantt-cell" data-sprint="s6"><div class="gantt-bar" draggable="false">Sprint 6</div></td>
+                                <td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td>
+                            </tr>
+                            <tr class="gantt-row phase-4">
+                                <td class="gantt-label-cell">07. Website Additions</td>
+                                <td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td>
+                                <td class="gantt-cell" data-sprint="s7"><div class="gantt-bar" draggable="false">Sprint 7</div></td>
+                                <td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td>
+                            </tr>
+                            <tr class="gantt-row phase-4">
+                                <td class="gantt-label-cell">08. Regional Expansion</td>
+                                <td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td>
+                                <td class="gantt-cell" data-sprint="s8"><div class="gantt-bar" draggable="false">Sprint 8</div></td>
+                                <td class="gantt-cell"></td><td class="gantt-cell"></td>
+                            </tr>
+                            <tr class="gantt-row phase-5">
+                                <td class="gantt-label-cell">09. Staking & Earn</td>
+                                <td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td>
+                                <td class="gantt-cell" data-sprint="s9"><div class="gantt-bar" draggable="false">Sprint 9</div></td>
+                                <td class="gantt-cell"></td>
+                            </tr>
+                            <tr class="gantt-row phase-5">
+                                <td class="gantt-label-cell">10. Card + Final Ops</td>
+                                <td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td>
+                                <td class="gantt-cell" data-sprint="s10"><div class="gantt-bar" draggable="false">Sprint 10</div></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -328,6 +721,7 @@
         </section>
 
         <div class="timeline-wrapper">
+            
             <div class="sprint-block phase-1">
                 <div class="sprint-dot"></div>
                 <div class="sprint-card">
@@ -343,7 +737,10 @@
                             <div class="feature-container">
                                 <div class="feature-block">
                                     <div class="section-header-group">
-                                        <div style="flex-grow:1"><span class="section-title">Deliverables</span><div class="feature-title-input editable-text">Main Feature Set</div></div>
+                                        <div style="flex-grow:1">
+                                            <span class="section-title">Deliverables</span>
+                                            <div class="feature-title-input editable-text">Main Feature Set</div>
+                                        </div>
                                         <button class="delete-feature-btn" onclick="removeFeatureBlock(this)">Delete Set</button>
                                         <button class="btn-small" onclick="addListItem(this)">+ Add Item</button>
                                     </div>
@@ -355,7 +752,9 @@
                                     </ul>
                                     <div class="action-items-section">
                                         <div class="section-header-group" style="margin-top: 10px;">
-                                            <button class="action-toggle-btn" onclick="toggleActionSection(this)"><span>+ Add Action Items</span></button>
+                                            <button class="action-toggle-btn" onclick="toggleActionSection(this)">
+                                                <span>+ Add Action Items</span>
+                                            </button>
                                         </div>
                                         <div class="action-items-container">
                                             <span class="section-title" style="color:var(--accent-orange)">Required Action Items</span>
@@ -374,7 +773,507 @@
                     </div>
                 </div>
             </div>
+
+            <div class="sprint-block phase-1">
+                <div class="sprint-dot"></div>
+                <div class="sprint-card">
+                    <div class="card-header">
+                        <div class="card-title"><h3>Sprint 2: Fiat Settlement & Platform Readiness</h3></div>
+                        <div style="display:flex; align-items:center; gap:15px;">
+                            <div class="card-meta">Dec 8 - 19</div>
+                            <button class="local-edit-btn" onclick="toggleEdit()">✎ Edit</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="column-left">
+                            <div class="feature-container">
+                                <div class="feature-block">
+                                    <div class="section-header-group">
+                                        <div style="flex-grow:1">
+                                            <span class="section-title">Deliverables</span>
+                                            <div class="feature-title-input editable-text">Main Feature Set</div>
+                                        </div>
+                                        <button class="delete-feature-btn" onclick="removeFeatureBlock(this)">Delete Set</button>
+                                        <button class="btn-small" onclick="addListItem(this)">+ Add Item</button>
+                                    </div>
+                                    <ul class="deliv-list editable-list">
+                                        <li>Fiat Settlement (Colombia) Implementation</li>
+                                        <li>Responsive Mobile Architecture</li>
+                                        <li>Admin Dashboard V1 Complete</li>
+                                        <li>Blog CMS & Aggregator Listings (CMC/Gecko)</li>
+                                    </ul>
+                                    <div class="action-items-section">
+                                        <div class="section-header-group" style="margin-top: 10px;">
+                                            <button class="action-toggle-btn active" onclick="toggleActionSection(this)">
+                                                <span>- Remove Action Items</span>
+                                            </button>
+                                        </div>
+                                        <div class="action-items-container active">
+                                            <span class="section-title" style="color:var(--accent-orange)">Required Action Items</span>
+                                            <button class="btn-small" onclick="addListItem(this)">+ Add Action</button>
+                                            <ul class="action-list editable-list">
+                                                <li>Review Fiat deposit/withdrawal designs</li>
+                                                <li>Select Headless CMS vendor</li>
+                                                <li>Submit CMC listing docs</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="add-feature-btn" onclick="addFeatureBlock(this)">+ Add Feature Set</button>
+                        </div>
+                        <div class="insight-box impact">
+                            <span class="insight-title">Business Impact</span>
+                            <div class="insight-text editable-text">Enables users to deposit money via banks. Makes the platform visible on major trackers like CoinMarketCap.</div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <div class="sprint-block phase-2">
+                <div class="sprint-dot"></div>
+                <div class="sprint-card">
+                    <div class="card-header">
+                        <div class="card-title"><h3>Sprint 3: Solvida Pro Complete</h3></div>
+                        <div style="display:flex; align-items:center; gap:15px;">
+                            <div class="card-meta">Dec 22 - Jan 2</div>
+                            <button class="local-edit-btn" onclick="toggleEdit()">✎ Edit</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="column-left">
+                             <div class="feature-container">
+                                <div class="feature-block">
+                                    <div class="section-header-group">
+                                        <div style="flex-grow:1">
+                                            <span class="section-title">Deliverables</span>
+                                            <div class="feature-title-input editable-text">Main Feature Set</div>
+                                        </div>
+                                        <button class="delete-feature-btn" onclick="removeFeatureBlock(this)">Delete Set</button>
+                                        <button class="btn-small" onclick="addListItem(this)">+ Add Item</button>
+                                    </div>
+                                    <ul class="deliv-list editable-list">
+                                        <li>Solvida Pro FULL - Complete advanced trading platform</li>
+                                        <li>Advanced Charting (TV Integration)</li>
+                                        <li>Order Types: Limit, Stop, OCO</li>
+                                        <li>Portfolio Performance Analytics</li>
+                                        <li>Algo-trading API Endpoints</li>
+                                    </ul>
+                                    <div class="action-items-section">
+                                        <div class="section-header-group" style="margin-top: 10px;">
+                                            <button class="action-toggle-btn" onclick="toggleActionSection(this)">
+                                                <span>+ Add Action Items</span>
+                                            </button>
+                                        </div>
+                                        <div class="action-items-container">
+                                            <span class="section-title" style="color:var(--accent-orange)">Required Action Items</span>
+                                            <button class="btn-small" onclick="addListItem(this)">+ Add Action</button>
+                                            <ul class="action-list editable-list"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="add-feature-btn" onclick="addFeatureBlock(this)">+ Add Feature Set</button>
+                        </div>
+                        <div class="insight-box impact">
+                            <span class="insight-title">Business Impact</span>
+                            <div class="insight-text editable-text">Attracts professional traders. Sets us apart from basic apps by offering advanced tools they actually need.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sprint-block phase-2">
+                <div class="sprint-dot"></div>
+                <div class="sprint-card">
+                    <div class="card-header">
+                        <div class="card-title"><h3>Sprint 4: UX & Brand Polish</h3></div>
+                        <div style="display:flex; align-items:center; gap:15px;">
+                            <div class="card-meta">Jan 5 - 16</div>
+                            <button class="local-edit-btn" onclick="toggleEdit()">✎ Edit</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="column-left">
+                             <div class="feature-container">
+                                <div class="feature-block">
+                                    <div class="section-header-group">
+                                        <div style="flex-grow:1">
+                                            <span class="section-title">Deliverables</span>
+                                            <div class="feature-title-input editable-text">Main Feature Set</div>
+                                        </div>
+                                        <button class="delete-feature-btn" onclick="removeFeatureBlock(this)">Delete Set</button>
+                                        <button class="btn-small" onclick="addListItem(this)">+ Add Item</button>
+                                    </div>
+                                    <ul class="deliv-list editable-list">
+                                        <li>Motion Design & Micro-interactions</li>
+                                        <li>Brand Identity Alignment</li>
+                                        <li>"Delight" features implementation</li>
+                                        <li>Mobile Latency Optimization</li>
+                                    </ul>
+                                    <div class="action-items-section">
+                                        <div class="section-header-group" style="margin-top: 10px;">
+                                            <button class="action-toggle-btn" onclick="toggleActionSection(this)">
+                                                <span>+ Add Action Items</span>
+                                            </button>
+                                        </div>
+                                        <div class="action-items-container">
+                                            <span class="section-title" style="color:var(--accent-orange)">Required Action Items</span>
+                                            <button class="btn-small" onclick="addListItem(this)">+ Add Action</button>
+                                            <ul class="action-list editable-list"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="add-feature-btn" onclick="addFeatureBlock(this)">+ Add Feature Set</button>
+                        </div>
+                        <div class="insight-box impact">
+                            <span class="insight-title">Business Impact</span>
+                            <div class="insight-text editable-text">Makes the app feel premium and trustworthy. Good design builds user confidence in handling their money.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sprint-block phase-3">
+                <div class="sprint-dot"></div>
+                <div class="sprint-card">
+                    <div class="card-header">
+                        <div class="card-title"><h3>Sprint 5: Admin Dashboard Midway Point</h3></div>
+                        <div style="display:flex; align-items:center; gap:15px;">
+                            <div class="card-meta">Jan 19 - 30</div>
+                            <button class="local-edit-btn" onclick="toggleEdit()">✎ Edit</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="column-left">
+                            <div class="feature-container">
+                                <div class="feature-block">
+                                    <div class="section-header-group">
+                                        <div style="flex-grow:1">
+                                            <span class="section-title">Deliverables</span>
+                                            <div class="feature-title-input editable-text">Main Feature Set</div>
+                                        </div>
+                                        <button class="delete-feature-btn" onclick="removeFeatureBlock(this)">Delete Set</button>
+                                        <button class="btn-small" onclick="addListItem(this)">+ Add Item</button>
+                                    </div>
+                                    <ul class="deliv-list editable-list">
+                                        <li>KYC/AML Management Tools</li>
+                                        <li>Fraud Detection Engine</li>
+                                        <li>Treasury Reconciliation</li>
+                                        <li>Support Ticket System Integration</li>
+                                    </ul>
+                                    <div class="action-items-section">
+                                        <div class="section-header-group" style="margin-top: 10px;">
+                                            <button class="action-toggle-btn" onclick="toggleActionSection(this)">
+                                                <span>+ Add Action Items</span>
+                                            </button>
+                                        </div>
+                                        <div class="action-items-container">
+                                            <span class="section-title" style="color:var(--accent-orange)">Required Action Items</span>
+                                            <button class="btn-small" onclick="addListItem(this)">+ Add Action</button>
+                                            <ul class="action-list editable-list"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="add-feature-btn" onclick="addFeatureBlock(this)">+ Add Feature Set</button>
+                        </div>
+                        <div class="insight-box impact">
+                            <span class="insight-title">Business Impact</span>
+                            <div class="insight-text editable-text">Reduces operational risks. Moves processes from manual to automated, preparing for user growth.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sprint-block phase-3">
+                <div class="sprint-dot"></div>
+                <div class="sprint-card">
+                    <div class="card-header">
+                        <div class="card-title"><h3>Sprint 6: Security & Support Infrastructure</h3></div>
+                        <div style="display:flex; align-items:center; gap:15px;">
+                            <div class="card-meta">Feb 2 - 13</div>
+                            <button class="local-edit-btn" onclick="toggleEdit()">✎ Edit</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="column-left">
+                            <div class="feature-container">
+                                <div class="feature-block">
+                                    <div class="section-header-group">
+                                        <div style="flex-grow:1">
+                                            <span class="section-title">Deliverables</span>
+                                            <div class="feature-title-input editable-text">Main Feature Set</div>
+                                        </div>
+                                        <button class="delete-feature-btn" onclick="removeFeatureBlock(this)">Delete Set</button>
+                                        <button class="btn-small" onclick="addListItem(this)">+ Add Item</button>
+                                    </div>
+                                    <ul class="deliv-list editable-list">
+                                        <li>2FA (Authenticator + SMS)</li>
+                                        <li>OAuth Social Login</li>
+                                        <li>Tiered KYC Verification</li>
+                                        <li>Penetration Testing & Hardening</li>
+                                    </ul>
+                                    <div class="action-items-section">
+                                        <div class="section-header-group" style="margin-top: 10px;">
+                                            <button class="action-toggle-btn" onclick="toggleActionSection(this)">
+                                                <span>+ Add Action Items</span>
+                                            </button>
+                                        </div>
+                                        <div class="action-items-container">
+                                            <span class="section-title" style="color:var(--accent-orange)">Required Action Items</span>
+                                            <button class="btn-small" onclick="addListItem(this)">+ Add Action</button>
+                                            <ul class="action-list editable-list"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="add-feature-btn" onclick="addFeatureBlock(this)">+ Add Feature Set</button>
+                        </div>
+                        <div class="insight-box impact">
+                            <span class="insight-title">Business Impact</span>
+                            <div class="insight-text editable-text">Essential trust layer. Protects user assets and cuts down support costs through automation.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sprint-block phase-4">
+                <div class="sprint-dot"></div>
+                <div class="sprint-card">
+                    <div class="card-header">
+                        <div class="card-title"><h3>Sprint 7: Website Additions (Solvida.co)</h3></div>
+                        <div style="display:flex; align-items:center; gap:15px;">
+                            <div class="card-meta">Feb 16 - 27</div>
+                            <button class="local-edit-btn" onclick="toggleEdit()">✎ Edit</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="column-left">
+                            <div class="feature-container">
+                                <div class="feature-block">
+                                    <div class="section-header-group">
+                                        <div style="flex-grow:1">
+                                            <span class="section-title">Deliverables</span>
+                                            <div class="feature-title-input editable-text">Main Feature Set</div>
+                                        </div>
+                                        <button class="delete-feature-btn" onclick="removeFeatureBlock(this)">Delete Set</button>
+                                        <button class="btn-small" onclick="addListItem(this)">+ Add Item</button>
+                                    </div>
+                                    <ul class="deliv-list editable-list">
+                                        <li>Solvida.co Sitemap Expansion</li>
+                                        <li>Crypto Education Hub</li>
+                                        <li>Live Market Data Pages</li>
+                                        <li>i18n (English/Spanish) Support</li>
+                                    </ul>
+                                    <div class="action-items-section">
+                                        <div class="section-header-group" style="margin-top: 10px;">
+                                            <button class="action-toggle-btn" onclick="toggleActionSection(this)">
+                                                <span>+ Add Action Items</span>
+                                            </button>
+                                        </div>
+                                        <div class="action-items-container">
+                                            <span class="section-title" style="color:var(--accent-orange)">Required Action Items</span>
+                                            <button class="btn-small" onclick="addListItem(this)">+ Add Action</button>
+                                            <ul class="action-list editable-list"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="add-feature-btn" onclick="addFeatureBlock(this)">+ Add Feature Set</button>
+                        </div>
+                        <div class="insight-box impact">
+                            <span class="insight-title">Business Impact</span>
+                            <div class="insight-text editable-text">Drives organic traffic. Reduces cost of customer acquisition by capturing search traffic for high-intent keywords.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sprint-block phase-4">
+                <div class="sprint-dot"></div>
+                <div class="sprint-card">
+                    <div class="card-header">
+                        <div class="card-title"><h3>Sprint 8: Other Region Fiat Settlement</h3></div>
+                        <div style="display:flex; align-items:center; gap:15px;">
+                            <div class="card-meta">Mar 2 - 13</div>
+                            <button class="local-edit-btn" onclick="toggleEdit()">✎ Edit</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="column-left">
+                            <div class="feature-container">
+                                <div class="feature-block">
+                                    <div class="section-header-group">
+                                        <div style="flex-grow:1">
+                                            <span class="section-title">Deliverables</span>
+                                            <div class="feature-title-input editable-text">Main Feature Set</div>
+                                        </div>
+                                        <button class="delete-feature-btn" onclick="removeFeatureBlock(this)">Delete Set</button>
+                                        <button class="btn-small" onclick="addListItem(this)">+ Add Item</button>
+                                    </div>
+                                    <ul class="deliv-list editable-list">
+                                        <li>Multi-currency Fiat Rails</li>
+                                        <li>New LATAM Region Integration</li>
+                                        <li>Cross-border Settlement Logic</li>
+                                        <li>Local Banking API Connectors</li>
+                                    </ul>
+                                    <div class="action-items-section">
+                                        <div class="section-header-group" style="margin-top: 10px;">
+                                            <button class="action-toggle-btn" onclick="toggleActionSection(this)">
+                                                <span>+ Add Action Items</span>
+                                            </button>
+                                        </div>
+                                        <div class="action-items-container">
+                                            <span class="section-title" style="color:var(--accent-orange)">Required Action Items</span>
+                                            <button class="btn-small" onclick="addListItem(this)">+ Add Action</button>
+                                            <ul class="action-list editable-list"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="add-feature-btn" onclick="addFeatureBlock(this)">+ Add Feature Set</button>
+                        </div>
+                        <div class="insight-box impact">
+                            <span class="insight-title">Business Impact</span>
+                            <div class="insight-text editable-text">Market expansion. Lowers risk by being in multiple countries and opens up cross-border payment revenue.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sprint-block phase-5">
+                <div class="sprint-dot"></div>
+                <div class="sprint-card">
+                    <div class="card-header">
+                        <div class="card-title"><h3>Sprint 9: Staking and Earning</h3></div>
+                        <div style="display:flex; align-items:center; gap:15px;">
+                            <div class="card-meta">Mar 16 - 27</div>
+                            <button class="local-edit-btn" onclick="toggleEdit()">✎ Edit</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="column-left">
+                            <div class="feature-container">
+                                <div class="feature-block">
+                                    <div class="section-header-group">
+                                        <div style="flex-grow:1">
+                                            <span class="section-title">Deliverables</span>
+                                            <div class="feature-title-input editable-text">Main Feature Set</div>
+                                        </div>
+                                        <button class="delete-feature-btn" onclick="removeFeatureBlock(this)">Delete Set</button>
+                                        <button class="btn-small" onclick="addListItem(this)">+ Add Item</button>
+                                    </div>
+                                    <ul class="deliv-list editable-list">
+                                        <li>Staking Contract Integration</li>
+                                        <li>Flexible Savings Products</li>
+                                        <li>Real-time APY Dashboards</li>
+                                        <li>Liquid Staking Derivatives (LSD)</li>
+                                    </ul>
+                                    <div class="action-items-section">
+                                        <div class="section-header-group" style="margin-top: 10px;">
+                                            <button class="action-toggle-btn" onclick="toggleActionSection(this)">
+                                                <span>+ Add Action Items</span>
+                                            </button>
+                                        </div>
+                                        <div class="action-items-container">
+                                            <span class="section-title" style="color:var(--accent-orange)">Required Action Items</span>
+                                            <button class="btn-small" onclick="addListItem(this)">+ Add Action</button>
+                                            <ul class="action-list editable-list"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="add-feature-btn" onclick="addFeatureBlock(this)">+ Add Feature Set</button>
+                        </div>
+                        <div class="insight-box impact">
+                            <span class="insight-title">Business Impact</span>
+                            <div class="insight-text editable-text">Retention Engine. Keeps assets on the platform by offering users passive income.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sprint-block phase-5">
+                <div class="sprint-dot"></div>
+                <div class="sprint-card">
+                    <div class="card-header">
+                        <div class="card-title"><h3>Sprint 10: Debit Card + Admin Dashboard Complete</h3></div>
+                        <div style="display:flex; align-items:center; gap:15px;">
+                            <div class="card-meta">Mar 30 - Apr 10</div>
+                            <button class="local-edit-btn" onclick="toggleEdit()">✎ Edit</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="column-left">
+                            <div class="feature-container">
+                                <div class="feature-block">
+                                    <div class="section-header-group">
+                                        <div style="flex-grow:1">
+                                            <span class="section-title">Deliverables</span>
+                                            <div class="feature-title-input editable-text" style="display:block">Debit Card Integration</div>
+                                        </div>
+                                        <button class="delete-feature-btn" onclick="removeFeatureBlock(this)">Delete Set</button>
+                                        <button class="btn-small" onclick="addListItem(this)">+ Add Item</button>
+                                    </div>
+                                    <ul class="deliv-list editable-list">
+                                        <li>Virtual/Physical Card Issuance</li>
+                                        <li>Spend Controls & Limits</li>
+                                        <li>Real-time Crypto-Fiat Bridge</li>
+                                    </ul>
+                                    <div class="action-items-section">
+                                        <div class="section-header-group" style="margin-top: 10px;">
+                                            <button class="action-toggle-btn" onclick="toggleActionSection(this)">
+                                                <span>+ Add Action Items</span>
+                                            </button>
+                                        </div>
+                                        <div class="action-items-container">
+                                            <span class="section-title" style="color:var(--accent-orange)">Required Action Items</span>
+                                            <button class="btn-small" onclick="addListItem(this)">+ Add Action</button>
+                                            <ul class="action-list editable-list"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="feature-block">
+                                    <div class="section-header-group">
+                                        <div style="flex-grow:1">
+                                            <span class="section-title">Deliverables</span>
+                                            <div class="feature-title-input editable-text" style="display:block">Admin Dashboard Ops</div>
+                                        </div>
+                                        <button class="delete-feature-btn" onclick="removeFeatureBlock(this)">Delete Set</button>
+                                        <button class="btn-small" onclick="addListItem(this)">+ Add Item</button>
+                                    </div>
+                                    <ul class="deliv-list editable-list">
+                                        <li>Final Ops BI Dashboard</li>
+                                        <li>Reconciliation Reports</li>
+                                        <li>User Permissioning System</li>
+                                    </ul>
+                                    <div class="action-items-section">
+                                        <div class="section-header-group" style="margin-top: 10px;">
+                                            <button class="action-toggle-btn" onclick="toggleActionSection(this)">
+                                                <span>+ Add Action Items</span>
+                                            </button>
+                                        </div>
+                                        <div class="action-items-container">
+                                            <span class="section-title" style="color:var(--accent-orange)">Required Action Items</span>
+                                            <button class="btn-small" onclick="addListItem(this)">+ Add Action</button>
+                                            <ul class="action-list editable-list"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="add-feature-btn" onclick="addFeatureBlock(this)">+ Add Feature Set</button>
+                        </div>
+                        <div class="insight-box impact">
+                            <span class="insight-title">Business Impact</span>
+                            <div class="insight-text editable-text">Completes the ecosystem loop (Trade -> Earn -> Spend). Encourages daily use of the app.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
 
         <section class="future-phase">
             <span class="badge badge-glow" style="margin-bottom: 20px;">Q2 2026 ALPHA</span>
@@ -391,6 +1290,7 @@
         let editMode = false;
         let draggedElement = null;
 
+        // Load data on startup
         window.addEventListener('DOMContentLoaded', () => {
             loadFromLocal();
         });
@@ -423,7 +1323,7 @@
             const config = JSON.parse(configStr);
             const btn = document.getElementById('publishBtn');
             const originalText = btn.innerHTML;
-            btn.innerHTML = "⏳ Publishing...";
+            btn.innerHTML = "Publishing...";
             btn.disabled = true;
 
             try {
@@ -483,13 +1383,13 @@
         function saveToLocal() {
             const timelineHTML = document.querySelector('.timeline-wrapper').innerHTML;
             const ganttHTML = document.querySelector('.gantt-scroller').innerHTML;
-            localStorage.setItem('solvida_timeline_v3', timelineHTML);
-            localStorage.setItem('solvida_gantt_v3', ganttHTML);
+            localStorage.setItem('solvida_timeline_v4', timelineHTML);
+            localStorage.setItem('solvida_gantt_v4', ganttHTML);
         }
 
         function loadFromLocal() {
-            const savedTimeline = localStorage.getItem('solvida_timeline_v3');
-            const savedGantt = localStorage.getItem('solvida_gantt_v3');
+            const savedTimeline = localStorage.getItem('solvida_timeline_v4');
+            const savedGantt = localStorage.getItem('solvida_gantt_v4');
             const savedConfig = localStorage.getItem('solvida_gh_config');
 
             if (savedTimeline) document.querySelector('.timeline-wrapper').innerHTML = savedTimeline;
@@ -596,17 +1496,10 @@
 
         // Download Page
         function downloadPage() {
-            // Turn off edit mode if active to save clean version
             if (editMode) toggleEdit();
-
-            // Get full HTML
             const htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
-
-            // Create blob
             const blob = new Blob([htmlContent], {type: 'text/html'});
             const url = URL.createObjectURL(blob);
-
-            // Trigger download
             const a = document.createElement('a');
             a.href = url;
             a.download = 'Solvida_Roadmap_Saved.html';
@@ -673,7 +1566,6 @@
             });
         }
         
-        // Initial init
         initializeDragDrop();
     </script>
 </body>
