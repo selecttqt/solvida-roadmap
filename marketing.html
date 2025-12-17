@@ -644,7 +644,7 @@ Task 3"></textarea></div>
         <div class="strategy-buttons">
             <button class="strategy-btn outline" onclick="toggleStrategy('private')">Private Client Nurture</button>
             <button class="strategy-btn outline" onclick="toggleStrategy('community')">Community Development</button>
-            <button class="strategy-btn outline active" onclick="toggleStrategy('acquisition')">Customer Acquisition</button>
+            <button class="strategy-btn outline" onclick="toggleStrategy('acquisition')">Customer Acquisition</button>
         </div>
 
         <div class="strategy-content" id="strategy-private">
@@ -655,7 +655,7 @@ Task 3"></textarea></div>
             <h4>Create Anticipation (OWNED + EARNED)</h4>
             <p>Waitlist Incentives + Community Promos. Micro Influencers, KOLs, Grassroots Meetups (ETH Cali). Content Marketing, SEO, PR.</p>
         </div>
-        <div class="strategy-content active" id="strategy-acquisition">
+        <div class="strategy-content" id="strategy-acquisition">
             <h4>Volume &amp; Scale (OWNED + EARNED + PAID)</h4>
             <p>Performance Marketing activation. Affiliate / Macro Influencers. Strategic Partnerships and Sponsored Events.</p>
         </div>
@@ -813,22 +813,24 @@ Task 3"></textarea></div>
     <p class="calendar-hint">Click on any item for further details</p>
 
     <!-- Details Pane -->
-    <div class="details-pane active" id="detailPane">
+    <div class="details-pane" id="detailPane">
         <div class="pane-header">
             <div class="pane-title-wrap">
-                <div class="pane-title" id="dTitle">Public Waitlist</div>
-                <div class="pane-meta" id="dDate">Mar 1 - Jun 1</div>
+                <div class="pane-title" id="dTitle">Select an Item</div>
+                <div class="pane-meta" id="dDate">Click any item above</div>
             </div>
             <button class="btn pane-edit-btn" onclick="togglePaneEdit()" id="paneEditBtn">✎ Edit</button>
         </div>
         <div class="pane-content">
             <div class="pane-left">
                 <div class="section-label">Deliverables</div>
-                <ul class="deliverables-list" id="dList"><li>Referral mechanic with rewards</li><li>Exclusive swag for top referrers</li><li>Weekly feature drops</li><li>Email nurture sequence</li><li>Social proof campaigns</li></ul>
+                <ul class="deliverables-list" id="dList">
+                    <li>Select an item from the calendar.</li>
+                </ul>
             </div>
             <div class="pane-right">
                 <div class="impact-title">Business Impact</div>
-                <p class="impact-text" id="dImpact">Build database of 50k+ leads. Create anticipation and FOMO. Generate organic growth through referrals.</p>
+                <p class="impact-text" id="dImpact">Select an item to view business impact.</p>
             </div>
         </div>
     </div>
