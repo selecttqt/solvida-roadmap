@@ -660,10 +660,10 @@
         }
     </style>
 </head>
-<body class="locked">
+<body class="">
 
 <!-- Login Overlay -->
-<div id="loginOverlay">
+<div id="loginOverlay" style="display: none;">
     <div class="login-box">
         <h2>🔒 Restricted Access</h2>
         <p style="color: var(--text-secondary); margin-bottom: 20px;">Please enter the password to view the Solvida Marketing Calendar.</p>
@@ -674,13 +674,13 @@
 </div>
 
 <!-- Settings Modal -->
-<div class="modal-overlay" id="settingsModal">
+<div class="modal-overlay" id="settingsModal" style="display: none;">
     <div class="modal">
         <h3>⚙ GitHub Settings</h3>
-        <div class="form-group"><label>GitHub Username</label><input type="text" id="ghUsername" value="selecttqt" readonly style="opacity: 0.6; cursor: not-allowed;"></div>
-        <div class="form-group"><label>Repository Name</label><input type="text" id="ghRepo" value="solvida-roadmap" readonly style="opacity: 0.6; cursor: not-allowed;"></div>
+        <div class="form-group"><label>GitHub Username</label><input type="text" id="ghUsername" value="selecttqt" readonly="" style="opacity: 0.6; cursor: not-allowed;"></div>
+        <div class="form-group"><label>Repository Name</label><input type="text" id="ghRepo" value="solvida-roadmap" readonly="" style="opacity: 0.6; cursor: not-allowed;"></div>
         <div class="form-group"><label>Personal Access Token (repo scope)</label><input type="password" id="ghToken" placeholder="ghp_..."></div>
-        <div class="form-group"><label>File Path</label><input type="text" id="ghPath" value="marketing.html" readonly style="opacity: 0.6; cursor: not-allowed;"></div>
+        <div class="form-group"><label>File Path</label><input type="text" id="ghPath" value="marketing.html" readonly="" style="opacity: 0.6; cursor: not-allowed;"></div>
         <p style="color: var(--text-secondary); font-size: 11px; margin-top: 10px;">Token is saved to your browser and shared across all Solvida pages.</p>
         <div class="modal-actions">
             <button class="btn" onclick="closeModal('settingsModal')">Cancel</button>
@@ -728,7 +728,7 @@ Task 3"></textarea></div>
     </div>
 </div>
 
-<div id="toast" class="toast">Saved</div>
+<div id="toast" class="toast">Token saved - works across all Solvida pages</div>
 
 <div class="container">
     <header class="header">
@@ -756,7 +756,7 @@ Task 3"></textarea></div>
     <!-- Strategic Overview Section -->
     <div class="strategic-overview">
         <button class="btn overview-edit-btn" onclick="toggleOverviewEdit()" id="overviewEditBtn">✎</button>
-        <p class="overview-summary" id="overviewSummary">
+        <p class="overview-summary" id="overviewSummary" contenteditable="false">
             This marketing calendar outlines Solvida's go-to-market strategy for establishing Colombia's leading crypto exchange. 
             The plan focuses on building credibility through product marketing, creating anticipation via community engagement, 
             and scaling customer acquisition through performance marketing and strategic partnerships.
@@ -764,28 +764,28 @@ Task 3"></textarea></div>
 
         <div class="info-boxes">
             <div class="info-box" id="infoBox1">
-                <div class="info-box-header">Business Objectives</div>
-                <p>$10M in Daily Trading Volume by Date TBC</p>
-                <p>10,000 DAUs by Date TBC</p>
+                <div class="info-box-header" contenteditable="false">Business Objectives</div>
+                <p contenteditable="false" class="">$10M in Daily Trading Volume by Date TBC</p>
+                <p contenteditable="false" class="">10,000 DAUs by Date TBC</p>
             </div>
             <div class="info-box" id="infoBox2">
-                <div class="info-box-header">Marketing Objectives</div>
-                <p>Deliver consistent growth of verified traders who trade.</p>
-                <p>Become known as the #1 homegrown crypto exchange in Colombia.</p>
-                <p>Establish Solvida as more than a crypto brand (Lifestyle, Culture).</p>
+                <div class="info-box-header" contenteditable="false">Marketing Objectives</div>
+                <p contenteditable="false" class="">1. Deliver consistent growth of verified traders who trade.</p>
+                <p contenteditable="false" class="">2. Become known as the #1 homegrown crypto exchange in Colombia.</p>
+                <p contenteditable="false" class="">3. Establish Solvida as more than a crypto brand (Lifestyle, Culture).</p>
             </div>
             <div class="info-box" id="infoBox3">
-                <div class="info-box-header">Mindset</div>
-                <p>Earn vs Buy</p>
-                <p>Culture vs Capital</p>
-                <p>Inside Out vs Outside In</p>
+                <div class="info-box-header" contenteditable="false">Mindset</div>
+                <p contenteditable="false" class="">Earn vs Buy</p>
+                <p contenteditable="false" class="">Culture vs Capital</p>
+                <p contenteditable="false" class="">Inside Out vs Outside In</p>
             </div>
             <div class="info-box" id="infoBox4">
-                <div class="info-box-header">End Goal Metrics</div>
-                <p>Volume target: $XXXM total trading volume</p>
-                <p>Monthly active traders: 15,000</p>
-                <p>CAC: Reduce from $50 to &lt;$25</p>
-                <p>30-40% MoM retained traders</p>
+                <div class="info-box-header" contenteditable="false">End Goal Metrics</div>
+                <p contenteditable="false" class="">Volume target: $XXXM total trading volume</p>
+                <p contenteditable="false" class="">Monthly active traders: 15,000</p>
+                <p contenteditable="false" class="">CAC: Reduce from $50 to &lt;$25</p>
+                <p contenteditable="false" class="">30-40% MoM retained traders</p>
             </div>
         </div>
 
@@ -1689,5 +1689,6 @@ Task 3"></textarea></div>
         btn.disabled = false;
     }
 </script>
-</body>
-</html>
+
+
+</body></html>
