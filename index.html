@@ -224,6 +224,60 @@
         .badge { display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 100px; font-size: 11px; font-weight: 600; text-transform: uppercase; }
         .badge-outline { border: 1px solid var(--border-active); color: var(--text-secondary); }
         .badge-glow { background: rgba(99, 102, 241, 0.1); color: var(--brand-primary); border: 1px solid rgba(99, 102, 241, 0.2); }
+
+        /* ========== RESPONSIVE STYLES ========== */
+        
+        /* Tablet / Small Laptop */
+        @media (max-width: 1024px) {
+            .header-top { flex-direction: column; gap: 20px; align-items: center; text-align: center; }
+            .header-stats { grid-template-columns: 1fr; gap: 15px; }
+            .exec-grid { grid-template-columns: 1fr; gap: 30px; }
+            .milestone-track { grid-template-columns: repeat(2, 1fr); }
+            .gantt-toolbar { flex-direction: column; gap: 15px; align-items: flex-start; }
+        }
+
+        /* Large Phone / Portrait Tablet */
+        @media (max-width: 768px) {
+            .container { padding: 30px 15px; }
+            .brand h1 { font-size: 32px; }
+            .brand .subtitle { font-size: 14px; letter-spacing: 0.05em; }
+            .milestone-track { grid-template-columns: 1fr; }
+            .header { margin-bottom: 40px; }
+            .exec-summary { margin-bottom: 40px; }
+            .gantt-wrapper { margin-bottom: 50px; }
+            .gantt-table th:first-child { width: 180px; padding-left: 10px !important; }
+            .gantt-label-cell { padding: 0 10px !important; font-size: 11px; }
+            .card-header { padding: 20px; flex-direction: column; gap: 10px; align-items: flex-start; }
+            .card-body { padding: 20px; gap: 25px; }
+            .future-phase { padding: 50px 20px; }
+            .future-phase h2 { font-size: 28px; }
+            .stat-card { padding: 15px 20px; }
+            .stat-value { font-size: 18px; }
+        }
+
+        /* Small Phone */
+        @media (max-width: 480px) {
+            .container { padding: 20px 10px; }
+            .brand h1 { font-size: 24px; }
+            .brand .subtitle { font-size: 12px; }
+            .header-top > div:nth-child(2) { flex-wrap: wrap; justify-content: center; gap: 10px; }
+            .header-top > div:nth-child(2) > div:first-child { order: -1; width: 100%; justify-content: center; }
+            .nav-btn { font-size: 9px !important; padding: 6px 8px !important; }
+            .github-btn, .theme-toggle { font-size: 10px; padding: 8px 10px; }
+            .status-badge { display: none; }
+            .milestone-node { padding: 15px; }
+            .node-title { font-size: 12px; }
+            .sprint-block { margin-bottom: 30px; }
+            .timeline-wrapper { padding-left: 20px; }
+            .sprint-dot { left: -24px; width: 9px; height: 9px; }
+            .card-title h3 { font-size: 16px; }
+            .deliv-list li { font-size: 13px; }
+            .insight-text { font-size: 13px; }
+            .future-phase h2 { font-size: 22px; }
+            .gantt-table { min-width: 1200px; }
+            .gantt-table th:first-child { width: 140px; font-size: 9px; }
+            .gantt-bar { font-size: 9px; height: 30px; }
+        }
     </style>
 </head>
 <body data-theme="dark" class="locked">

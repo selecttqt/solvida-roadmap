@@ -524,6 +524,58 @@
             margin-top: 15px;
             font-style: italic;
         }
+
+        /* ========== RESPONSIVE STYLES ========== */
+        
+        /* Tablet / Small Laptop */
+        @media (max-width: 1024px) {
+            .header { flex-direction: column; gap: 15px; align-items: stretch; }
+            .brand { justify-content: center; }
+            .nav-tabs { justify-content: center; }
+            .header-controls { justify-content: center; flex-wrap: wrap; }
+            .info-boxes { grid-template-columns: repeat(2, 1fr); }
+            .pane-content { grid-template-columns: 1fr; }
+            .pane-right { border-top: 1px solid var(--border-subtle); }
+        }
+
+        /* Large Phone / Portrait Tablet */
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            .page-title { font-size: 20px; text-align: center; }
+            .info-boxes { grid-template-columns: 1fr; }
+            .strategy-buttons { flex-direction: column; }
+            .strategy-btn { padding: 12px 16px; }
+            .overview-summary { font-size: 13px; text-align: center; }
+            .strategic-overview { padding: 20px; }
+            .calendar-wrapper { border-radius: 8px; }
+            .details-pane { margin-top: 15px; }
+            .pane-header { padding: 15px 20px; flex-direction: column; gap: 10px; align-items: flex-start; }
+            .pane-title { font-size: 18px; }
+            .pane-left, .pane-right { padding: 20px; }
+        }
+
+        /* Small Phone */
+        @media (max-width: 480px) {
+            .container { padding: 10px; }
+            .header { padding: 12px 15px; border-radius: 8px; }
+            .logo { font-size: 16px; }
+            .nav-tabs { flex-wrap: wrap; gap: 4px; }
+            .nav-tab { font-size: 9px; padding: 6px 10px; }
+            .header-controls { gap: 6px; }
+            .btn { font-size: 10px; padding: 6px 10px; }
+            .page-title { font-size: 18px; margin-bottom: 15px; }
+            .info-box { padding: 14px; }
+            .info-box-header { font-size: 9px; margin-bottom: 8px; }
+            .info-box p { font-size: 12px; }
+            .strategy-btn { font-size: 11px; }
+            .strategy-content h4 { font-size: 13px; }
+            .strategy-content p { font-size: 12px; }
+            .calendar-hint { font-size: 11px; }
+            .pane-title { font-size: 16px; }
+            .deliverables-list li { font-size: 12px; }
+            .impact-text { font-size: 12px; }
+            .unsaved-indicator { font-size: 9px; padding: 3px 8px; }
+        }
     </style>
 </head>
 <body class="">
