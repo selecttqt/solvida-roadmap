@@ -158,18 +158,20 @@
         /* Bars */
         .bar {
             position: absolute;
-            height: 26px;
+            min-height: 26px;
+            height: auto;
             border-radius: 5px;
             font-size: 12px;
             font-weight: 600;
             color: white;
             display: flex;
             align-items: center;
-            padding: 0 10px;
+            padding: 4px 10px;
             cursor: pointer;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            white-space: normal;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            line-height: 1.3;
             z-index: 5;
             transition: all 0.15s ease;
             top: 50%;
@@ -412,7 +414,25 @@
             border-radius: 12px;
             padding: 25px;
             margin-bottom: 25px;
+            position: relative;
         }
+        .overview-edit-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 36px;
+            height: 36px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            border-radius: 6px;
+            opacity: 0.6;
+            transition: all 0.2s;
+        }
+        .overview-edit-btn:hover { opacity: 1; }
+        .overview-edit-btn.edit-active { opacity: 1; }
         .overview-summary {
             color: var(--text-secondary);
             font-size: 14px;
@@ -490,6 +510,32 @@
         }
         .strategy-btn.filled.active {
             box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+        }
+        .strategy-btn {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .strategy-btn-text {
+            flex: 1;
+        }
+        .strategy-edit-icon {
+            font-size: 14px;
+            opacity: 0.4;
+            cursor: pointer;
+            padding: 4px 6px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        .strategy-edit-icon:hover {
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .strategy-edit-icon.edit-active {
+            opacity: 1;
+            color: #eab308;
         }
 
         /* Strategy Content Panels */
@@ -661,31 +707,32 @@ Task 3"></textarea></div>
 
     <!-- Strategic Overview Section -->
     <div class="strategic-overview">
-        <p class="overview-summary">
+        <button class="btn overview-edit-btn" onclick="toggleOverviewEdit()" id="overviewEditBtn">✎</button>
+        <p class="overview-summary" id="overviewSummary">
             This marketing calendar outlines Solvida's go-to-market strategy for establishing Colombia's leading crypto exchange. 
             The plan focuses on building credibility through product marketing, creating anticipation via community engagement, 
             and scaling customer acquisition through performance marketing and strategic partnerships.
         </p>
 
         <div class="info-boxes">
-            <div class="info-box">
+            <div class="info-box" id="infoBox1">
                 <div class="info-box-header">Business Objectives</div>
                 <p>$10M in Daily Trading Volume by Date TBC</p>
                 <p>10,000 DAUs by Date TBC</p>
             </div>
-            <div class="info-box">
+            <div class="info-box" id="infoBox2">
                 <div class="info-box-header">Marketing Objectives</div>
                 <p>Deliver consistent growth of verified traders who trade.</p>
                 <p>Become known as the #1 homegrown crypto exchange in Colombia.</p>
                 <p>Establish Solvida as more than a crypto brand (Lifestyle, Culture).</p>
             </div>
-            <div class="info-box">
+            <div class="info-box" id="infoBox3">
                 <div class="info-box-header">Mindset</div>
                 <p>Earn vs Buy</p>
                 <p>Culture vs Capital</p>
                 <p>Inside Out vs Outside In</p>
             </div>
-            <div class="info-box">
+            <div class="info-box" id="infoBox4">
                 <div class="info-box-header">End Goal Metrics</div>
                 <p>Volume target: $XXXM total trading volume</p>
                 <p>Monthly active traders: 15,000</p>
@@ -695,9 +742,18 @@ Task 3"></textarea></div>
         </div>
 
         <div class="strategy-buttons">
-            <button class="strategy-btn outline" onclick="toggleStrategy('private')">Private Client Nurture</button>
-            <button class="strategy-btn outline" onclick="toggleStrategy('community')">Community Development</button>
-            <button class="strategy-btn outline" onclick="toggleStrategy('acquisition')">Customer Acquisition</button>
+            <button class="strategy-btn outline" onclick="toggleStrategy('private')" id="strategyBtn-private">
+                <span class="strategy-btn-text">Private Client Nurture</span>
+                <span class="strategy-edit-icon" onclick="event.stopPropagation(); toggleStrategyEdit('private')" id="strategyEditIcon-private">✎</span>
+            </button>
+            <button class="strategy-btn outline" onclick="toggleStrategy('community')" id="strategyBtn-community">
+                <span class="strategy-btn-text">Community Development</span>
+                <span class="strategy-edit-icon" onclick="event.stopPropagation(); toggleStrategyEdit('community')" id="strategyEditIcon-community">✎</span>
+            </button>
+            <button class="strategy-btn outline" onclick="toggleStrategy('acquisition')" id="strategyBtn-acquisition">
+                <span class="strategy-btn-text">Customer Acquisition</span>
+                <span class="strategy-edit-icon" onclick="event.stopPropagation(); toggleStrategyEdit('acquisition')" id="strategyEditIcon-acquisition">✎</span>
+            </button>
         </div>
 
         <div class="strategy-content" id="strategy-private">
@@ -939,6 +995,78 @@ Task 3"></textarea></div>
     let currentItemId = null;
     let selectedElement = null;
     let activeStrategy = null;
+    let overviewEditMode = false;
+    let strategyEditModes = { private: false, community: false, acquisition: false };
+
+    // Overview Edit Toggle
+    function toggleOverviewEdit() {
+        overviewEditMode = !overviewEditMode;
+        const btn = document.getElementById('overviewEditBtn');
+        const summary = document.getElementById('overviewSummary');
+        const infoBoxes = document.querySelectorAll('.info-box');
+        
+        if (overviewEditMode) {
+            btn.textContent = '✓';
+            btn.classList.add('edit-active');
+            summary.contentEditable = true;
+            summary.classList.add('editable-active');
+            infoBoxes.forEach(box => {
+                box.querySelectorAll('.info-box-header, p').forEach(el => {
+                    el.contentEditable = true;
+                    el.classList.add('editable-active');
+                });
+            });
+        } else {
+            btn.textContent = '✎';
+            btn.classList.remove('edit-active');
+            summary.contentEditable = false;
+            summary.classList.remove('editable-active');
+            infoBoxes.forEach(box => {
+                box.querySelectorAll('.info-box-header, p').forEach(el => {
+                    el.contentEditable = false;
+                    el.classList.remove('editable-active');
+                });
+            });
+            markUnsaved();
+        }
+    }
+
+    // Strategy Edit Toggle
+    function toggleStrategyEdit(strategy) {
+        const isEditing = strategyEditModes[strategy];
+        const icon = document.getElementById('strategyEditIcon-' + strategy);
+        const btnText = document.querySelector('#strategyBtn-' + strategy + ' .strategy-btn-text');
+        const contentEl = document.getElementById('strategy-' + strategy);
+        
+        if (!isEditing) {
+            // Start editing - open the panel if not already open
+            if (activeStrategy !== strategy) {
+                toggleStrategy(strategy);
+            }
+            
+            icon.textContent = '✓';
+            icon.classList.add('edit-active');
+            btnText.contentEditable = true;
+            btnText.classList.add('editable-active');
+            contentEl.querySelectorAll('h4, p').forEach(el => {
+                el.contentEditable = true;
+                el.classList.add('editable-active');
+            });
+            strategyEditModes[strategy] = true;
+        } else {
+            // Stop editing - save changes
+            icon.textContent = '✎';
+            icon.classList.remove('edit-active');
+            btnText.contentEditable = false;
+            btnText.classList.remove('editable-active');
+            contentEl.querySelectorAll('h4, p').forEach(el => {
+                el.contentEditable = false;
+                el.classList.remove('editable-active');
+            });
+            strategyEditModes[strategy] = false;
+            markUnsaved();
+        }
+    }
 
     // Strategy Toggle Function
     function toggleStrategy(strategy) {
@@ -1408,8 +1536,13 @@ Task 3"></textarea></div>
     }
 
     async function publishToGitHub() {
+        // Exit all edit modes first (saves content)
         if (editMode) toggleEditMode();
         if (paneEditMode) togglePaneEdit();
+        if (overviewEditMode) toggleOverviewEdit();
+        Object.keys(strategyEditModes).forEach(key => {
+            if (strategyEditModes[key]) toggleStrategyEdit(key);
+        });
         
         const config = JSON.parse(localStorage.getItem('solvida_gh_mkt_config') || '{}');
         if (!config.token) { 
@@ -1421,6 +1554,35 @@ Task 3"></textarea></div>
         const btn = document.getElementById('publishBtn');
         btn.textContent = 'Publishing...';
         btn.disabled = true;
+        
+        // Reset UI state before capturing HTML for clean published version
+        const unsavedIndicator = document.getElementById('unsavedIndicator');
+        unsavedIndicator.classList.remove('show');
+        
+        // Reset button state temporarily for HTML capture
+        btn.textContent = 'Publish';
+        btn.disabled = false;
+        
+        // Reset details pane to default state
+        const detailPane = document.getElementById('detailPane');
+        detailPane.classList.remove('active');
+        document.getElementById('dTitle').textContent = 'Select an Item';
+        document.getElementById('dTitle').contentEditable = false;
+        document.getElementById('dDate').textContent = 'Click any item above';
+        document.getElementById('dDate').contentEditable = false;
+        document.getElementById('dList').innerHTML = '<li>Select an item from the calendar.</li>';
+        document.getElementById('dList').contentEditable = false;
+        document.getElementById('dImpact').textContent = 'Select an item to view business impact.';
+        document.getElementById('dImpact').contentEditable = false;
+        document.getElementById('paneEditBtn').textContent = '✎ Edit';
+        document.getElementById('paneEditBtn').classList.remove('edit-active');
+        
+        // Reset strategy panels to closed state
+        document.querySelectorAll('.strategy-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.strategy-content').forEach(c => c.classList.remove('active'));
+        
+        // Remove any editable-active classes
+        document.querySelectorAll('.editable-active').forEach(el => el.classList.remove('editable-active'));
         
         try {
             const getRes = await fetch(`https://api.github.com/repos/${config.user}/${config.repo}/contents/${config.path}`, {
@@ -1449,6 +1611,8 @@ Task 3"></textarea></div>
             }
         } catch(e) {
             showToast('Error: ' + e.message, 'warning');
+            // Restore unsaved indicator on error
+            unsavedIndicator.classList.add('show');
         }
         
         btn.textContent = 'Publish';
