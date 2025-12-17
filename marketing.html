@@ -337,112 +337,114 @@
     </div>
 
     <div class="calendar-container">
-        <div class="cal-header">
-            <div class="cal-head-cell">Channel</div>
-            <div class="cal-head-cell">Dec '25</div>
-            <div class="cal-head-cell">Jan '26</div>
-            <div class="cal-head-cell">Feb '26</div>
-            <div class="cal-head-cell">Mar '26</div>
-            <div class="cal-head-cell">Apr '26</div>
-            <div class="cal-head-cell">May '26</div>
-            <div class="cal-head-cell">Jun '26</div>
-            <div class="cal-head-cell">Jul '26</div>
-            <div class="cal-head-cell">Aug '26</div>
-        </div>
-
-        <div class="cal-row">
-            <div class="row-label" style="border-left: 4px solid var(--cat-product);">Product Mktg</div>
-            <div class="row-track">
-                <div class="grid-overlay"><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div></div>
-                
-                <div class="bar prod" style="left: 20.3%; width: 6.6%;" onclick="openDetail('kyc')" id="bar-kyc">KYC Education<div class="resize-handle"></div></div>
-                <div class="bar prod" style="left: 27.5%; width: 6.6%;" onclick="openDetail('pro')" id="bar-pro">Solvida Pro<div class="resize-handle"></div></div>
-                <div class="bar prod" style="left: 33.3%; width: 33%;" onclick="openDetail('waitlist')" id="bar-waitlist">Public Waitlist<div class="resize-handle"></div></div>
-                <div class="bar prod" style="left: 66.6%; width: 11%;" onclick="openDetail('gamify')" id="bar-gamify">Gamification<div class="resize-handle"></div></div>
+        <div class="cal-grid">
+            <div class="cal-header">
+                <div class="cal-head-cell">Channel</div>
+                <div class="cal-head-cell">Dec '25</div>
+                <div class="cal-head-cell">Jan '26</div>
+                <div class="cal-head-cell">Feb '26</div>
+                <div class="cal-head-cell">Mar '26</div>
+                <div class="cal-head-cell">Apr '26</div>
+                <div class="cal-head-cell">May '26</div>
+                <div class="cal-head-cell">Jun '26</div>
+                <div class="cal-head-cell">Jul '26</div>
+                <div class="cal-head-cell">Aug '26</div>
             </div>
-        </div>
 
-        <div class="cal-row">
-            <div class="row-label" style="border-left: 4px solid var(--cat-social);">X (Twitter)</div>
-            <div class="row-track">
-                <div class="grid-overlay"><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div></div>
-                
-                <div class="bar soc" style="left: 5%; width: 7%; top: 30%;" id="bar-paid">Follower Acq (Paid)<div class="resize-handle"></div></div>
-                <div class="bar soc" style="left: 5%; width: 11%; top: 70%;" id="bar-comm">Community Outreach<div class="resize-handle"></div></div>
-                <div class="bar soc" style="left: 11.1%; width: 11.1%; top: 50%; z-index:5; border: 1px solid white;" onclick="openDetail('enero')" id="bar-enero">#EneroSinCuesta<div class="resize-handle"></div></div>
+            <div class="cal-row">
+                <div class="row-label" style="border-left: 4px solid var(--cat-product);">Product Mktg</div>
+                <div class="row-track">
+                    <div class="grid-overlay"><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div></div>
+                    
+                    <div class="bar prod" style="left: 20.3%; width: 6.6%;" onclick="openDetail('kyc')" id="bar-kyc">KYC Education<div class="resize-handle"></div></div>
+                    <div class="bar prod" style="left: 27.5%; width: 6.6%;" onclick="openDetail('pro')" id="bar-pro">Solvida Pro<div class="resize-handle"></div></div>
+                    <div class="bar prod" style="left: 33.3%; width: 33%;" onclick="openDetail('waitlist')" id="bar-waitlist">Public Waitlist<div class="resize-handle"></div></div>
+                    <div class="bar prod" style="left: 66.6%; width: 11%;" onclick="openDetail('gamify')" id="bar-gamify">Gamification<div class="resize-handle"></div></div>
+                </div>
             </div>
-        </div>
 
-        <div class="cal-row">
-            <div class="row-label" style="border-left: 4px solid var(--cat-events);">Crypto Events</div>
-            <div class="row-track">
-                <div class="grid-overlay"><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div></div>
-                
-                <div class="diamond evt" style="left: 7%;" title="Dec 20" onclick="openDetail('ev1')"><div class="label">Uniswap x ETH Cali</div></div>
-                <div class="diamond evt" style="left: 16%; top:30%;" title="Jan 15"><div class="label">Bitcoin Medellin</div></div>
-                <div class="diamond evt" style="left: 21%;" title="Jan 30"><div class="label">ETH Cali</div></div>
-                <div class="diamond evt" style="left: 27%;" title="Feb 15"><div class="label">ETH Bogota</div></div>
-                <div class="diamond evt" style="left: 38%;" title="Mar 15"><div class="label">ETH Medellin</div></div>
-                <div class="diamond evt" style="left: 57%; top:30%;" title="May 5"><div class="label">Consensus Miami</div></div>
-                <div class="diamond evt" style="left: 94%;" title="Aug 15"><div class="label">Crypto Latin Fest</div></div>
+            <div class="cal-row">
+                <div class="row-label" style="border-left: 4px solid var(--cat-social);">X (Twitter)</div>
+                <div class="row-track">
+                    <div class="grid-overlay"><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div></div>
+                    
+                    <div class="bar soc" style="left: 5%; width: 7%; top: 30%;" id="bar-paid">Follower Acq (Paid)<div class="resize-handle"></div></div>
+                    <div class="bar soc" style="left: 5%; width: 11%; top: 70%;" id="bar-comm">Community Outreach<div class="resize-handle"></div></div>
+                    <div class="bar soc" style="left: 11.1%; width: 11.1%; top: 50%; z-index: 5; border: 1px solid white;" onclick="openDetail('enero')" id="bar-enero">#EneroSinCuesta<div class="resize-handle"></div></div>
+                </div>
             </div>
-        </div>
 
-        <div class="cal-row">
-            <div class="row-label" style="border-left: 4px solid var(--cat-uni);">University</div>
-            <div class="row-track">
-                <div class="grid-overlay"><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div></div>
-                
-                <div class="bar uni" style="left: 5%; width: 3%; top:20%;" id="bar-ulist">List<div class="resize-handle"></div></div>
-                <div class="bar uni" style="left: 8%; width: 8%; top:50%;" id="bar-updev">Prog Dev<div class="resize-handle"></div></div>
-                <div class="bar uni" style="left: 16%; width: 2%; top:80%;" id="bar-uout">Outreach<div class="resize-handle"></div></div>
-                <div class="bar uni" style="left: 44.4%; width: 11%; top:50%;" id="bar-ucop">Co-Pro<div class="resize-handle"></div></div>
-                
-                <div class="diamond uni" style="left: 55.5%; top:20%;"><div class="label">Uni 1</div></div>
-                <div class="diamond uni" style="left: 60%; top:80%;"><div class="label">Uni 2</div></div>
-                <div class="diamond uni" style="left: 66.6%; top:20%;"><div class="label">Uni 3</div></div>
-                <div class="diamond uni" style="left: 71%; top:80%;"><div class="label">Uni 4</div></div>
+            <div class="cal-row">
+                <div class="row-label" style="border-left: 4px solid var(--cat-events);">Crypto Events</div>
+                <div class="row-track">
+                    <div class="grid-overlay"><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div></div>
+                    
+                    <div class="diamond evt" style="left: 7%;" title="Dec 20" onclick="openDetail('ev1')"><div class="label">Uniswap x ETH Cali</div></div>
+                    <div class="diamond evt" style="left: 16%; top:30%;" title="Jan 15"><div class="label">Bitcoin Medellin</div></div>
+                    <div class="diamond evt" style="left: 21%;" title="Jan 30"><div class="label">ETH Cali</div></div>
+                    <div class="diamond evt" style="left: 27%;" title="Feb 15"><div class="label">ETH Bogota</div></div>
+                    <div class="diamond evt" style="left: 38%;" title="Mar 15"><div class="label">ETH Medellin</div></div>
+                    <div class="diamond evt" style="left: 57%; top:30%;" title="May 5"><div class="label">Consensus Miami</div></div>
+                    <div class="diamond evt" style="left: 94%;" title="Aug 15"><div class="label">Crypto Latin Fest</div></div>
+                </div>
             </div>
-        </div>
 
-        <div class="cal-row">
-            <div class="row-label" style="border-left: 4px solid var(--cat-inf);">Influencer</div>
-            <div class="row-track">
-                <div class="grid-overlay"><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div></div>
-                
-                <div class="bar inf" style="left: 5%; width: 11%; top:30%;" id="bar-ilist">List Dev<div class="resize-handle"></div></div>
-                <div class="bar inf" style="left: 16%; width: 11%; top:70%;" id="bar-iprog">Prog Dev<div class="resize-handle"></div></div>
-                <div class="bar inf" style="left: 27%; width: 11%; top:50%;" id="bar-irec">Recruitment<div class="resize-handle"></div></div>
-                
-                <div class="diamond inf" style="left: 44.4%; top:20%;"><div class="label">Launch</div></div>
-                <div class="bar inf" style="left: 66.6%; width: 33%; top:50%;" id="bar-ilive">Program Live (Revenue)<div class="resize-handle"></div></div>
+            <div class="cal-row">
+                <div class="row-label" style="border-left: 4px solid var(--cat-uni);">University</div>
+                <div class="row-track">
+                    <div class="grid-overlay"><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div></div>
+                    
+                    <div class="bar uni" style="left: 5%; width: 3%; top:20%;" id="bar-ulist">List<div class="resize-handle"></div></div>
+                    <div class="bar uni" style="left: 8%; width: 8%; top:50%;" id="bar-updev">Prog Dev<div class="resize-handle"></div></div>
+                    <div class="bar uni" style="left: 16%; width: 2%; top:80%;" id="bar-uout">Outreach<div class="resize-handle"></div></div>
+                    <div class="bar uni" style="left: 44.4%; width: 11%; top:50%;" id="bar-ucop">Co-Pro<div class="resize-handle"></div></div>
+                    
+                    <div class="diamond uni" style="left: 55.5%; top:20%;"><div class="label">Uni 1</div></div>
+                    <div class="diamond uni" style="left: 60%; top:80%;"><div class="label">Uni 2</div></div>
+                    <div class="diamond uni" style="left: 66.6%; top:20%;"><div class="label">Uni 3</div></div>
+                    <div class="diamond uni" style="left: 71%; top:80%;"><div class="label">Uni 4</div></div>
+                </div>
             </div>
-        </div>
 
-        <div class="cal-row">
-            <div class="row-label" style="border-left: 4px solid var(--cat-web);">Web/Channels</div>
-            <div class="row-track">
-                <div class="grid-overlay"><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div></div>
-                
-                <div class="diamond web" style="left: 10%;"><div class="label">Blog Live</div></div>
-                <div class="diamond web" style="left: 16%; top:80%;"><div class="label">Markets</div></div>
-                <div class="diamond web" style="left: 22%;"><div class="label">Telegram</div></div>
-                <div class="diamond web" style="left: 27%;"><div class="label">Lander</div></div>
-                <div class="diamond web" style="left: 33.3%; top:80%;"><div class="label">Discord</div></div>
-                <div class="diamond web" style="left: 44.4%;"><div class="label">WhatsApp</div></div>
-                <div class="diamond web" style="left: 55.5%;"><div class="label">Socials</div></div>
+            <div class="cal-row">
+                <div class="row-label" style="border-left: 4px solid var(--cat-inf);">Influencer</div>
+                <div class="row-track">
+                    <div class="grid-overlay"><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div></div>
+                    
+                    <div class="bar inf" style="left: 5%; width: 11%; top:30%;" id="bar-ilist">List Dev<div class="resize-handle"></div></div>
+                    <div class="bar inf" style="left: 16%; width: 11%; top:70%;" id="bar-iprog">Prog Dev<div class="resize-handle"></div></div>
+                    <div class="bar inf" style="left: 27%; width: 11%; top:50%;" id="bar-irec">Recruitment<div class="resize-handle"></div></div>
+                    
+                    <div class="diamond inf" style="left: 44.4%; top:20%;"><div class="label">Launch</div></div>
+                    <div class="bar inf" style="left: 66.6%; width: 33%; top:50%;" id="bar-ilive">Program Live (Revenue)<div class="resize-handle"></div></div>
+                </div>
             </div>
-        </div>
 
-        <div class="cal-row">
-            <div class="row-label" style="border-left: 4px solid var(--cat-culture);">Culture</div>
-            <div class="row-track" style="border-bottom: none;">
-                <div class="grid-overlay"><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div></div>
-                
-                <div class="bar cult" style="left: 45%;"><span>Semana Santa</span></div>
-                <div class="bar cult" style="left: 55.5%;"><span>Día Trabajo</span></div>
-                <div class="bar cult" style="left: 70%; width: 12%; background: rgba(239,68,68,0.1); border-right: 2px solid var(--cat-culture);"><span>FIFA World Cup</span></div>
-                <div class="bar cult" style="left: 85%;"><span>Independencia</span></div>
+            <div class="cal-row">
+                <div class="row-label" style="border-left: 4px solid var(--cat-web);">Web/Channels</div>
+                <div class="row-track">
+                    <div class="grid-overlay"><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div></div>
+                    
+                    <div class="diamond web" style="left: 10%;"><div class="label">Blog Live</div></div>
+                    <div class="diamond web" style="left: 16%; top:80%;"><div class="label">Markets</div></div>
+                    <div class="diamond web" style="left: 22%;"><div class="label">Telegram</div></div>
+                    <div class="diamond web" style="left: 27%;"><div class="label">Lander</div></div>
+                    <div class="diamond web" style="left: 33.3%; top:80%;"><div class="label">Discord</div></div>
+                    <div class="diamond web" style="left: 44.4%;"><div class="label">WhatsApp</div></div>
+                    <div class="diamond web" style="left: 55.5%;"><div class="label">Socials</div></div>
+                </div>
+            </div>
+
+            <div class="cal-row">
+                <div class="row-label" style="border-left: 4px solid var(--cat-culture);">Culture</div>
+                <div class="row-track" style="border-bottom: none;">
+                    <div class="grid-overlay"><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div></div>
+                    
+                    <div class="bar cult" style="left: 45%;"><span>Semana Santa</span></div>
+                    <div class="bar cult" style="left: 55.5%;"><span>Día Trabajo</span></div>
+                    <div class="bar cult" style="left: 70%; width: 12%; background: rgba(239,68,68,0.1); border-right: 2px solid var(--cat-culture);"><span>FIFA World Cup</span></div>
+                    <div class="bar cult" style="left: 85%;"><span>Independencia</span></div>
+                </div>
             </div>
         </div>
     </div>
