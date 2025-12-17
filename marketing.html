@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solvida Marketing Calendar</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-deep: #050507;
@@ -526,10 +527,10 @@
         }
     </style>
 </head>
-<body class="">
+<body>
 
 <!-- Settings Modal -->
-<div class="modal-overlay" id="settingsModal" style="display: none;">
+<div class="modal-overlay" id="settingsModal">
     <div class="modal">
         <h3>⚙ GitHub Settings</h3>
         <div class="form-group"><label>GitHub Username</label><input type="text" id="ghUsername" placeholder="username"></div>
@@ -560,10 +561,10 @@
             <select id="newItemCategory">
                 <option value="product">Product Marketing</option>
                 <option value="social">Social Media</option>
-                <option value="events">Crypto Events &amp; Meetups</option>
+                <option value="events">Crypto Events & Meetups</option>
                 <option value="uni">University Engagement</option>
-                <option value="influencer">Influencer &amp; Affiliate</option>
-                <option value="web">Website &amp; Channels</option>
+                <option value="influencer">Influencer & Affiliate</option>
+                <option value="web">Website & Channels</option>
                 <option value="culture">Cultural Moments</option>
             </select>
         </div>
@@ -571,9 +572,7 @@
             <div class="form-group"><label>Start Date</label><input type="date" id="newItemStart"></div>
             <div class="form-group" id="endDateGroup"><label>End Date</label><input type="date" id="newItemEnd"></div>
         </div>
-        <div class="form-group"><label>Deliverables (one per line)</label><textarea id="newItemDeliverables" placeholder="Task 1
-Task 2
-Task 3"></textarea></div>
+        <div class="form-group"><label>Deliverables (one per line)</label><textarea id="newItemDeliverables" placeholder="Task 1&#10;Task 2&#10;Task 3"></textarea></div>
         <div class="form-group"><label>Business Impact</label><textarea id="newItemImpact" placeholder="Describe the expected business impact..."></textarea></div>
         <div class="modal-actions">
             <button class="btn" onclick="closeModal('addItemModal')">Cancel</button>
@@ -582,7 +581,7 @@ Task 3"></textarea></div>
     </div>
 </div>
 
-<div id="toast" class="toast">Settings saved</div>
+<div id="toast" class="toast">Saved</div>
 
 <div class="container">
     <header class="header">
@@ -596,11 +595,11 @@ Task 3"></textarea></div>
             <a href="#" class="nav-tab active">Marketing Calendar</a>
         </div>
         <div class="header-controls">
-            <span class="unsaved-indicator show" id="unsavedIndicator">● Unsaved Changes</span>
+            <span class="unsaved-indicator" id="unsavedIndicator">● Unsaved Changes</span>
             <button class="btn add-btn" onclick="openModal('addItemModal')">+ Add Item</button>
             <button class="btn" onclick="toggleEditMode()" id="editBtn">Edit</button>
             <button class="btn" onclick="openModal('settingsModal')">⚙</button>
-            <button class="btn primary" onclick="publishToGitHub()" id="publishBtn" disabled="">Publishing...</button>
+            <button class="btn primary" onclick="publishToGitHub()" id="publishBtn">Publish</button>
         </div>
     </header>
 
@@ -656,7 +655,7 @@ Task 3"></textarea></div>
             <p>Waitlist Incentives + Community Promos. Micro Influencers, KOLs, Grassroots Meetups (ETH Cali). Content Marketing, SEO, PR.</p>
         </div>
         <div class="strategy-content" id="strategy-acquisition">
-            <h4>Volume &amp; Scale (OWNED + EARNED + PAID)</h4>
+            <h4>Volume & Scale (OWNED + EARNED + PAID)</h4>
             <p>Performance Marketing activation. Affiliate / Macro Influencers. Strategic Partnerships and Sponsored Events.</p>
         </div>
     </div>
@@ -681,47 +680,47 @@ Task 3"></textarea></div>
                 <div class="swim-track swim-track-double" id="track-product">
                     <div class="track-grid"><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div></div>
                     <!-- Row 1: KYC, Solvida Pro, Platform Gamification (with 2px gaps) -->
-                    <div class="bar bar-product" data-id="kyc" style="left: 14.5%; width: 4.8%; top: 28%; transform: translateY(-50%);" draggable="false">KYC Education</div>
-                    <div class="bar bar-product" data-id="pro" style="left: 19.6%; width: 4.8%; top: 28%; transform: translateY(-50%);" draggable="false">Solvida Pro</div>
-                    <div class="bar bar-product" data-id="gamify" style="left: 55.5%; width: 11%; top: 28%; transform: translateY(-50%);" draggable="false">Platform Gamification</div>
+                    <div class="bar bar-product" data-id="kyc" style="left: 14.5%; width: 4.8%; top: 28%; transform: translateY(-50%);">KYC Education</div>
+                    <div class="bar bar-product" data-id="pro" style="left: 19.6%; width: 4.8%; top: 28%; transform: translateY(-50%);">Solvida Pro</div>
+                    <div class="bar bar-product" data-id="gamify" style="left: 55.5%; width: 11%; top: 28%; transform: translateY(-50%);">Platform Gamification</div>
                     <!-- Row 2: Public Waitlist (Mar 1 - Jun 1) -->
-                    <div class="bar bar-product" data-id="waitlist" style="left: 22.2%; width: 33.3%; top: 72%; transform: translateY(-50%);" draggable="false">Public Waitlist (SignUp Incentive)</div>
+                    <div class="bar bar-product" data-id="waitlist" style="left: 22.2%; width: 33.3%; top: 72%; transform: translateY(-50%);">Public Waitlist (SignUp Incentive)</div>
                 </div>
             </div>
 
             <!-- SOCIAL MEDIA (3 rows within) -->
             <div class="swimlane" data-category="social">
-                <div class="swim-label swim-label-triple" style="border-left: 3px solid var(--cat-social);">Social Media &amp;<br>Community</div>
+                <div class="swim-label swim-label-triple" style="border-left: 3px solid var(--cat-social);">Social Media &<br>Community</div>
                 <div class="swim-track swim-track-triple" id="track-social">
                     <div class="track-grid"><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div></div>
                     <!-- Row 1: Follower Acquisition (Dec 15 - Jan 3) -->
-                    <div class="bar bar-social" data-id="follower-acq" style="left: 5.5%; width: 7%; top: 20%; transform: translateY(-50%);" draggable="false">Follower Acquisition (Paid)</div>
+                    <div class="bar bar-social" data-id="follower-acq" style="left: 5.5%; width: 7%; top: 20%; transform: translateY(-50%);">Follower Acquisition (Paid)</div>
                     <!-- Row 2: Community Outreach (Dec 15 - Jan 15) -->
-                    <div class="bar bar-social" data-id="community-outreach" style="left: 5.5%; width: 11%; top: 50%; transform: translateY(-50%);" draggable="false">Community Outreach</div>
+                    <div class="bar bar-social" data-id="community-outreach" style="left: 5.5%; width: 11%; top: 50%; transform: translateY(-50%);">Community Outreach</div>
                     <!-- Row 3: EneroSinCuesta (Jan 1 - Jan 31) -->
-                    <div class="bar bar-social" data-id="enero" style="left: 11.1%; width: 11%; top: 80%; transform: translateY(-50%); padding-left: 5px;" draggable="false">EneroSinCuesta Campaign</div>
+                    <div class="bar bar-social" data-id="enero" style="left: 11.1%; width: 11%; top: 80%; transform: translateY(-50%); padding-left: 5px;">EneroSinCuesta Campaign</div>
                 </div>
             </div>
 
             <!-- CRYPTO EVENTS & MEETUPS -->
             <div class="swimlane" data-category="events">
-                <div class="swim-label" style="border-left: 3px solid var(--cat-events);">Crypto Events<br>&amp; Meetups</div>
+                <div class="swim-label" style="border-left: 3px solid var(--cat-events);">Crypto Events<br>& Meetups</div>
                 <div class="swim-track" id="track-events">
                     <div class="track-grid"><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div></div>
                     <!-- Uniswap x ETH Cali: Dec 20 -->
-                    <div class="diamond diamond-orange" data-id="uniswap-eth-cali" style="left: 7.3%;" draggable="false"><span class="d-label">Uniswap x ETH Cali · Dec 20</span></div>
+                    <div class="diamond diamond-orange" data-id="uniswap-eth-cali" style="left: 7.3%;"><span class="d-label">Uniswap x ETH Cali · Dec 20</span></div>
                     <!-- Bitcoin Medellin: Jan 15-16 (wider diamond) -->
-                    <div class="diamond diamond-orange diamond-wide" data-id="bitcoin-medellin" style="left: 16.5%;" draggable="false"><span class="d-label">Bitcoin Medellin · Jan 15-16</span></div>
+                    <div class="diamond diamond-orange diamond-wide" data-id="bitcoin-medellin" style="left: 16.5%;"><span class="d-label">Bitcoin Medellin · Jan 15-16</span></div>
                     <!-- ETH Cali: Jan 30 -->
-                    <div class="diamond diamond-orange" data-id="eth-cali" style="left: 21%;" draggable="false"><span class="d-label">ETH Cali · Jan 30</span></div>
+                    <div class="diamond diamond-orange" data-id="eth-cali" style="left: 21%;"><span class="d-label">ETH Cali · Jan 30</span></div>
                     <!-- ETH Bogota: Feb 15 -->
-                    <div class="diamond diamond-orange" data-id="eth-bogota" style="left: 27.5%;" draggable="false"><span class="d-label">ETH Bogota · Feb 15</span></div>
+                    <div class="diamond diamond-orange" data-id="eth-bogota" style="left: 27.5%;"><span class="d-label">ETH Bogota · Feb 15</span></div>
                     <!-- ETH Medellin: Mar 15 -->
-                    <div class="diamond diamond-orange" data-id="eth-medellin" style="left: 38.5%;" draggable="false"><span class="d-label">ETH Medellin · Mar 15</span></div>
+                    <div class="diamond diamond-orange" data-id="eth-medellin" style="left: 38.5%;"><span class="d-label">ETH Medellin · Mar 15</span></div>
                     <!-- Consensus Miami: May 5-7 (wider diamond) -->
-                    <div class="diamond diamond-orange diamond-wide" data-id="consensus-miami" style="left: 57%;" draggable="false"><span class="d-label">Consensus Miami · May 5-7</span></div>
+                    <div class="diamond diamond-orange diamond-wide" data-id="consensus-miami" style="left: 57%;"><span class="d-label">Consensus Miami · May 5-7</span></div>
                     <!-- Crypto Latin Fest: Aug 15 -->
-                    <div class="diamond diamond-orange" data-id="crypto-latin-fest" style="left: 94%;" draggable="false"><span class="d-label">Crypto Latin Fest · Aug 15</span></div>
+                    <div class="diamond diamond-orange" data-id="crypto-latin-fest" style="left: 94%;"><span class="d-label">Crypto Latin Fest · Aug 15</span></div>
                 </div>
             </div>
 
@@ -731,62 +730,62 @@ Task 3"></textarea></div>
                 <div class="swim-track" id="track-uni">
                     <div class="track-grid"><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div></div>
                     <!-- University List: Dec 15 - Dec 22 (with 2px gaps) -->
-                    <div class="bar bar-uni" data-id="uni-list" style="left: 5.5%; width: 2.2%;" draggable="false">University List</div>
+                    <div class="bar bar-uni" data-id="uni-list" style="left: 5.5%; width: 2.2%;">University List</div>
                     <!-- Program Dev: Dec 22 - Jan 15 -->
-                    <div class="bar bar-uni" data-id="uni-program" style="left: 8%; width: 8.2%;" draggable="false">Program Dev</div>
+                    <div class="bar bar-uni" data-id="uni-program" style="left: 8%; width: 8.2%;">Program Dev</div>
                     <!-- University Outreach: Jan 15 - Jan 20 -->
-                    <div class="bar bar-uni" data-id="uni-outreach" style="left: 16.5%; width: 2%;" draggable="false">Outreach</div>
+                    <div class="bar bar-uni" data-id="uni-outreach" style="left: 16.5%; width: 2%;">Outreach</div>
                     <!-- Co Promotion: Apr 1 - Apr 30 -->
-                    <div class="bar bar-uni" data-id="uni-copromotion" style="left: 44.4%; width: 11%;" draggable="false">Co Promotion</div>
+                    <div class="bar bar-uni" data-id="uni-copromotion" style="left: 44.4%; width: 11%;">Co Promotion</div>
                     <!-- University 1-4 diamonds -->
-                    <div class="diamond diamond-green" data-id="uni-event-1" style="left: 56%;" draggable="false"><span class="d-label">University 1 · May 1</span></div>
-                    <div class="diamond diamond-green" data-id="uni-event-2" style="left: 61%;" draggable="false"><span class="d-label">University 2 · May 15</span></div>
-                    <div class="diamond diamond-green" data-id="uni-event-3" style="left: 66.6%;" draggable="false"><span class="d-label">University 3 · Jun 1</span></div>
-                    <div class="diamond diamond-green" data-id="uni-event-4" style="left: 72%;" draggable="false"><span class="d-label">University 4 · Jun 15</span></div>
+                    <div class="diamond diamond-green" data-id="uni-event-1" style="left: 56%;"><span class="d-label">University 1 · May 1</span></div>
+                    <div class="diamond diamond-green" data-id="uni-event-2" style="left: 61%;"><span class="d-label">University 2 · May 15</span></div>
+                    <div class="diamond diamond-green" data-id="uni-event-3" style="left: 66.6%;"><span class="d-label">University 3 · Jun 1</span></div>
+                    <div class="diamond diamond-green" data-id="uni-event-4" style="left: 72%;"><span class="d-label">University 4 · Jun 15</span></div>
                 </div>
             </div>
 
             <!-- INFLUENCER -->
             <div class="swimlane" data-category="influencer">
-                <div class="swim-label" style="border-left: 3px solid var(--cat-influencer);">Influencer &amp;<br>Affiliate</div>
+                <div class="swim-label" style="border-left: 3px solid var(--cat-influencer);">Influencer &<br>Affiliate</div>
                 <div class="swim-track" id="track-influencer">
                     <div class="track-grid"><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div></div>
                     <!-- List Dev & Outreach: Dec 15 - Jan 15 (with 2px gaps) -->
-                    <div class="bar bar-influencer" data-id="inf-outreach" style="left: 5.5%; width: 10.7%;" draggable="false">List Dev &amp; Outreach</div>
+                    <div class="bar bar-influencer" data-id="inf-outreach" style="left: 5.5%; width: 10.7%;">List Dev & Outreach</div>
                     <!-- Program Dev: Jan 15 - Feb 15 -->
-                    <div class="bar bar-influencer" data-id="inf-program" style="left: 16.5%; width: 10.7%;" draggable="false">Program Dev</div>
+                    <div class="bar bar-influencer" data-id="inf-program" style="left: 16.5%; width: 10.7%;">Program Dev</div>
                     <!-- Recruitment: Feb 15 - Mar 15 -->
-                    <div class="bar bar-influencer" data-id="inf-recruitment" style="left: 27.5%; width: 10.7%;" draggable="false">Recruitment</div>
+                    <div class="bar bar-influencer" data-id="inf-recruitment" style="left: 27.5%; width: 10.7%;">Recruitment</div>
                     <!-- Program Launch: Apr 1 -->
-                    <div class="diamond diamond-yellow" data-id="inf-launch" style="left: 44.4%;" draggable="false"><span class="d-label">Program Launch · Apr 1</span></div>
+                    <div class="diamond diamond-yellow" data-id="inf-launch" style="left: 44.4%;"><span class="d-label">Program Launch · Apr 1</span></div>
                     <!-- Program Live: Jun 1+ -->
-                    <div class="bar bar-influencer" data-id="inf-live" style="left: 67.0303%; width: 21.4793%;" draggable="false">Program Live (Revenue)</div>
+                    <div class="bar bar-influencer" data-id="inf-live" style="left: 55.5%; width: 33%;">Program Live (Revenue)</div>
                 </div>
             </div>
 
             <!-- WEBSITE & CHANNELS -->
             <div class="swimlane" data-category="web">
-                <div class="swim-label" style="border-left: 3px solid var(--cat-web);">Website &amp;<br>Channels</div>
+                <div class="swim-label" style="border-left: 3px solid var(--cat-web);">Website &<br>Channels</div>
                 <div class="swim-track" id="track-web">
                     <div class="track-grid"><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div></div>
                     <!-- Solvida Blog: Dec 29 -->
-                    <div class="diamond diamond-cyan" data-id="blog-live" style="left: 10.5%;" draggable="false"><span class="d-label">Solvida Blog Live · Dec 29</span></div>
+                    <div class="diamond diamond-cyan" data-id="blog-live" style="left: 10.5%;"><span class="d-label">Solvida Blog Live · Dec 29</span></div>
                     <!-- Markets: Jan 15 -->
-                    <div class="diamond diamond-cyan" data-id="markets-page" style="left: 16.5%;" draggable="false"><span class="d-label">Markets · Jan 15</span></div>
+                    <div class="diamond diamond-cyan" data-id="markets-page" style="left: 16.5%;"><span class="d-label">Markets · Jan 15</span></div>
                     <!-- Telegram: Feb 1 (same day as Customer Service, stack) -->
-                    <div class="diamond diamond-cyan" data-id="telegram" style="left: 22.2%; top: 30%; transform: translate(-50%, -50%) rotate(45deg);" draggable="false"><span class="d-label">Telegram · Feb 1</span></div>
+                    <div class="diamond diamond-cyan" data-id="telegram" style="left: 22.2%; top: 30%; transform: translate(-50%, -50%) rotate(45deg);"><span class="d-label">Telegram · Feb 1</span></div>
                     <!-- Customer Service Bot: Feb 1 -->
-                    <div class="diamond diamond-cyan" data-id="customer-service" style="left: 22.2%; top: 70%; transform: translate(-50%, -50%) rotate(45deg);" draggable="false"><span class="d-label">Customer Service Bot · Feb 1</span></div>
+                    <div class="diamond diamond-cyan" data-id="customer-service" style="left: 22.2%; top: 70%; transform: translate(-50%, -50%) rotate(45deg);"><span class="d-label">Customer Service Bot · Feb 1</span></div>
                     <!-- Pro & Lite Lander: Feb 15 -->
-                    <div class="diamond diamond-cyan" data-id="pro-lander" style="left: 27.5%;" draggable="false"><span class="d-label">Pro &amp; Lite Lander · Feb 15</span></div>
+                    <div class="diamond diamond-cyan" data-id="pro-lander" style="left: 27.5%;"><span class="d-label">Pro & Lite Lander · Feb 15</span></div>
                     <!-- Discord: Mar 1 -->
-                    <div class="diamond diamond-cyan" data-id="discord" style="left: 33.3%;" draggable="false"><span class="d-label">Discord · Mar 1</span></div>
+                    <div class="diamond diamond-cyan" data-id="discord" style="left: 33.3%;"><span class="d-label">Discord · Mar 1</span></div>
                     <!-- Whatsapp: Apr 1 -->
-                    <div class="diamond diamond-cyan" data-id="whatsapp" style="left: 44.4%;" draggable="false"><span class="d-label">Whatsapp · Apr 1</span></div>
+                    <div class="diamond diamond-cyan" data-id="whatsapp" style="left: 44.4%;"><span class="d-label">Whatsapp · Apr 1</span></div>
                     <!-- Instagram: May 1 (same day as TikTok, stack) -->
-                    <div class="diamond diamond-cyan" data-id="instagram" style="left: 55.5%; top: 30%; transform: translate(-50%, -50%) rotate(45deg);" draggable="false"><span class="d-label">Instagram · May 1</span></div>
+                    <div class="diamond diamond-cyan" data-id="instagram" style="left: 55.5%; top: 30%; transform: translate(-50%, -50%) rotate(45deg);"><span class="d-label">Instagram · May 1</span></div>
                     <!-- TikTok: May 1 -->
-                    <div class="diamond diamond-cyan" data-id="tiktok" style="left: 55.5%; top: 70%; transform: translate(-50%, -50%) rotate(45deg);" draggable="false"><span class="d-label">TikTok · May 1</span></div>
+                    <div class="diamond diamond-cyan" data-id="tiktok" style="left: 55.5%; top: 70%; transform: translate(-50%, -50%) rotate(45deg);"><span class="d-label">TikTok · May 1</span></div>
                 </div>
             </div>
 
@@ -796,15 +795,15 @@ Task 3"></textarea></div>
                 <div class="swim-track" id="track-culture" style="border-bottom: none;">
                     <div class="track-grid"><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div></div>
                     <!-- Semana Santa: Apr 2-3 (wider diamond) -->
-                    <div class="diamond diamond-red diamond-wide" data-id="semana-santa" style="left: 45%;" draggable="false"><span class="d-label">Semana Santa · Apr 2-3</span></div>
+                    <div class="diamond diamond-red diamond-wide" data-id="semana-santa" style="left: 45%;"><span class="d-label">Semana Santa · Apr 2-3</span></div>
                     <!-- Día del Trabajo: May 1 -->
-                    <div class="diamond diamond-red" data-id="dia-trabajo" style="left: 55.5%;" draggable="false"><span class="d-label">Día del Trabajo · May 1</span></div>
+                    <div class="diamond diamond-red" data-id="dia-trabajo" style="left: 55.5%;"><span class="d-label">Día del Trabajo · May 1</span></div>
                     <!-- FIFA World Cup: Jun 11 - Jul 14 -->
-                    <div class="bar bar-culture" data-id="fifa-world-cup" style="left: 59%; width: 19%;" draggable="false">FIFA World Cup</div>
+                    <div class="bar bar-culture" data-id="fifa-world-cup" style="left: 59%; width: 19%;">FIFA World Cup</div>
                     <!-- Día de la Independencia: Jul 20 -->
-                    <div class="diamond diamond-red" data-id="independencia" style="left: 80%;" draggable="false"><span class="d-label">Día de la Independencia · Jul 20</span></div>
+                    <div class="diamond diamond-red" data-id="independencia" style="left: 80%;"><span class="d-label">Día de la Independencia · Jul 20</span></div>
                     <!-- Batalla de Boyacá: Aug 7 -->
-                    <div class="diamond diamond-red" data-id="batalla-boyaca" style="left: 91%;" draggable="false"><span class="d-label">Batalla de Boyacá · Aug 7</span></div>
+                    <div class="diamond diamond-red" data-id="batalla-boyaca" style="left: 91%;"><span class="d-label">Batalla de Boyacá · Aug 7</span></div>
                 </div>
             </div>
         </div>
@@ -1071,8 +1070,6 @@ Task 3"></textarea></div>
     // Parse date string to calendar percentages
     function parseDateToPercent(dateStr) {
         // Handle formats like "Jan 26 - Feb 8", "Jan 1 - Jan 31", "May 1", "Jan 15-16"
-        console.log('parseDateToPercent input:', dateStr);
-        
         const parts = dateStr.split(' - ');
         let startStr = parts[0].trim();
         let endStr = parts.length > 1 ? parts[1].trim() : startStr;
@@ -1086,15 +1083,11 @@ Task 3"></textarea></div>
             }
         }
         
-        console.log('Parsed - startStr:', startStr, 'endStr:', endStr);
-        
         // Parse start date
         const startParts = startStr.split(' ');
         const startMonth = startParts[0];
         const startDay = parseInt(startParts[1]) || 1;
         const startMonthIndex = MONTH_NAMES.indexOf(startMonth);
-        
-        console.log('Start - month:', startMonth, 'day:', startDay, 'monthIndex:', startMonthIndex);
         
         // Parse end date (might just be a day number if same month)
         let endMonth, endDay;
@@ -1109,10 +1102,7 @@ Task 3"></textarea></div>
         }
         const endMonthIndex = MONTH_NAMES.indexOf(endMonth);
         
-        console.log('End - month:', endMonth, 'day:', endDay, 'monthIndex:', endMonthIndex);
-        
         if (startMonthIndex === -1 || endMonthIndex === -1) {
-            console.log('Invalid month name - returning null');
             return null; // Invalid date format
         }
         
@@ -1121,33 +1111,18 @@ Task 3"></textarea></div>
         const endPercent = (endMonthIndex * MONTH_PERCENT) + ((endDay - 1) / 30 * MONTH_PERCENT);
         const width = Math.max(endPercent - left + DAY_PERCENT, DAY_PERCENT * 2); // At least 2 days
         
-        console.log('Calculated - left:', left, 'endPercent:', endPercent, 'width:', width);
-        
         return { left: snapToDay(left), width: snapToDay(width) };
     }
 
     // Update calendar bar from date change
     function updateCalendarFromDate(id, dateStr) {
         const bar = document.querySelector(`[data-id="${id}"]`);
-        if (!bar) {
-            console.log('updateCalendarFromDate: bar not found for id:', id);
-            return;
-        }
-        if (!bar.classList.contains('bar')) {
-            console.log('updateCalendarFromDate: element is not a bar (diamond), skipping:', id);
-            return; // Only update bars, not diamonds
-        }
+        if (!bar || !bar.classList.contains('bar')) return; // Only update bars, not diamonds
         
-        console.log('updateCalendarFromDate called with:', id, dateStr);
         const result = parseDateToPercent(dateStr);
-        console.log('parseDateToPercent result:', result);
-        
         if (result) {
             bar.style.left = result.left + '%';
             bar.style.width = result.width + '%';
-            console.log('Updated bar style - left:', result.left + '%', 'width:', result.width + '%');
-        } else {
-            console.log('parseDateToPercent returned null - invalid date format');
         }
     }
 
@@ -1318,7 +1293,6 @@ Task 3"></textarea></div>
                 }
                 
                 // Update calendar bar position from date change
-                console.log('About to call updateCalendarFromDate with:', currentItemId, date.textContent);
                 updateCalendarFromDate(currentItemId, date.textContent);
             }
             markUnsaved();
@@ -1468,6 +1442,27 @@ Task 3"></textarea></div>
         btn.textContent = 'Publishing...';
         btn.disabled = true;
         
+        // Reset UI state before capturing HTML to avoid saving "Publishing..." state
+        const unsavedIndicator = document.getElementById('unsavedIndicator');
+        unsavedIndicator.classList.remove('show');
+        
+        // Reset button state temporarily for HTML capture
+        btn.textContent = 'Publish';
+        btn.disabled = false;
+        
+        // Reset details pane to default state for clean HTML
+        const detailPane = document.getElementById('detailPane');
+        const wasActive = detailPane.classList.contains('active');
+        detailPane.classList.remove('active');
+        document.getElementById('dTitle').textContent = 'Select an Item';
+        document.getElementById('dDate').textContent = 'Click any item above';
+        document.getElementById('dList').innerHTML = '<li>Select an item from the calendar.</li>';
+        document.getElementById('dImpact').textContent = 'Select an item to view business impact.';
+        
+        // Reset strategy buttons to default state
+        document.querySelectorAll('.strategy-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.strategy-content').forEach(c => c.classList.remove('active'));
+        
         try {
             const getRes = await fetch(`https://api.github.com/repos/${config.user}/${config.repo}/contents/${config.path}`, {
                 headers: { 'Authorization': `Bearer ${config.token}` }
@@ -1495,12 +1490,13 @@ Task 3"></textarea></div>
             }
         } catch(e) {
             showToast('Error: ' + e.message, 'warning');
+            // Restore unsaved indicator on error
+            unsavedIndicator.classList.add('show');
         }
         
         btn.textContent = 'Publish';
         btn.disabled = false;
     }
 </script>
-
-
-</body></html>
+</body>
+</html>
