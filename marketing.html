@@ -273,13 +273,37 @@
         }
         body.edit-mode .bar .resize-handle {
             position: absolute;
-            right: 0;
             top: 0;
-            width: 8px;
+            width: 10px;
             height: 100%;
             cursor: ew-resize;
-            background: rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.25);
+            transition: background 0.15s;
+        }
+        body.edit-mode .bar .resize-handle:hover {
+            background: rgba(234, 179, 8, 0.5);
+        }
+        body.edit-mode .bar .resize-handle.resize-right {
+            right: 0;
             border-radius: 0 5px 5px 0;
+        }
+        body.edit-mode .bar .resize-handle.resize-left {
+            left: 0;
+            border-radius: 5px 0 0 5px;
+        }
+        body.edit-mode .bar.resizing {
+            opacity: 0.85;
+            box-shadow: 0 0 15px rgba(234, 179, 8, 0.4);
+        }
+
+        /* Calendar Hint */
+        .calendar-hint {
+            text-align: center;
+            color: var(--text-tertiary);
+            font-size: 12px;
+            margin-top: 12px;
+            margin-bottom: 0;
+            font-style: italic;
         }
 
         /* Details Pane */
@@ -381,6 +405,126 @@
             font-weight: 600;
         }
         .unsaved-indicator.show { display: inline-block; }
+
+        /* Strategic Overview Section */
+        .strategic-overview {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+        .overview-summary {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            max-width: 900px;
+        }
+        .info-boxes {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .info-box {
+            background: var(--bg-deep);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 18px;
+        }
+        .info-box-header {
+            color: #eab308;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+        }
+        .info-box p {
+            color: var(--text-primary);
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+        .info-box p:last-child { margin-bottom: 0; }
+
+        /* Strategy Buttons */
+        .strategy-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .strategy-btn {
+            flex: 1;
+            padding: 14px 20px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Montserrat', sans-serif;
+            text-align: center;
+        }
+        .strategy-btn.outline {
+            background: transparent;
+            border: 1px solid var(--border-active);
+            color: var(--text-primary);
+        }
+        .strategy-btn.outline:hover {
+            border-color: var(--brand-primary);
+            background: rgba(99, 102, 241, 0.1);
+        }
+        .strategy-btn.outline.active {
+            border-color: var(--brand-primary);
+            background: rgba(99, 102, 241, 0.15);
+        }
+        .strategy-btn.filled {
+            background: var(--cat-social);
+            border: 1px solid var(--cat-social);
+            color: white;
+        }
+        .strategy-btn.filled:hover {
+            filter: brightness(1.1);
+        }
+        .strategy-btn.filled.active {
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Strategy Content Panels */
+        .strategy-content {
+            display: none;
+            background: var(--bg-deep);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: -5px;
+            animation: fadeIn 0.2s ease;
+        }
+        .strategy-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .strategy-content h4 {
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .strategy-content p {
+            color: var(--text-secondary);
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        /* Calendar Helper Text */
+        .calendar-helper {
+            text-align: center;
+            color: var(--text-tertiary);
+            font-size: 12px;
+            margin-top: 15px;
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
@@ -461,6 +605,61 @@
 
     <h1 class="page-title">Solvida Marketing Calendar</h1>
 
+    <!-- Strategic Overview Section -->
+    <div class="strategic-overview">
+        <p class="overview-summary">
+            This marketing calendar outlines Solvida's go-to-market strategy for establishing Colombia's leading crypto exchange. 
+            The plan focuses on building credibility through product marketing, creating anticipation via community engagement, 
+            and scaling customer acquisition through performance marketing and strategic partnerships.
+        </p>
+
+        <div class="info-boxes">
+            <div class="info-box">
+                <div class="info-box-header">Business Objectives</div>
+                <p>$10M in Daily Trading Volume by Date TBC</p>
+                <p>10,000 DAUs by Date TBC</p>
+            </div>
+            <div class="info-box">
+                <div class="info-box-header">Marketing Objectives</div>
+                <p>Deliver consistent growth of verified traders who trade.</p>
+                <p>Become known as the #1 homegrown crypto exchange in Colombia.</p>
+                <p>Establish Solvida as more than a crypto brand (Lifestyle, Culture).</p>
+            </div>
+            <div class="info-box">
+                <div class="info-box-header">Mindset</div>
+                <p>Earn vs Buy</p>
+                <p>Culture vs Capital</p>
+                <p>Inside Out vs Outside In</p>
+            </div>
+            <div class="info-box">
+                <div class="info-box-header">End Goal Metrics</div>
+                <p>Volume target: $XXXM total trading volume</p>
+                <p>Monthly active traders: 15,000</p>
+                <p>CAC: Reduce from $50 to &lt;$25</p>
+                <p>30-40% MoM retained traders</p>
+            </div>
+        </div>
+
+        <div class="strategy-buttons">
+            <button class="strategy-btn outline" onclick="toggleStrategy('private')">Private Client Nurture</button>
+            <button class="strategy-btn filled" onclick="toggleStrategy('community')">Community Development</button>
+            <button class="strategy-btn outline" onclick="toggleStrategy('acquisition')">Customer Acquisition</button>
+        </div>
+
+        <div class="strategy-content" id="strategy-private">
+            <h4>Establish Credibility (OWNED)</h4>
+            <p>Product Marketing focus. Launching Solvida.co blog and establishing Solvida X voice. Direct outreach to high-value early adopters.</p>
+        </div>
+        <div class="strategy-content" id="strategy-community">
+            <h4>Create Anticipation (OWNED + EARNED)</h4>
+            <p>Waitlist Incentives + Community Promos. Micro Influencers, KOLs, Grassroots Meetups (ETH Cali). Content Marketing, SEO, PR.</p>
+        </div>
+        <div class="strategy-content" id="strategy-acquisition">
+            <h4>Volume & Scale (OWNED + EARNED + PAID)</h4>
+            <p>Performance Marketing activation. Affiliate / Macro Influencers. Strategic Partnerships and Sponsored Events.</p>
+        </div>
+    </div>
+
     <div class="calendar-wrapper">
         <div class="calendar-grid" id="calendarGrid">
             <!-- Headers: Dec 2025 - Aug 2026 -->
@@ -480,9 +679,9 @@
                 <div class="swim-label swim-label-double" style="border-left: 3px solid var(--cat-product);">Product<br>Marketing</div>
                 <div class="swim-track swim-track-double" id="track-product">
                     <div class="track-grid"><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div></div>
-                    <!-- Row 1: KYC, Solvida Pro, Platform Gamification -->
-                    <div class="bar bar-product" data-id="kyc" style="left: 14.5%; width: 5%; top: 28%; transform: translateY(-50%);">KYC Education</div>
-                    <div class="bar bar-product" data-id="pro" style="left: 19.8%; width: 5%; top: 28%; transform: translateY(-50%);">Solvida Pro</div>
+                    <!-- Row 1: KYC, Solvida Pro, Platform Gamification (with 2px gaps) -->
+                    <div class="bar bar-product" data-id="kyc" style="left: 14.5%; width: 4.8%; top: 28%; transform: translateY(-50%);">KYC Education</div>
+                    <div class="bar bar-product" data-id="pro" style="left: 19.6%; width: 4.8%; top: 28%; transform: translateY(-50%);">Solvida Pro</div>
                     <div class="bar bar-product" data-id="gamify" style="left: 55.5%; width: 11%; top: 28%; transform: translateY(-50%);">Platform Gamification</div>
                     <!-- Row 2: Public Waitlist (Mar 1 - Jun 1) -->
                     <div class="bar bar-product" data-id="waitlist" style="left: 22.2%; width: 33.3%; top: 72%; transform: translateY(-50%);">Public Waitlist (SignUp Incentive)</div>
@@ -499,7 +698,7 @@
                     <!-- Row 2: Community Outreach (Dec 15 - Jan 15) -->
                     <div class="bar bar-social" data-id="community-outreach" style="left: 5.5%; width: 11%; top: 50%; transform: translateY(-50%);">Community Outreach</div>
                     <!-- Row 3: #EneroSinCuesta (Jan 1 - Jan 31) -->
-                    <div class="bar bar-social" data-id="enero" style="left: 11.1%; width: 11%; top: 80%; transform: translateY(-50%); border: 2px solid white;">#EneroSinCuesta Campaign</div>
+                    <div class="bar bar-social" data-id="enero" style="left: 11.1%; width: 11%; top: 80%; transform: translateY(-50%);">#EneroSinCuesta Campaign</div>
                 </div>
             </div>
 
@@ -530,10 +729,10 @@
                 <div class="swim-label" style="border-left: 3px solid var(--cat-uni);">University<br>Engagement</div>
                 <div class="swim-track" id="track-uni">
                     <div class="track-grid"><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div></div>
-                    <!-- University List: Dec 15 - Dec 22 -->
-                    <div class="bar bar-uni" data-id="uni-list" style="left: 5.5%; width: 2.5%;">University List</div>
+                    <!-- University List: Dec 15 - Dec 22 (with 2px gaps) -->
+                    <div class="bar bar-uni" data-id="uni-list" style="left: 5.5%; width: 2.2%;">University List</div>
                     <!-- Program Dev: Dec 22 - Jan 15 -->
-                    <div class="bar bar-uni" data-id="uni-program" style="left: 8%; width: 8.5%;">Program Dev</div>
+                    <div class="bar bar-uni" data-id="uni-program" style="left: 8%; width: 8.2%;">Program Dev</div>
                     <!-- University Outreach: Jan 15 - Jan 20 -->
                     <div class="bar bar-uni" data-id="uni-outreach" style="left: 16.5%; width: 2%;">Outreach</div>
                     <!-- Co Promotion: Apr 1 - Apr 30 -->
@@ -551,12 +750,12 @@
                 <div class="swim-label" style="border-left: 3px solid var(--cat-influencer);">Influencer &<br>Affiliate</div>
                 <div class="swim-track" id="track-influencer">
                     <div class="track-grid"><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div></div>
-                    <!-- List Dev & Outreach: Dec 15 - Jan 15 -->
-                    <div class="bar bar-influencer" data-id="inf-outreach" style="left: 5.5%; width: 11%;">List Dev & Outreach</div>
+                    <!-- List Dev & Outreach: Dec 15 - Jan 15 (with 2px gaps) -->
+                    <div class="bar bar-influencer" data-id="inf-outreach" style="left: 5.5%; width: 10.7%;">List Dev & Outreach</div>
                     <!-- Program Dev: Jan 15 - Feb 15 -->
-                    <div class="bar bar-influencer" data-id="inf-program" style="left: 16.5%; width: 11%;">Program Dev</div>
+                    <div class="bar bar-influencer" data-id="inf-program" style="left: 16.5%; width: 10.7%;">Program Dev</div>
                     <!-- Recruitment: Feb 15 - Mar 15 -->
-                    <div class="bar bar-influencer" data-id="inf-recruitment" style="left: 27.5%; width: 11%;">Recruitment</div>
+                    <div class="bar bar-influencer" data-id="inf-recruitment" style="left: 27.5%; width: 10.7%;">Recruitment</div>
                     <!-- Program Launch: Apr 1 -->
                     <div class="diamond diamond-yellow" data-id="inf-launch" style="left: 44.4%;"><span class="d-label">Program Launch · Apr 1</span></div>
                     <!-- Program Live: Jun 1+ -->
@@ -609,6 +808,8 @@
             </div>
         </div>
     </div>
+
+    <p class="calendar-hint">Click on any item for further details</p>
 
     <!-- Details Pane -->
     <div class="details-pane" id="detailPane">
@@ -685,6 +886,34 @@
     let hasUnsavedChanges = false;
     let currentItemId = null;
     let selectedElement = null;
+    let activeStrategy = null;
+
+    // Strategy Toggle Function
+    function toggleStrategy(strategy) {
+        const contentEl = document.getElementById('strategy-' + strategy);
+        const buttons = document.querySelectorAll('.strategy-btn');
+        const contents = document.querySelectorAll('.strategy-content');
+        
+        // If clicking the same button, close it
+        if (activeStrategy === strategy) {
+            contentEl.classList.remove('active');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            activeStrategy = null;
+            return;
+        }
+        
+        // Close all others first
+        contents.forEach(c => c.classList.remove('active'));
+        buttons.forEach(btn => btn.classList.remove('active'));
+        
+        // Open the clicked one
+        contentEl.classList.add('active');
+        activeStrategy = strategy;
+        
+        // Mark the corresponding button as active
+        const buttonIndex = { 'private': 0, 'community': 1, 'acquisition': 2 };
+        buttons[buttonIndex[strategy]].classList.add('active');
+    }
 
     // Init
     document.addEventListener('DOMContentLoaded', () => {
@@ -760,11 +989,17 @@
             bar.addEventListener('dragstart', handleDragStart);
             bar.addEventListener('dragend', handleDragEnd);
             
-            // Add resize handle
-            const handle = document.createElement('div');
-            handle.className = 'resize-handle';
-            handle.addEventListener('mousedown', startResize);
-            bar.appendChild(handle);
+            // Add left resize handle
+            const leftHandle = document.createElement('div');
+            leftHandle.className = 'resize-handle resize-left';
+            leftHandle.addEventListener('mousedown', (e) => startResize(e, 'left'));
+            bar.appendChild(leftHandle);
+            
+            // Add right resize handle
+            const rightHandle = document.createElement('div');
+            rightHandle.className = 'resize-handle resize-right';
+            rightHandle.addEventListener('mousedown', (e) => startResize(e, 'right'));
+            bar.appendChild(rightHandle);
         });
         
         document.querySelectorAll('.diamond').forEach(diamond => {
@@ -807,38 +1042,133 @@
         const track = e.target.closest('.swim-track');
         const rect = track.getBoundingClientRect();
         const x = e.clientX - rect.left;
-        const percent = (x / rect.width) * 100;
+        let percent = (x / rect.width) * 100;
+        
+        // Snap to day intervals (~0.37% per day)
+        percent = snapToDay(percent);
         
         draggedElement.style.left = Math.max(0, Math.min(95, percent)) + '%';
         updateItemDate(draggedElement.dataset.id, percent);
         markUnsaved();
     }
 
+    // Day-based snapping constants
+    // 9 months (Dec-Aug) = 100%, so ~11.11% per month, ~0.37% per day
+    const MONTH_PERCENT = 11.11;
+    const DAY_PERCENT = MONTH_PERCENT / 30; // ~0.37%
+
+    function snapToDay(percent) {
+        // Snap to nearest day interval
+        return Math.round(percent / DAY_PERCENT) * DAY_PERCENT;
+    }
+
     let resizing = false;
     let resizeElement = null;
-    function startResize(e) {
+    let resizeDirection = 'right';
+    let resizeStartX = 0;
+    let resizeStartLeft = 0;
+    let resizeStartWidth = 0;
+    let resizeTrackRect = null;
+    let rafId = null;
+
+    function startResize(e, direction) {
         e.stopPropagation();
+        e.preventDefault();
+        
         resizing = true;
+        resizeDirection = direction;
         resizeElement = e.target.parentElement;
+        resizeElement.classList.add('resizing');
+        
+        const track = resizeElement.parentElement;
+        resizeTrackRect = track.getBoundingClientRect();
+        resizeStartX = e.clientX;
+        resizeStartLeft = parseFloat(resizeElement.style.left) || 0;
+        resizeStartWidth = parseFloat(resizeElement.style.width) || 5;
+        
         document.addEventListener('mousemove', doResize);
         document.addEventListener('mouseup', stopResize);
     }
+
     function doResize(e) {
         if (!resizing || !resizeElement) return;
-        const track = resizeElement.parentElement;
-        const rect = track.getBoundingClientRect();
-        const left = parseFloat(resizeElement.style.left);
-        const newWidth = ((e.clientX - rect.left) / rect.width * 100) - left;
-        if (newWidth > 1) {
-            resizeElement.style.width = newWidth + '%';
+        
+        // Cancel previous animation frame for smooth updates
+        if (rafId) cancelAnimationFrame(rafId);
+        
+        rafId = requestAnimationFrame(() => {
+            const deltaX = e.clientX - resizeStartX;
+            const deltaPercent = (deltaX / resizeTrackRect.width) * 100;
+            
+            if (resizeDirection === 'right') {
+                // Resize from right side - only width changes
+                let newWidth = resizeStartWidth + deltaPercent;
+                newWidth = snapToDay(newWidth);
+                
+                if (newWidth >= DAY_PERCENT * 2) { // Minimum 2 days
+                    resizeElement.style.width = newWidth + '%';
+                }
+            } else {
+                // Resize from left side - both left and width change
+                let newLeft = resizeStartLeft + deltaPercent;
+                let newWidth = resizeStartWidth - deltaPercent;
+                
+                newLeft = snapToDay(newLeft);
+                newWidth = snapToDay(newWidth);
+                
+                if (newWidth >= DAY_PERCENT * 2 && newLeft >= 0) { // Minimum 2 days, stay in bounds
+                    resizeElement.style.left = newLeft + '%';
+                    resizeElement.style.width = newWidth + '%';
+                }
+            }
+            
             markUnsaved();
-        }
+        });
     }
+
     function stopResize() {
+        if (rafId) cancelAnimationFrame(rafId);
+        
+        if (resizeElement) {
+            resizeElement.classList.remove('resizing');
+            
+            // Update the date after resize
+            const left = parseFloat(resizeElement.style.left);
+            const width = parseFloat(resizeElement.style.width);
+            updateItemDateRange(resizeElement.dataset.id, left, width);
+        }
+        
         resizing = false;
         resizeElement = null;
+        resizeTrackRect = null;
         document.removeEventListener('mousemove', doResize);
         document.removeEventListener('mouseup', stopResize);
+    }
+
+    function updateItemDateRange(id, leftPercent, widthPercent) {
+        // Convert percent to date range
+        const months = ['Dec 2025', 'Jan 2026', 'Feb 2026', 'Mar 2026', 'Apr 2026', 'May 2026', 'Jun 2026', 'Jul 2026', 'Aug 2026'];
+        
+        const startMonthIndex = Math.floor(leftPercent / MONTH_PERCENT);
+        const startDay = Math.floor(((leftPercent % MONTH_PERCENT) / MONTH_PERCENT) * 30) + 1;
+        
+        const endPercent = leftPercent + widthPercent;
+        const endMonthIndex = Math.floor(endPercent / MONTH_PERCENT);
+        const endDay = Math.floor(((endPercent % MONTH_PERCENT) / MONTH_PERCENT) * 30) + 1;
+        
+        let dateStr;
+        if (startMonthIndex === endMonthIndex) {
+            dateStr = `${months[Math.min(startMonthIndex, 8)].split(' ')[0]} ${startDay} - ${endDay}`;
+        } else {
+            dateStr = `${months[Math.min(startMonthIndex, 8)].split(' ')[0]} ${startDay} - ${months[Math.min(endMonthIndex, 8)].split(' ')[0]} ${endDay}`;
+        }
+        
+        if (campaignData[id]) {
+            campaignData[id].date = dateStr;
+            if (currentItemId === id) {
+                document.getElementById('dDate').textContent = dateStr;
+            }
+        }
     }
 
     function updateItemDate(id, leftPercent) {
