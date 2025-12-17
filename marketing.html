@@ -143,6 +143,10 @@
             min-height: 75px;
             background: linear-gradient(90deg, var(--bg-deep) 0%, rgba(14,14,18,0.5) 100%);
         }
+        .swim-track-double { min-height: 90px; }
+        .swim-track-triple { min-height: 115px; }
+        .swim-label-double { min-height: 90px; }
+        .swim-label-triple { min-height: 115px; }
         
         .track-grid { 
             display: grid; grid-template-columns: repeat(9, 1fr); 
@@ -155,7 +159,7 @@
         /* Bars */
         .bar {
             position: absolute;
-            height: 30px;
+            height: 26px;
             border-radius: 5px;
             font-size: 12px;
             font-weight: 600;
@@ -471,49 +475,31 @@
             <div class="cal-header">Jul 2026</div>
             <div class="cal-header">Aug 2026</div>
 
-            <!-- PRODUCT MARKETING -->
+            <!-- PRODUCT MARKETING (2 rows within) -->
             <div class="swimlane" data-category="product">
-                <div class="swim-label" style="border-left: 3px solid var(--cat-product);">Product<br>Marketing</div>
-                <div class="swim-track" id="track-product">
+                <div class="swim-label swim-label-double" style="border-left: 3px solid var(--cat-product);">Product<br>Marketing</div>
+                <div class="swim-track swim-track-double" id="track-product">
                     <div class="track-grid"><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div></div>
-                    <!-- KYC Education: Jan 26 - Feb 8 -->
-                    <div class="bar bar-product" data-id="kyc" style="left: 14.5%; width: 5%;">KYC Education</div>
-                    <!-- Solvida Pro: Feb 9 - Feb 22 -->
-                    <div class="bar bar-product" data-id="pro" style="left: 19.8%; width: 5%;">Solvida Pro</div>
-                    <!-- Platform Gamification: Jun 1 - Jun 30 -->
-                    <div class="bar bar-product" data-id="gamify" style="left: 55.5%; width: 11%;">Platform Gamification</div>
+                    <!-- Row 1: KYC, Solvida Pro, Platform Gamification -->
+                    <div class="bar bar-product" data-id="kyc" style="left: 14.5%; width: 5%; top: 28%; transform: translateY(-50%);">KYC Education</div>
+                    <div class="bar bar-product" data-id="pro" style="left: 19.8%; width: 5%; top: 28%; transform: translateY(-50%);">Solvida Pro</div>
+                    <div class="bar bar-product" data-id="gamify" style="left: 55.5%; width: 11%; top: 28%; transform: translateY(-50%);">Platform Gamification</div>
+                    <!-- Row 2: Public Waitlist (Mar 1 - Jun 1) -->
+                    <div class="bar bar-product" data-id="waitlist" style="left: 22.2%; width: 33.3%; top: 72%; transform: translateY(-50%);">Public Waitlist (SignUp Incentive)</div>
                 </div>
             </div>
 
-            <!-- PUBLIC WAITLIST (own row) -->
-            <div class="swimlane" data-category="product">
-                <div class="swim-label" style="border-left: 3px solid var(--cat-product); font-size: 9px; color: var(--text-secondary);">Public Waitlist</div>
-                <div class="swim-track" id="track-waitlist">
-                    <div class="track-grid"><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div></div>
-                    <!-- Public Waitlist: Mar 1 - Jun 1 -->
-                    <div class="bar bar-product" data-id="waitlist" style="left: 22.2%; width: 33.3%;">Public Waitlist (SignUp Incentive)</div>
-                </div>
-            </div>
-
-            <!-- SOCIAL MEDIA -->
+            <!-- SOCIAL MEDIA (3 rows within) -->
             <div class="swimlane" data-category="social">
-                <div class="swim-label" style="border-left: 3px solid var(--cat-social);">Social Media &<br>Community</div>
-                <div class="swim-track" id="track-social">
+                <div class="swim-label swim-label-triple" style="border-left: 3px solid var(--cat-social);">Social Media &<br>Community</div>
+                <div class="swim-track swim-track-triple" id="track-social">
                     <div class="track-grid"><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div></div>
-                    <!-- Follower Acq: Dec 15 - Jan 3 -->
-                    <div class="bar bar-social" data-id="follower-acq" style="left: 5.5%; width: 7%;">Follower Acquisition (Paid)</div>
-                    <!-- Community Outreach: Dec 15 - Jan 15 -->
-                    <div class="bar bar-social" data-id="community-outreach" style="left: 13%; width: 11%;">Community Outreach</div>
-                </div>
-            </div>
-
-            <!-- ENERO SIN CUESTA (own row) -->
-            <div class="swimlane" data-category="social">
-                <div class="swim-label" style="border-left: 3px solid var(--cat-social); font-size: 9px; color: var(--text-secondary);">#EneroSinCuesta</div>
-                <div class="swim-track" id="track-enero">
-                    <div class="track-grid"><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div></div>
-                    <!-- #EneroSinCuesta: Jan 1 - Jan 31 -->
-                    <div class="bar bar-social" data-id="enero" style="left: 11.1%; width: 11%; border: 2px solid white;">#EneroSinCuesta Campaign</div>
+                    <!-- Row 1: Follower Acquisition (Dec 15 - Jan 3) -->
+                    <div class="bar bar-social" data-id="follower-acq" style="left: 5.5%; width: 7%; top: 20%; transform: translateY(-50%);">Follower Acquisition (Paid)</div>
+                    <!-- Row 2: Community Outreach (Dec 15 - Jan 15) -->
+                    <div class="bar bar-social" data-id="community-outreach" style="left: 5.5%; width: 11%; top: 50%; transform: translateY(-50%);">Community Outreach</div>
+                    <!-- Row 3: #EneroSinCuesta (Jan 1 - Jan 31) -->
+                    <div class="bar bar-social" data-id="enero" style="left: 11.1%; width: 11%; top: 80%; transform: translateY(-50%); border: 2px solid white;">#EneroSinCuesta Campaign</div>
                 </div>
             </div>
 
