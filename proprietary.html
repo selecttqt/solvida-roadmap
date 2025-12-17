@@ -164,7 +164,11 @@
         .gantt-table { width: 100%; border-collapse: separate; border-spacing: 0; min-width: 1600px; table-layout: fixed; }
         .gantt-table th { background: var(--bg-panel); color: var(--text-secondary); font-size: 11px; text-transform: uppercase; padding: 15px 10px; font-weight: 700; border-bottom: 1px solid var(--border-subtle); border-right: 1px solid var(--border-subtle); position: sticky; top: 0; z-index: 10; }
         .gantt-table th:first-child { width: 300px; text-align: left; padding-left: 20px; position: sticky; left: 0; background: var(--bg-panel); z-index: 20; border-right: 2px solid var(--border-subtle); }
-        .gantt-row td { background: var(--bg-sticky); border-bottom: 1px solid var(--border-subtle); border-right: 1px dashed var(--border-subtle); height: 60px; padding: 4px; }
+        .gantt-row { cursor: pointer; }
+        .gantt-row td { background: var(--bg-sticky); border-bottom: 1px solid var(--border-subtle); border-right: 1px dashed var(--border-subtle); height: 60px; padding: 4px; transition: background 0.2s; }
+        .gantt-row:hover td { background: var(--bg-panel-hover); }
+        .gantt-row:hover .gantt-label-cell { background: var(--bg-panel-hover) !important; }
+        .sprint-block.highlight .sprint-card { box-shadow: 0 0 0 2px var(--brand-primary), 0 10px 40px -10px var(--brand-glow); }
         .gantt-label-cell { position: sticky; left: 0; background: var(--bg-sticky) !important; z-index: 10; border-right: 2px solid var(--border-subtle) !important; padding: 0 20px !important; font-size: 13px; font-weight: 600; color: var(--text-primary); }
         .gantt-bar { height: 36px; border-radius: 6px; background: var(--grad-brand); font-size: 11px; color: white; font-weight: 600; display: flex; align-items: center; justify-content: center; cursor: grab; white-space: nowrap; position: relative; overflow: hidden; }
         .gantt-bar::after { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transform: skewX(-20deg); animation: shimmer 3s infinite; }
@@ -422,21 +426,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="gantt-row phase-1">
+                            <tr class="gantt-row phase-1" data-target="phase-a0">
                                 <td class="gantt-label-cell">A0. Strategy & Architecture</td>
                                 <td class="gantt-cell"><div class="gantt-bar">Planning</div></td>
                                 <td class="gantt-cell"><div class="gantt-bar">Design</div></td>
                                 <td class="gantt-cell"><div class="gantt-bar">Finalize</div></td>
                                 <td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td>
                             </tr>
-                            <tr class="gantt-row phase-2">
+                            <tr class="gantt-row phase-2" data-target="phase-a1">
                                 <td class="gantt-label-cell">A1. Core Trading Architecture</td>
                                 <td class="gantt-cell"></td>
                                 <td class="gantt-cell"><div class="gantt-bar">Engine Core</div></td>
                                 <td class="gantt-cell"><div class="gantt-bar">Custody</div></td>
                                 <td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td>
                             </tr>
-                            <tr class="gantt-row phase-3">
+                            <tr class="gantt-row phase-3" data-target="phase-a2">
                                 <td class="gantt-label-cell">A2. Spot Trading Engine</td>
                                 <td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td>
                                 <td class="gantt-cell"><div class="gantt-bar">Order Book</div></td>
@@ -444,20 +448,20 @@
                                 <td class="gantt-cell"><div class="gantt-bar">Live Ops</div></td>
                                 <td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td>
                             </tr>
-                            <tr class="gantt-row phase-4">
+                            <tr class="gantt-row phase-4" data-target="phase-a3">
                                 <td class="gantt-label-cell">A3. Futures/Perpetuals Engine</td>
                                 <td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td>
                                 <td class="gantt-cell"><div class="gantt-bar">Margin</div></td>
                                 <td class="gantt-cell"><div class="gantt-bar">Liquidation</div></td>
                                 <td class="gantt-cell"><div class="gantt-bar">ADL</div></td>
                             </tr>
-                            <tr class="gantt-row phase-5">
+                            <tr class="gantt-row phase-5" data-target="phase-a4">
                                 <td class="gantt-label-cell">A4. Pricing & Market Data</td>
                                 <td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td>
                                 <td class="gantt-cell"><div class="gantt-bar">Index/Mark</div></td>
                                 <td class="gantt-cell"></td>
                             </tr>
-                            <tr class="gantt-row phase-6">
+                            <tr class="gantt-row phase-6" data-target="phase-a5">
                                 <td class="gantt-label-cell">A5. Institutional & Compliance</td>
                                 <td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td>
                                 <td class="gantt-cell"><div class="gantt-bar">FIX API</div></td>
@@ -470,7 +474,7 @@
 
         <div class="timeline-wrapper">
             
-            <div class="sprint-block phase-1">
+            <div class="sprint-block phase-1" id="phase-a0">
                 <div class="sprint-dot"></div>
                 <div class="sprint-card">
                     <div class="card-header">
@@ -532,7 +536,7 @@
                 </div>
             </div>
 
-            <div class="sprint-block phase-2">
+            <div class="sprint-block phase-2" id="phase-a1">
                 <div class="sprint-dot"></div>
                 <div class="sprint-card">
                     <div class="card-header">
@@ -596,7 +600,7 @@
                 </div>
             </div>
 
-            <div class="sprint-block phase-3">
+            <div class="sprint-block phase-3" id="phase-a2">
                 <div class="sprint-dot"></div>
                 <div class="sprint-card">
                     <div class="card-header">
@@ -659,7 +663,7 @@
                 </div>
             </div>
 
-            <div class="sprint-block phase-4">
+            <div class="sprint-block phase-4" id="phase-a3">
                 <div class="sprint-dot"></div>
                 <div class="sprint-card">
                     <div class="card-header">
@@ -724,7 +728,7 @@
                 </div>
             </div>
 
-            <div class="sprint-block phase-5">
+            <div class="sprint-block phase-5" id="phase-a4">
                 <div class="sprint-dot"></div>
                 <div class="sprint-card">
                     <div class="card-header">
@@ -774,7 +778,7 @@
                 </div>
             </div>
 
-            <div class="sprint-block phase-6">
+            <div class="sprint-block phase-6" id="phase-a5">
                 <div class="sprint-dot"></div>
                 <div class="sprint-card">
                     <div class="card-header">
@@ -1148,6 +1152,23 @@
                 });
             });
         }
+        
+        // Gantt row click navigation
+        document.querySelectorAll('.gantt-row[data-target]').forEach(row => {
+            row.addEventListener('click', (e) => {
+                // Don't navigate if in edit mode and clicking on a draggable bar
+                if (editMode && e.target.closest('.gantt-bar')) return;
+                
+                const targetId = row.dataset.target;
+                const targetEl = document.getElementById(targetId);
+                if (targetEl) {
+                    targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    // Brief highlight effect
+                    targetEl.classList.add('highlight');
+                    setTimeout(() => targetEl.classList.remove('highlight'), 2000);
+                }
+            });
+        });
         
         // Initial init
         initializeDragDrop();
