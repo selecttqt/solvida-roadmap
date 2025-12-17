@@ -112,12 +112,12 @@
         }
         
         .cal-header { 
-            padding: 12px 8px; 
+            padding: 14px 8px; 
             background: var(--bg-sticky); 
             border-bottom: 1px solid var(--border-subtle); 
             border-right: 1px solid var(--border-subtle); 
             text-align: center; 
-            font-weight: 700; font-size: 10px; text-transform: uppercase; 
+            font-weight: 700; font-size: 12px; text-transform: uppercase; 
             color: var(--text-secondary); letter-spacing: 0.05em;
         }
         .cal-header:first-child { text-align: left; padding-left: 15px; }
@@ -125,22 +125,22 @@
         .swimlane { display: contents; }
         
         .swim-label { 
-            padding: 0 12px; 
+            padding: 0 15px; 
             background: var(--bg-panel); 
             border-right: 1px solid var(--border-subtle); 
             border-bottom: 1px solid var(--border-subtle); 
-            font-weight: 700; font-size: 10px; text-transform: uppercase; letter-spacing: 0.03em;
+            font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.03em;
             display: flex; align-items: center; 
             color: var(--text-primary);
-            min-height: 56px;
-            line-height: 1.3;
+            min-height: 75px;
+            line-height: 1.4;
         }
         
         .swim-track { 
             grid-column: 2 / -1; 
             position: relative; 
             border-bottom: 1px solid var(--border-subtle); 
-            min-height: 56px;
+            min-height: 75px;
             background: linear-gradient(90deg, var(--bg-deep) 0%, rgba(14,14,18,0.5) 100%);
         }
         
@@ -155,14 +155,14 @@
         /* Bars */
         .bar {
             position: absolute;
-            height: 28px;
+            height: 30px;
             border-radius: 5px;
-            font-size: 9px;
+            font-size: 12px;
             font-weight: 600;
             color: white;
             display: flex;
             align-items: center;
-            padding: 0 8px;
+            padding: 0 10px;
             cursor: pointer;
             white-space: nowrap;
             overflow: hidden;
@@ -192,7 +192,7 @@
         /* Diamonds */
         .diamond {
             position: absolute;
-            width: 14px; height: 14px;
+            width: 16px; height: 16px;
             border-radius: 3px;
             transform: translate(-50%, -50%) rotate(45deg);
             cursor: pointer;
@@ -203,12 +203,12 @@
         .diamond:hover { transform: translate(-50%, -50%) rotate(45deg) scale(1.25); z-index: 20; }
         .diamond .d-label {
             position: absolute;
-            top: -28px; left: 50%;
+            top: -32px; left: 50%;
             transform: translateX(-50%) rotate(-45deg);
             background: rgba(0,0,0,0.95);
-            padding: 4px 8px;
+            padding: 5px 10px;
             border-radius: 4px;
-            font-size: 9px;
+            font-size: 11px;
             white-space: nowrap;
             opacity: 0;
             pointer-events: none;
@@ -218,6 +218,36 @@
             border: 1px solid rgba(255,255,255,0.1);
         }
         .diamond:hover .d-label { opacity: 1; }
+        
+        /* Stretched Diamond (for short multi-day events) */
+        .diamond-stretched {
+            position: absolute;
+            height: 20px;
+            border-radius: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.15s ease;
+            top: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 600;
+            color: white;
+            padding: 0 8px;
+        }
+        .diamond-stretched:hover { transform: translateY(-50%) scale(1.05); z-index: 20; }
+        .diamond-stretched.diamond-orange { 
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%); 
+            border: 2px solid #fb923c;
+            box-shadow: 0 0 10px rgba(249,115,22,0.5);
+        }
+        .diamond-stretched.diamond-red { 
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); 
+            border: 2px solid #f87171;
+            box-shadow: 0 0 10px rgba(239,68,68,0.5);
+        }
         
         .diamond-orange { 
             background: linear-gradient(135deg, #f97316 0%, #ea580c 100%); 
@@ -469,14 +499,14 @@
                 <div class="swim-label" style="border-left: 3px solid var(--cat-product);">Product<br>Marketing</div>
                 <div class="swim-track" id="track-product">
                     <div class="track-grid"><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div></div>
-                    <!-- KYC Education: Jan 26 - Feb 8 (left: ~14.5%, width: ~4.5%) -->
-                    <div class="bar bar-product" data-id="kyc" style="left: 14.5%; width: 4.8%;">KYC Education</div>
-                    <!-- Solvida Pro: Feb 9 - Feb 22 (left: ~19.5%, width: ~4.5%) -->
-                    <div class="bar bar-product" data-id="pro" style="left: 19.5%; width: 4.8%;">Solvida Pro</div>
-                    <!-- Public Waitlist: Mar 1 - Jun 1 (left: ~22.2%, width: ~33.3%) -->
-                    <div class="bar bar-product" data-id="waitlist" style="left: 22.2%; width: 33.3%;">Public Waitlist</div>
-                    <!-- Platform Gamification: Jun 1 - Jun 30 (left: ~55.5%, width: ~11%) -->
+                    <!-- KYC Education: Jan 26 - Feb 8 -->
+                    <div class="bar bar-product" data-id="kyc" style="left: 14.5%; width: 5%;">KYC Education</div>
+                    <!-- Solvida Pro: Feb 9 - Feb 22 -->
+                    <div class="bar bar-product" data-id="pro" style="left: 19.8%; width: 5%;">Solvida Pro</div>
+                    <!-- Platform Gamification: Jun 1 - Jun 30 (does NOT overlap with waitlist so same row) -->
                     <div class="bar bar-product" data-id="gamify" style="left: 55.5%; width: 11%;">Platform Gamification</div>
+                    <!-- Public Waitlist: Mar 1 - Jun 1 (own row since it overlaps in time) -->
+                    <div class="bar bar-product" data-id="waitlist" style="left: 22.2%; width: 33.3%; top: 75%; transform: translateY(-50%);">Public Waitlist (SignUp Incentive)</div>
                 </div>
             </div>
 
@@ -485,12 +515,12 @@
                 <div class="swim-label" style="border-left: 3px solid var(--cat-social);">Social Media &<br>Community</div>
                 <div class="swim-track" id="track-social">
                     <div class="track-grid"><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div></div>
-                    <!-- Follower Acq: Dec 15 - Jan 3 (left: ~5.5%, width: ~6.5%) -->
-                    <div class="bar bar-social" data-id="follower-acq" style="left: 5.5%; width: 6.5%;">Follower Acquisition (Paid)</div>
-                    <!-- Community Outreach: Dec 15 - Jan 15 (left: ~5.5%, width: ~11%) - overlaps with above -->
-                    <div class="bar bar-social" data-id="community-outreach" style="left: 5.5%; width: 11%; top: 75%; transform: translateY(-50%);">Community Outreach</div>
-                    <!-- #EneroSinCuesta: Jan 1 - Jan 31 (left: ~11.1%, width: ~11.1%) -->
-                    <div class="bar bar-social" data-id="enero" style="left: 11.1%; width: 11.1%; top: 25%; transform: translateY(-50%); border: 2px solid white;">#EneroSinCuesta Campaign</div>
+                    <!-- Follower Acq: Dec 15 - Jan 3 -->
+                    <div class="bar bar-social" data-id="follower-acq" style="left: 5.5%; width: 7%;">Follower Acquisition (Paid)</div>
+                    <!-- Community Outreach: Dec 15 - Jan 15 (overlaps, so on lower row with gap) -->
+                    <div class="bar bar-social" data-id="community-outreach" style="left: 5.5%; width: 11%; top: 78%; transform: translateY(-50%);">Community Outreach</div>
+                    <!-- #EneroSinCuesta: Jan 1 - Jan 31 (top row, starts after Jan 3 so slight overlap, position to not physically touch) -->
+                    <div class="bar bar-social" data-id="enero" style="left: 13%; width: 10%; top: 22%; transform: translateY(-50%); border: 2px solid white;">#EneroSinCuesta</div>
                 </div>
             </div>
 
@@ -501,16 +531,16 @@
                     <div class="track-grid"><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div></div>
                     <!-- Uniswap x ETH Cali: Dec 20 -->
                     <div class="diamond diamond-orange" data-id="uniswap-eth-cali" style="left: 7.3%;"><span class="d-label">Uniswap x ETH Cali · Dec 20</span></div>
-                    <!-- Bitcoin Medellin: Jan 15-16 (bar since 2 days) -->
-                    <div class="bar bar-events" data-id="bitcoin-medellin" style="left: 16.5%; width: 1%;">Bitcoin Medellin</div>
+                    <!-- Bitcoin Medellin: Jan 15-16 (stretched diamond) -->
+                    <div class="diamond-stretched diamond-orange" data-id="bitcoin-medellin" style="left: 16%; width: 5%;">Bitcoin Medellin</div>
                     <!-- ETH Cali: Jan 30 -->
                     <div class="diamond diamond-orange" data-id="eth-cali" style="left: 21%;"><span class="d-label">ETH Cali · Jan 30</span></div>
                     <!-- ETH Bogota: Feb 15 -->
                     <div class="diamond diamond-orange" data-id="eth-bogota" style="left: 27.5%;"><span class="d-label">ETH Bogota · Feb 15</span></div>
                     <!-- ETH Medellin: Mar 15 -->
                     <div class="diamond diamond-orange" data-id="eth-medellin" style="left: 38.5%;"><span class="d-label">ETH Medellin · Mar 15</span></div>
-                    <!-- Consensus Miami: May 5-7 -->
-                    <div class="bar bar-events" data-id="consensus-miami" style="left: 57%; width: 1%;">Consensus Miami</div>
+                    <!-- Consensus Miami: May 5-7 (stretched diamond) -->
+                    <div class="diamond-stretched diamond-orange" data-id="consensus-miami" style="left: 56%; width: 6%;">Consensus Miami</div>
                     <!-- Crypto Latin Fest: Aug 15 -->
                     <div class="diamond diamond-orange" data-id="crypto-latin-fest" style="left: 94%;"><span class="d-label">Crypto Latin Fest · Aug 15</span></div>
                 </div>
@@ -564,20 +594,20 @@
                     <div class="diamond diamond-cyan" data-id="blog-live" style="left: 10.5%;"><span class="d-label">Solvida Blog Live · Dec 29</span></div>
                     <!-- Markets: Jan 15 -->
                     <div class="diamond diamond-cyan" data-id="markets-page" style="left: 16.5%;"><span class="d-label">Markets · Jan 15</span></div>
+                    <!-- Telegram: Feb 1 (same day as Customer Service, stack) -->
+                    <div class="diamond diamond-cyan" data-id="telegram" style="left: 22.2%; top: 30%; transform: translate(-50%, -50%) rotate(45deg);"><span class="d-label">Telegram · Feb 1</span></div>
                     <!-- Customer Service Bot: Feb 1 -->
-                    <div class="diamond diamond-cyan" data-id="customer-service" style="left: 22.2%;"><span class="d-label">Customer Service Bot · Feb 1</span></div>
+                    <div class="diamond diamond-cyan" data-id="customer-service" style="left: 22.2%; top: 70%; transform: translate(-50%, -50%) rotate(45deg);"><span class="d-label">Customer Service Bot · Feb 1</span></div>
                     <!-- Pro & Lite Lander: Feb 15 -->
                     <div class="diamond diamond-cyan" data-id="pro-lander" style="left: 27.5%;"><span class="d-label">Pro & Lite Lander · Feb 15</span></div>
-                    <!-- Telegram: Feb 1 -->
-                    <div class="diamond diamond-cyan" data-id="telegram" style="left: 22.2%; top: 25%; transform: translate(-50%, -50%) rotate(45deg);"><span class="d-label">Telegram · Feb 1</span></div>
                     <!-- Discord: Mar 1 -->
                     <div class="diamond diamond-cyan" data-id="discord" style="left: 33.3%;"><span class="d-label">Discord · Mar 1</span></div>
                     <!-- Whatsapp: Apr 1 -->
                     <div class="diamond diamond-cyan" data-id="whatsapp" style="left: 44.4%;"><span class="d-label">Whatsapp · Apr 1</span></div>
-                    <!-- Instagram: May 1 -->
-                    <div class="diamond diamond-cyan" data-id="instagram" style="left: 55.5%;"><span class="d-label">Instagram · May 1</span></div>
+                    <!-- Instagram: May 1 (same day as TikTok, stack) -->
+                    <div class="diamond diamond-cyan" data-id="instagram" style="left: 55.5%; top: 30%; transform: translate(-50%, -50%) rotate(45deg);"><span class="d-label">Instagram · May 1</span></div>
                     <!-- TikTok: May 1 -->
-                    <div class="diamond diamond-cyan" data-id="tiktok" style="left: 55.5%; top: 75%; transform: translate(-50%, -50%) rotate(45deg);"><span class="d-label">TikTok · May 1</span></div>
+                    <div class="diamond diamond-cyan" data-id="tiktok" style="left: 55.5%; top: 70%; transform: translate(-50%, -50%) rotate(45deg);"><span class="d-label">TikTok · May 1</span></div>
                 </div>
             </div>
 
@@ -586,12 +616,12 @@
                 <div class="swim-label" style="border-left: 3px solid var(--cat-culture);">Cultural<br>Moments</div>
                 <div class="swim-track" id="track-culture" style="border-bottom: none;">
                     <div class="track-grid"><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div></div>
-                    <!-- Semana Santa: Apr 2-3 -->
-                    <div class="bar bar-culture" data-id="semana-santa" style="left: 44.8%; width: 1%;">Semana Santa</div>
+                    <!-- Semana Santa: Apr 2-3 (stretched diamond) -->
+                    <div class="diamond-stretched diamond-red" data-id="semana-santa" style="left: 44.5%; width: 5%;">Semana Santa</div>
                     <!-- Día del Trabajo: May 1 -->
                     <div class="diamond diamond-red" data-id="dia-trabajo" style="left: 55.5%;"><span class="d-label">Día del Trabajo · May 1</span></div>
                     <!-- FIFA World Cup: Jun 11 - Jul 14 -->
-                    <div class="bar bar-culture" data-id="fifa-world-cup" style="left: 59.5%; width: 18.5%;">FIFA World Cup</div>
+                    <div class="bar bar-culture" data-id="fifa-world-cup" style="left: 59%; width: 19%;">FIFA World Cup</div>
                     <!-- Día de la Independencia: Jul 20 -->
                     <div class="diamond diamond-red" data-id="independencia" style="left: 80%;"><span class="d-label">Día de la Independencia · Jul 20</span></div>
                     <!-- Batalla de Boyacá: Aug 7 -->
