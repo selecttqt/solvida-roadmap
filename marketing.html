@@ -41,6 +41,44 @@
             line-height: 1.6;
             min-height: 100vh;
         }
+        body.locked .container { filter: blur(10px); pointer-events: none; }
+        body:not(.locked) #loginOverlay { display: none; }
+
+        /* Login Modal */
+        #loginOverlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(5, 5, 7, 0.95);
+            z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
+            backdrop-filter: blur(15px);
+        }
+        .login-box {
+            background: var(--bg-panel);
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 0 50px rgba(99, 102, 241, 0.2);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+        .login-box h2 { margin-bottom: 20px; font-size: 24px; }
+        .login-box input {
+            width: 100%; padding: 12px; margin-bottom: 20px;
+            background: var(--bg-deep); border: 1px solid var(--border-subtle);
+            color: var(--text-primary); border-radius: 8px;
+            font-size: 16px; text-align: center;
+        }
+        .login-box button {
+            width: 100%; padding: 12px;
+            background: var(--brand-primary); color: white;
+            border: none; border-radius: 8px;
+            font-weight: 700; cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .login-box button:hover { transform: translateY(-2px); box-shadow: 0 5px 15px var(--brand-glow); }
+        .login-error { color: #ef4444; font-size: 13px; margin-top: 10px; display: none; }
         
         body::before { 
             content: ""; 
@@ -622,16 +660,28 @@
         }
     </style>
 </head>
-<body class="">
+<body class="locked">
+
+<!-- Login Overlay -->
+<div id="loginOverlay">
+    <div class="login-box">
+        <h2>🔒 Restricted Access</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 20px;">Please enter the password to view the Solvida Marketing Calendar.</p>
+        <input type="password" id="passwordInput" placeholder="Enter Password" onkeypress="if(event.key==='Enter')checkPassword()">
+        <button onclick="checkPassword()">Unlock</button>
+        <p class="login-error" id="loginError">Incorrect password.</p>
+    </div>
+</div>
 
 <!-- Settings Modal -->
 <div class="modal-overlay" id="settingsModal">
     <div class="modal">
         <h3>⚙ GitHub Settings</h3>
-        <div class="form-group"><label>GitHub Username</label><input type="text" id="ghUsername" placeholder="username"></div>
-        <div class="form-group"><label>Repository Name</label><input type="text" id="ghRepo" placeholder="repo-name"></div>
+        <div class="form-group"><label>GitHub Username</label><input type="text" id="ghUsername" value="selecttqt" readonly style="opacity: 0.6; cursor: not-allowed;"></div>
+        <div class="form-group"><label>Repository Name</label><input type="text" id="ghRepo" value="solvida-roadmap" readonly style="opacity: 0.6; cursor: not-allowed;"></div>
         <div class="form-group"><label>Personal Access Token (repo scope)</label><input type="password" id="ghToken" placeholder="ghp_..."></div>
-        <div class="form-group"><label>File Path</label><input type="text" id="ghPath" value="marketing.html"></div>
+        <div class="form-group"><label>File Path</label><input type="text" id="ghPath" value="marketing.html" readonly style="opacity: 0.6; cursor: not-allowed;"></div>
+        <p style="color: var(--text-secondary); font-size: 11px; margin-top: 10px;">Token is saved to your browser and shared across all Solvida pages.</p>
         <div class="modal-actions">
             <button class="btn" onclick="closeModal('settingsModal')">Cancel</button>
             <button class="btn primary" onclick="saveSettings()">Save</button>
@@ -942,6 +992,26 @@ Task 3"></textarea></div>
 </div>
 
 <script>
+    // --- PASSWORD PROTECTION ---
+    function checkPassword() {
+        const input = document.getElementById('passwordInput');
+        const error = document.getElementById('loginError');
+        if (input.value === 'Ayce@123') {
+            document.body.classList.remove('locked');
+            document.getElementById('loginOverlay').style.display = 'none';
+            sessionStorage.setItem('solvida_auth', 'true');
+        } else {
+            error.style.display = 'block';
+            input.value = '';
+        }
+    }
+
+    // Check session on load
+    if (sessionStorage.getItem('solvida_auth') === 'true') {
+        document.body.classList.remove('locked');
+        document.getElementById('loginOverlay').style.display = 'none';
+    }
+
     // Data Store
     const campaignData = {
         'kyc': { title: 'KYC Education Campaign', date: 'Jan 26 - Feb 8', start: '2026-01-26', end: '2026-02-08', tasks: ['Video tutorials for COP deposit process', 'Blog post series on asset protection', 'Email sequence for unverified users', 'In-app tooltips and guided onboarding', 'FAQ section expansion'], impact: 'Increase verification conversion by 15%. Reduce support tickets by 30%. Build trust through transparency.' },
@@ -1512,25 +1582,25 @@ Task 3"></textarea></div>
         setTimeout(() => toast.classList.remove('show'), 3000);
     }
 
-    // Settings
+    // Settings - Using shared token storage across all pages
+    const GITHUB_CONFIG = {
+        user: 'selecttqt',
+        repo: 'solvida-roadmap',
+        path: 'marketing.html'  // Page-specific
+    };
+
     function loadSettings() {
-        const config = JSON.parse(localStorage.getItem('solvida_gh_mkt_config') || '{}');
-        document.getElementById('ghUsername').value = config.user || '';
-        document.getElementById('ghRepo').value = config.repo || '';
-        document.getElementById('ghToken').value = config.token || '';
-        document.getElementById('ghPath').value = config.path || 'marketing.html';
+        // Load shared token from localStorage
+        const token = localStorage.getItem('solvida_gh_token') || '';
+        document.getElementById('ghToken').value = token;
     }
 
     function saveSettings() {
-        const config = {
-            user: document.getElementById('ghUsername').value,
-            repo: document.getElementById('ghRepo').value,
-            token: document.getElementById('ghToken').value,
-            path: document.getElementById('ghPath').value
-        };
-        localStorage.setItem('solvida_gh_mkt_config', JSON.stringify(config));
+        // Save token to shared localStorage key (works across all pages)
+        const token = document.getElementById('ghToken').value;
+        localStorage.setItem('solvida_gh_token', token);
         closeModal('settingsModal');
-        showToast('Settings saved');
+        showToast('Token saved - works across all Solvida pages');
     }
 
     async function publishToGitHub() {
@@ -1542,12 +1612,14 @@ Task 3"></textarea></div>
             if (strategyEditModes[key]) toggleStrategyEdit(key);
         });
         
-        const config = JSON.parse(localStorage.getItem('solvida_gh_mkt_config') || '{}');
-        if (!config.token) { 
-            alert('Please configure GitHub settings first.'); 
+        // Use shared token with hardcoded config
+        const token = localStorage.getItem('solvida_gh_token');
+        if (!token) { 
+            alert('Please enter your GitHub token in settings first.'); 
             openModal('settingsModal'); 
             return; 
         }
+        const config = { ...GITHUB_CONFIG, token };
         
         const btn = document.getElementById('publishBtn');
         btn.textContent = 'Publishing...';

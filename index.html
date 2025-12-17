@@ -301,11 +301,11 @@
             <h3>GitHub Configuration</h3>
             <div class="form-group">
                 <label>GitHub Username</label>
-                <input type="text" id="ghUsername" placeholder="e.g. jdoe">
+                <input type="text" id="ghUsername" value="selecttqt" readonly style="opacity: 0.6; cursor: not-allowed;">
             </div>
             <div class="form-group">
                 <label>Repository Name</label>
-                <input type="text" id="ghRepo" placeholder="e.g. solvida-roadmap">
+                <input type="text" id="ghRepo" value="solvida-roadmap" readonly style="opacity: 0.6; cursor: not-allowed;">
             </div>
             <div class="form-group">
                 <label>Personal Access Token (PAT) <br><small>Must have 'repo' scope</small></label>
@@ -313,8 +313,9 @@
             </div>
             <div class="form-group">
                 <label>File Path</label>
-                <input type="text" id="ghPath" value="index.html">
+                <input type="text" id="ghPath" value="index.html" readonly style="opacity: 0.6; cursor: not-allowed;">
             </div>
+            <p style="color: var(--text-secondary); font-size: 11px; margin-top: 10px;">Token is saved to your browser and shared across all Solvida pages.</p>
             <div class="modal-actions">
                 <button class="github-btn" onclick="closeSettings()">Cancel</button>
                 <button class="github-btn primary" onclick="saveSettings()">Save Configuration</button>
@@ -997,28 +998,31 @@
         function openSettings() { document.getElementById('settingsModal').style.display = 'flex'; }
         function closeSettings() { document.getElementById('settingsModal').style.display = 'none'; }
 
+        // Shared GitHub config - token stored separately for cross-page access
+        const GITHUB_CONFIG = {
+            user: 'selecttqt',
+            repo: 'solvida-roadmap',
+            path: 'index.html'  // Page-specific
+        };
+
         function saveSettings() {
-            const config = {
-                user: document.getElementById('ghUsername').value,
-                repo: document.getElementById('ghRepo').value,
-                token: document.getElementById('ghToken').value,
-                path: document.getElementById('ghPath').value || 'index.html'
-            };
-            localStorage.setItem('solvida_gh_config', JSON.stringify(config));
+            // Save token to shared localStorage key (works across all pages)
+            const token = document.getElementById('ghToken').value;
+            localStorage.setItem('solvida_gh_token', token);
             closeSettings();
-            showToast('Configuration saved!', 'success');
+            showToast('Token saved - works across all Solvida pages', 'success');
         }
 
         async function publishToGitHub() {
             if (editMode) toggleEdit(); // Ensure we are in clean mode
 
-            const configStr = localStorage.getItem('solvida_gh_config');
-            if (!configStr) {
-                alert("Please configure GitHub settings first.");
+            const token = localStorage.getItem('solvida_gh_token');
+            if (!token) {
+                alert("Please enter your GitHub token in settings first.");
                 openSettings();
                 return;
             }
-            const config = JSON.parse(configStr);
+            const config = { ...GITHUB_CONFIG, token };
             const btn = document.getElementById('publishBtn');
             const originalText = btn.innerHTML;
             btn.innerHTML = "Publishing...";
@@ -1091,15 +1095,14 @@
         function loadFromLocal() {
             const savedTimeline = localStorage.getItem('solvida_timeline_v5');
             const savedGantt = localStorage.getItem('solvida_gantt_v5');
-            const savedConfig = localStorage.getItem('solvida_gh_config');
 
             if (savedTimeline) document.querySelector('.timeline-wrapper').innerHTML = savedTimeline;
             if (savedGantt) document.querySelector('.gantt-scroller').innerHTML = savedGantt;
-            if (savedConfig) {
-                const conf = JSON.parse(savedConfig);
-                document.getElementById('ghUsername').value = conf.user;
-                document.getElementById('ghRepo').value = conf.repo;
-                document.getElementById('ghToken').value = conf.token;
+            
+            // Load shared token
+            const savedToken = localStorage.getItem('solvida_gh_token');
+            if (savedToken) {
+                document.getElementById('ghToken').value = savedToken;
             }
             initializeDragDrop();
         }
