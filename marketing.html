@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solvida Marketing | Calendar</title>
+    <title>Solvida Marketing Calendar</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -23,9 +23,6 @@
             --accent-green: #10b981;
             --accent-orange: #f97316;
             --grid-color: rgba(255, 255, 255, 0.05);
-            --shadow-card: 0 10px 30px -10px rgba(0,0,0,0.5);
-            
-            /* Category Colors */
             --cat-product: #d946ef;
             --cat-social: #3b82f6;
             --cat-events: #f97316;
@@ -42,544 +39,563 @@
             background-color: var(--bg-deep); 
             color: var(--text-primary); 
             font-size: 14px; 
-            padding-bottom: 100px;
             line-height: 1.6;
+            min-height: 100vh;
         }
         
-        /* Grid Background like index.html */
         body::before { 
             content: ""; 
             position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
+            top: 0; left: 0; 
+            width: 100%; height: 100%; 
             background-image: linear-gradient(var(--grid-color) 1px, transparent 1px), linear-gradient(90deg, var(--grid-color) 1px, transparent 1px); 
             background-size: 40px 40px; 
             z-index: -1; 
             pointer-events: none; 
         }
         
-        .container { width: 95%; max-width: 1900px; margin: 0 auto; padding: 30px 20px; }
+        .container { 
+            width: 100%; 
+            max-width: 1920px; 
+            margin: 0 auto; 
+            padding: 20px; 
+        }
 
         /* Header */
         .header { 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            margin-bottom: 40px; 
-            padding: 20px 30px;
+            margin-bottom: 25px; 
+            padding: 15px 25px;
             background: var(--bg-panel);
             border: 1px solid var(--border-subtle);
-            border-radius: 12px;
+            border-radius: 10px;
         }
-        .brand { display: flex; align-items: center; gap: 20px; }
-        .logo { font-size: 24px; font-weight: 800; color: var(--text-primary); display: flex; align-items: center; gap: 8px; }
+        .brand { display: flex; align-items: center; gap: 15px; }
+        .logo { font-size: 20px; font-weight: 800; color: var(--text-primary); display: flex; align-items: center; gap: 8px; }
         .logo-icon { color: var(--brand-primary); }
-        .nav-divider { color: var(--text-tertiary); }
-        .nav-tabs { display: flex; gap: 5px; background: rgba(255,255,255,0.03); padding: 4px; border-radius: 8px; }
+        .nav-tabs { display: flex; gap: 4px; background: rgba(255,255,255,0.03); padding: 3px; border-radius: 6px; }
         .nav-tab { 
-            text-decoration: none; 
-            color: var(--text-secondary); 
-            padding: 10px 20px; 
-            border-radius: 6px; 
-            font-size: 12px; 
-            font-weight: 600; 
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            text-decoration: none; color: var(--text-secondary); 
+            padding: 8px 16px; border-radius: 5px; 
+            font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
             transition: all 0.2s;
         }
         .nav-tab:hover { background: rgba(255,255,255,0.05); color: var(--text-primary); }
         .nav-tab.active { background: var(--brand-primary); color: white; }
-
-        /* Page Title */
-        .page-title { 
-            font-size: 28px; 
-            font-weight: 800; 
-            margin-bottom: 30px;
-            color: var(--text-primary);
+        .header-controls { display: flex; gap: 8px; align-items: center; }
+        .btn { 
+            background: var(--bg-panel); border: 1px solid var(--border-subtle); 
+            color: var(--text-primary); padding: 8px 14px; border-radius: 6px; 
+            cursor: pointer; font-size: 11px; font-weight: 600; 
+            font-family: 'Montserrat', sans-serif; transition: all 0.2s; 
         }
+        .btn:hover { border-color: var(--brand-primary); }
+        .btn.primary { background: var(--brand-primary); border-color: var(--brand-primary); color: white; }
+        .btn.edit-active { background: rgba(234, 179, 8, 0.15); border-color: #eab308; color: #eab308; }
+        .btn.add-btn { background: rgba(16, 185, 129, 0.15); border-color: var(--accent-green); color: var(--accent-green); }
 
-        /* Calendar Wrapper */
+        .page-title { font-size: 24px; font-weight: 800; margin-bottom: 20px; }
+
+        /* Calendar */
         .calendar-wrapper { 
             background: var(--bg-panel); 
             border: 1px solid var(--border-subtle); 
-            border-radius: 16px; 
+            border-radius: 12px; 
             overflow: hidden;
-            box-shadow: var(--shadow-card);
         }
-        
-        .calendar-scroll { overflow-x: auto; }
         
         .calendar-grid { 
             display: grid; 
-            grid-template-columns: 180px repeat(8, 1fr);
-            min-width: 1600px;
+            grid-template-columns: 140px repeat(9, 1fr);
         }
         
-        /* Calendar Headers */
         .cal-header { 
-            padding: 16px 12px; 
+            padding: 12px 8px; 
             background: var(--bg-sticky); 
             border-bottom: 1px solid var(--border-subtle); 
             border-right: 1px solid var(--border-subtle); 
             text-align: center; 
-            font-weight: 700; 
-            font-size: 12px; 
-            text-transform: uppercase; 
-            color: var(--text-secondary);
-            letter-spacing: 0.05em;
+            font-weight: 700; font-size: 10px; text-transform: uppercase; 
+            color: var(--text-secondary); letter-spacing: 0.05em;
         }
-        .cal-header:first-child { 
-            text-align: left; 
-            padding-left: 20px; 
-            position: sticky; 
-            left: 0; 
-            z-index: 30; 
-            background: var(--bg-sticky);
-        }
+        .cal-header:first-child { text-align: left; padding-left: 15px; }
         
-        /* Swimlanes */
         .swimlane { display: contents; }
         
         .swim-label { 
-            padding: 0 20px; 
+            padding: 0 12px; 
             background: var(--bg-panel); 
             border-right: 1px solid var(--border-subtle); 
             border-bottom: 1px solid var(--border-subtle); 
-            font-weight: 700; 
-            font-size: 11px; 
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            display: flex; 
-            align-items: center; 
-            position: sticky; 
-            left: 0; 
-            z-index: 20;
+            font-weight: 700; font-size: 10px; text-transform: uppercase; letter-spacing: 0.03em;
+            display: flex; align-items: center; 
             color: var(--text-primary);
-            min-height: 80px;
+            min-height: 56px;
+            line-height: 1.3;
         }
         
         .swim-track { 
             grid-column: 2 / -1; 
             position: relative; 
             border-bottom: 1px solid var(--border-subtle); 
-            min-height: 80px;
+            min-height: 56px;
             background: linear-gradient(90deg, var(--bg-deep) 0%, rgba(14,14,18,0.5) 100%);
         }
         
-        /* Column Grid Lines */
         .track-grid { 
-            display: grid; 
-            grid-template-columns: repeat(8, 1fr); 
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
+            display: grid; grid-template-columns: repeat(9, 1fr); 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
             pointer-events: none; 
         }
-        .track-col { 
-            border-right: 1px solid rgba(255,255,255,0.04); 
-            height: 100%; 
-        }
+        .track-col { border-right: 1px solid rgba(255,255,255,0.03); height: 100%; }
         .track-col:last-child { border-right: none; }
 
-        /* Campaign Bars */
+        /* Bars */
         .bar {
             position: absolute;
-            height: 32px;
-            border-radius: 6px;
-            font-size: 11px;
+            height: 28px;
+            border-radius: 5px;
+            font-size: 9px;
             font-weight: 600;
             color: white;
             display: flex;
             align-items: center;
-            padding: 0 12px;
+            padding: 0 8px;
             cursor: pointer;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             z-index: 5;
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            transition: all 0.15s ease;
+            top: 50%;
+            transform: translateY(-50%);
         }
-        .bar:hover { 
-            transform: translateY(-2px); 
-            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-            z-index: 15;
-        }
+        .bar:hover { transform: translateY(-50%) scale(1.02); z-index: 15; filter: brightness(1.1); }
         .bar::after { 
-            content: ''; 
-            position: absolute; 
-            top: 0; 
-            left: -100%; 
-            width: 50%; 
-            height: 100%; 
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); 
-            transform: skewX(-20deg); 
-            animation: shimmer 3s infinite; 
+            content: ''; position: absolute; top: 0; left: -100%; 
+            width: 50%; height: 100%; 
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent); 
+            transform: skewX(-20deg); animation: shimmer 4s infinite; 
         }
         @keyframes shimmer { 100% { left: 200%; } }
         
-        /* Bar Categories */
-        .bar-product { background: linear-gradient(135deg, #d946ef 0%, #a855f7 100%); border: 1px solid rgba(217,70,239,0.5); }
-        .bar-social { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); border: 1px solid rgba(59,130,246,0.5); }
-        .bar-uni { background: linear-gradient(135deg, #10b981 0%, #059669 100%); border: 1px solid rgba(16,185,129,0.5); }
-        .bar-influencer { background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%); border: 1px solid rgba(234,179,8,0.5); }
-        .bar-culture { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); border: 1px solid rgba(239,68,68,0.5); }
-        .bar-web { background: linear-gradient(135deg, #22d3ee 0%, #0891b2 100%); border: 1px solid rgba(34,211,238,0.5); color: #000; }
+        .bar-product { background: linear-gradient(135deg, #d946ef 0%, #a855f7 100%); border: 1px solid rgba(217,70,239,0.4); }
+        .bar-social { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); border: 1px solid rgba(59,130,246,0.4); }
+        .bar-uni { background: linear-gradient(135deg, #10b981 0%, #059669 100%); border: 1px solid rgba(16,185,129,0.4); }
+        .bar-influencer { background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%); border: 1px solid rgba(234,179,8,0.4); }
+        .bar-culture { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); border: 1px solid rgba(239,68,68,0.4); }
+        .bar-web { background: linear-gradient(135deg, #22d3ee 0%, #0891b2 100%); border: 1px solid rgba(34,211,238,0.4); color: #000; }
+        .bar-events { background: linear-gradient(135deg, #f97316 0%, #ea580c 100%); border: 1px solid rgba(249,115,22,0.4); }
 
-        /* Diamond Milestones - with gradient and glow */
+        /* Diamonds */
         .diamond {
             position: absolute;
-            width: 18px;
-            height: 18px;
-            border-radius: 4px;
+            width: 14px; height: 14px;
+            border-radius: 3px;
             transform: translate(-50%, -50%) rotate(45deg);
             cursor: pointer;
             z-index: 10;
-            transition: all 0.2s ease;
+            transition: all 0.15s ease;
+            top: 50%;
         }
-        .diamond:hover {
-            transform: translate(-50%, -50%) rotate(45deg) scale(1.3);
-            z-index: 20;
-        }
-        .diamond .diamond-label {
+        .diamond:hover { transform: translate(-50%, -50%) rotate(45deg) scale(1.25); z-index: 20; }
+        .diamond .d-label {
             position: absolute;
-            top: -32px;
-            left: 50%;
+            top: -28px; left: 50%;
             transform: translateX(-50%) rotate(-45deg);
             background: rgba(0,0,0,0.95);
-            padding: 5px 10px;
-            border-radius: 6px;
-            font-size: 10px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 9px;
             white-space: nowrap;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.2s;
+            transition: opacity 0.15s;
             color: white;
             font-weight: 600;
             border: 1px solid rgba(255,255,255,0.1);
         }
-        .diamond:hover .diamond-label { opacity: 1; }
+        .diamond:hover .d-label { opacity: 1; }
         
-        /* Diamond Colors with gradient and glow */
         .diamond-orange { 
             background: linear-gradient(135deg, #f97316 0%, #ea580c 100%); 
             border: 2px solid #fb923c;
-            box-shadow: 0 0 12px rgba(249,115,22,0.6), inset 0 0 6px rgba(255,255,255,0.2);
+            box-shadow: 0 0 10px rgba(249,115,22,0.5), inset 0 0 4px rgba(255,255,255,0.2);
         }
-        .diamond-orange:hover { box-shadow: 0 0 20px rgba(249,115,22,0.8), inset 0 0 8px rgba(255,255,255,0.3); }
+        .diamond-orange:hover { box-shadow: 0 0 16px rgba(249,115,22,0.7); }
         
         .diamond-green { 
             background: linear-gradient(135deg, #10b981 0%, #059669 100%); 
             border: 2px solid #34d399;
-            box-shadow: 0 0 12px rgba(16,185,129,0.6), inset 0 0 6px rgba(255,255,255,0.2);
+            box-shadow: 0 0 10px rgba(16,185,129,0.5), inset 0 0 4px rgba(255,255,255,0.2);
         }
-        .diamond-green:hover { box-shadow: 0 0 20px rgba(16,185,129,0.8), inset 0 0 8px rgba(255,255,255,0.3); }
+        .diamond-green:hover { box-shadow: 0 0 16px rgba(16,185,129,0.7); }
         
         .diamond-yellow { 
             background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%); 
             border: 2px solid #fbbf24;
-            box-shadow: 0 0 12px rgba(234,179,8,0.6), inset 0 0 6px rgba(255,255,255,0.2);
+            box-shadow: 0 0 10px rgba(234,179,8,0.5), inset 0 0 4px rgba(255,255,255,0.2);
         }
-        .diamond-yellow:hover { box-shadow: 0 0 20px rgba(234,179,8,0.8), inset 0 0 8px rgba(255,255,255,0.3); }
+        .diamond-yellow:hover { box-shadow: 0 0 16px rgba(234,179,8,0.7); }
         
         .diamond-cyan { 
             background: linear-gradient(135deg, #22d3ee 0%, #0891b2 100%); 
             border: 2px solid #67e8f9;
-            box-shadow: 0 0 12px rgba(34,211,238,0.6), inset 0 0 6px rgba(255,255,255,0.2);
+            box-shadow: 0 0 10px rgba(34,211,238,0.5), inset 0 0 4px rgba(255,255,255,0.2);
         }
-        .diamond-cyan:hover { box-shadow: 0 0 20px rgba(34,211,238,0.8), inset 0 0 8px rgba(255,255,255,0.3); }
+        .diamond-cyan:hover { box-shadow: 0 0 16px rgba(34,211,238,0.7); }
         
         .diamond-red { 
             background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); 
             border: 2px solid #f87171;
-            box-shadow: 0 0 12px rgba(239,68,68,0.6), inset 0 0 6px rgba(255,255,255,0.2);
+            box-shadow: 0 0 10px rgba(239,68,68,0.5), inset 0 0 4px rgba(255,255,255,0.2);
         }
-        .diamond-red:hover { box-shadow: 0 0 20px rgba(239,68,68,0.8), inset 0 0 8px rgba(255,255,255,0.3); }
+        .diamond-red:hover { box-shadow: 0 0 16px rgba(239,68,68,0.7); }
+
+        /* Edit mode for calendar items */
+        body.edit-mode .bar, body.edit-mode .diamond { cursor: move; }
+        body.edit-mode .bar.selected, body.edit-mode .diamond.selected {
+            outline: 2px dashed #eab308;
+            outline-offset: 2px;
+        }
+        body.edit-mode .bar .resize-handle {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 8px;
+            height: 100%;
+            cursor: ew-resize;
+            background: rgba(255,255,255,0.3);
+            border-radius: 0 5px 5px 0;
+        }
 
         /* Details Pane */
         .details-pane { 
             background: var(--bg-panel); 
             border: 1px solid var(--border-subtle); 
-            border-radius: 16px; 
-            margin-top: 30px; 
+            border-radius: 12px; 
+            margin-top: 20px; 
             display: none; 
-            animation: slideUp 0.3s;
+            animation: slideUp 0.25s;
             overflow: hidden;
-            box-shadow: var(--shadow-card);
         }
         .details-pane.active { display: block; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         
         .pane-header { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center;
-            padding: 25px 30px;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 25px;
             border-bottom: 1px solid var(--border-subtle); 
             background: rgba(255,255,255,0.02);
         }
-        .pane-title { font-size: 22px; font-weight: 700; color: var(--text-primary); }
-        .pane-meta { color: var(--text-secondary); font-size: 13px; }
+        .pane-title-wrap { flex: 1; }
+        .pane-title { font-size: 20px; font-weight: 700; color: var(--text-primary); }
+        .pane-meta { color: var(--text-secondary); font-size: 12px; margin-top: 4px; }
+        .pane-edit-btn { margin-left: 15px; }
         
-        .pane-content { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 0;
-        }
+        .pane-content { display: grid; grid-template-columns: 1fr 1fr; }
         
-        .pane-left {
-            padding: 30px;
-            border-right: 1px solid var(--border-subtle);
-        }
-        
-        .pane-right {
-            padding: 30px;
-            background: rgba(16, 185, 129, 0.03);
-        }
+        .pane-left { padding: 25px; border-right: 1px solid var(--border-subtle); }
+        .pane-right { padding: 25px; background: rgba(16, 185, 129, 0.03); }
         
         .section-label { 
             color: var(--text-secondary); 
-            font-size: 11px; 
-            text-transform: uppercase; 
-            letter-spacing: 0.1em; 
-            font-weight: 700; 
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 15px;
-        }
-        
-        .edit-section-btn {
-            background: transparent;
-            border: 1px solid var(--border-subtle);
-            color: var(--text-secondary);
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 10px;
-            cursor: pointer;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-        .edit-section-btn:hover {
-            border-color: var(--brand-primary);
-            color: var(--brand-primary);
+            font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; 
+            margin-bottom: 12px;
         }
         
         .deliverables-list { list-style: none; }
         .deliverables-list li { 
-            margin-bottom: 12px; 
-            padding-left: 20px; 
-            position: relative; 
-            color: var(--text-primary); 
-            font-size: 14px; 
-            line-height: 1.6; 
+            margin-bottom: 10px; padding-left: 16px; position: relative; 
+            color: var(--text-primary); font-size: 13px; line-height: 1.5; 
         }
-        .deliverables-list li::before { 
-            content: "▹"; 
-            position: absolute; 
-            left: 0; 
-            color: var(--brand-primary); 
-            font-size: 14px; 
-        }
+        .deliverables-list li::before { content: "▹"; position: absolute; left: 0; color: var(--brand-primary); font-size: 12px; }
         
-        .impact-title { 
-            color: var(--accent-green); 
-            font-size: 11px; 
-            text-transform: uppercase; 
-            font-weight: 700; 
-            letter-spacing: 0.1em; 
-            margin-bottom: 15px; 
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .impact-text { 
-            font-size: 14px; 
-            color: var(--text-secondary); 
-            line-height: 1.8; 
-        }
+        .impact-title { color: var(--accent-green); font-size: 10px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.1em; margin-bottom: 12px; }
+        .impact-text { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
 
-        /* Modal & Toast */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
-        .modal { background: var(--bg-panel); padding: 30px; border-radius: 16px; border: 1px solid var(--border-subtle); width: 400px; max-width: 90%; }
-        .modal h3 { margin-bottom: 20px; font-size: 18px; }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; font-size: 12px; color: var(--text-secondary); margin-bottom: 5px; }
-        .form-group input { width: 100%; padding: 10px; background: var(--bg-deep); border: 1px solid var(--border-subtle); color: var(--text-primary); border-radius: 6px; font-family: 'Montserrat', sans-serif; }
-        .btn { background: var(--bg-panel); border: 1px solid var(--border-subtle); color: var(--text-primary); padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; font-family: 'Montserrat', sans-serif; transition: all 0.2s; }
-        .btn:hover { border-color: var(--brand-primary); }
-        .btn.primary { background: var(--brand-primary); border-color: var(--brand-primary); color: white; }
-        .toast { position: fixed; bottom: 30px; right: 30px; background: var(--bg-panel); border: 1px solid var(--brand-primary); color: var(--text-primary); padding: 15px 25px; border-radius: 8px; transform: translateY(100px); opacity: 0; transition: all 0.3s; z-index: 2000; }
-        .toast.show { transform: translateY(0); opacity: 1; }
-        
-        /* Edit Mode */
-        body.edit-mode [contenteditable="true"] { 
-            border: 1px dashed var(--border-edit); 
-            background: rgba(234, 179, 8, 0.05); 
-            outline: none; 
-            padding: 4px;
+        /* Editable states */
+        .editable-active { 
+            border: 1px dashed var(--border-edit) !important; 
+            background: rgba(234, 179, 8, 0.05) !important; 
+            padding: 8px !important;
             border-radius: 4px;
         }
-        
-        /* Header Controls */
-        .header-controls { display: flex; gap: 10px; align-items: center; }
+
+        /* Add Item Modal */
+        .modal-overlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.85); z-index: 1000; 
+            display: none; justify-content: center; align-items: center; 
+            backdrop-filter: blur(5px); 
+        }
+        .modal { 
+            background: var(--bg-panel); padding: 25px; border-radius: 12px; 
+            border: 1px solid var(--border-subtle); width: 400px; max-width: 90%; 
+        }
+        .modal h3 { margin-bottom: 20px; font-size: 16px; }
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; font-size: 11px; color: var(--text-secondary); margin-bottom: 4px; }
+        .form-group input, .form-group select, .form-group textarea { 
+            width: 100%; padding: 8px; background: var(--bg-deep); 
+            border: 1px solid var(--border-subtle); color: var(--text-primary); 
+            border-radius: 5px; font-family: 'Montserrat', sans-serif; font-size: 12px;
+        }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+        .form-row { display: flex; gap: 10px; }
+        .form-row .form-group { flex: 1; }
+        .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 15px; }
+
+        /* Toast */
+        .toast { 
+            position: fixed; bottom: 25px; right: 25px; 
+            background: var(--bg-panel); border: 1px solid var(--brand-primary); 
+            color: var(--text-primary); padding: 12px 20px; border-radius: 8px; 
+            transform: translateY(100px); opacity: 0; transition: all 0.3s; z-index: 2000; 
+            font-size: 12px; font-weight: 600;
+        }
+        .toast.show { transform: translateY(0); opacity: 1; }
+        .toast.warning { border-color: #eab308; background: rgba(234, 179, 8, 0.1); }
+
+        /* Unsaved indicator */
+        .unsaved-indicator {
+            display: none;
+            background: rgba(234, 179, 8, 0.15);
+            color: #eab308;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+        .unsaved-indicator.show { display: inline-block; }
     </style>
 </head>
 <body>
 
+<!-- Settings Modal -->
 <div class="modal-overlay" id="settingsModal">
     <div class="modal">
-        <h3>GitHub Configuration</h3>
-        <div class="form-group"><label>Username</label><input type="text" id="ghUsername"></div>
-        <div class="form-group"><label>Repo Name</label><input type="text" id="ghRepo"></div>
-        <div class="form-group"><label>Token (Repo Scope)</label><input type="password" id="ghToken"></div>
+        <h3>⚙ GitHub Settings</h3>
+        <div class="form-group"><label>GitHub Username</label><input type="text" id="ghUsername" placeholder="username"></div>
+        <div class="form-group"><label>Repository Name</label><input type="text" id="ghRepo" placeholder="repo-name"></div>
+        <div class="form-group"><label>Personal Access Token (repo scope)</label><input type="password" id="ghToken" placeholder="ghp_..."></div>
         <div class="form-group"><label>File Path</label><input type="text" id="ghPath" value="marketing.html"></div>
-        <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
-            <button class="btn" onclick="closeSettings()">Cancel</button>
+        <div class="modal-actions">
+            <button class="btn" onclick="closeModal('settingsModal')">Cancel</button>
             <button class="btn primary" onclick="saveSettings()">Save</button>
         </div>
     </div>
 </div>
 
-<div id="toast" class="toast">Changes Saved</div>
+<!-- Add Item Modal -->
+<div class="modal-overlay" id="addItemModal">
+    <div class="modal">
+        <h3>+ Add Calendar Item</h3>
+        <div class="form-group">
+            <label>Item Type</label>
+            <select id="newItemType">
+                <option value="bar">Bar (Date Range)</option>
+                <option value="diamond">Diamond (Single Date)</option>
+            </select>
+        </div>
+        <div class="form-group"><label>Title</label><input type="text" id="newItemTitle" placeholder="Item name"></div>
+        <div class="form-group">
+            <label>Category / Row</label>
+            <select id="newItemCategory">
+                <option value="product">Product Marketing</option>
+                <option value="social">Social Media</option>
+                <option value="events">Crypto Events & Meetups</option>
+                <option value="uni">University Engagement</option>
+                <option value="influencer">Influencer & Affiliate</option>
+                <option value="web">Website & Channels</option>
+                <option value="culture">Cultural Moments</option>
+            </select>
+        </div>
+        <div class="form-row">
+            <div class="form-group"><label>Start Date</label><input type="date" id="newItemStart"></div>
+            <div class="form-group" id="endDateGroup"><label>End Date</label><input type="date" id="newItemEnd"></div>
+        </div>
+        <div class="form-group"><label>Deliverables (one per line)</label><textarea id="newItemDeliverables" placeholder="Task 1&#10;Task 2&#10;Task 3"></textarea></div>
+        <div class="form-group"><label>Business Impact</label><textarea id="newItemImpact" placeholder="Describe the expected business impact..."></textarea></div>
+        <div class="modal-actions">
+            <button class="btn" onclick="closeModal('addItemModal')">Cancel</button>
+            <button class="btn primary" onclick="addNewItem()">Add Item</button>
+        </div>
+    </div>
+</div>
+
+<div id="toast" class="toast">Saved</div>
 
 <div class="container">
     <header class="header">
         <div class="brand">
-            <div class="logo">
-                <span class="logo-icon">◆</span> Solvida
-            </div>
-            <span class="nav-divider">|</span>
-            <span style="color: var(--text-secondary); font-size: 14px;">Exchange Product</span>
+            <div class="logo"><span class="logo-icon">◆</span> Solvida</div>
+            <span style="color: var(--text-tertiary); margin: 0 10px;">|</span>
+            <span style="color: var(--text-secondary); font-size: 12px;">Exchange Product</span>
         </div>
         <div class="nav-tabs">
             <a href="index.html" class="nav-tab">Product Roadmap</a>
             <a href="#" class="nav-tab active">Marketing Calendar</a>
         </div>
         <div class="header-controls">
+            <span class="unsaved-indicator" id="unsavedIndicator">● Unsaved Changes</span>
+            <button class="btn add-btn" onclick="openModal('addItemModal')">+ Add Item</button>
+            <button class="btn" onclick="toggleEditMode()" id="editBtn">Edit</button>
+            <button class="btn" onclick="openModal('settingsModal')">⚙</button>
             <button class="btn primary" onclick="publishToGitHub()" id="publishBtn">Publish</button>
-            <button class="btn" onclick="openSettings()">⚙</button>
-            <button class="btn" onclick="toggleEdit()" id="editBtn">Edit</button>
         </div>
     </header>
 
     <h1 class="page-title">Solvida Marketing Calendar</h1>
 
     <div class="calendar-wrapper">
-        <div class="calendar-scroll">
-            <div class="calendar-grid">
-                <!-- Headers -->
-                <div class="cal-header"></div>
-                <div class="cal-header">Dec 2025</div>
-                <div class="cal-header">Jan 2026</div>
-                <div class="cal-header">Feb 2026</div>
-                <div class="cal-header">Mar 2026</div>
-                <div class="cal-header">Apr 2026</div>
-                <div class="cal-header">May 2026</div>
-                <div class="cal-header">Jun 2026</div>
-                <div class="cal-header">Jul 2026</div>
+        <div class="calendar-grid" id="calendarGrid">
+            <!-- Headers: Dec 2025 - Aug 2026 -->
+            <div class="cal-header"></div>
+            <div class="cal-header">Dec 2025</div>
+            <div class="cal-header">Jan 2026</div>
+            <div class="cal-header">Feb 2026</div>
+            <div class="cal-header">Mar 2026</div>
+            <div class="cal-header">Apr 2026</div>
+            <div class="cal-header">May 2026</div>
+            <div class="cal-header">Jun 2026</div>
+            <div class="cal-header">Jul 2026</div>
+            <div class="cal-header">Aug 2026</div>
 
-                <!-- PRODUCT MARKETING -->
-                <div class="swimlane">
-                    <div class="swim-label" style="border-left: 4px solid var(--cat-product);">Product<br>Marketing</div>
-                    <div class="swim-track">
-                        <div class="track-grid"><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div></div>
-                        <div class="bar bar-product" style="left: 12.5%; width: 10%; top: 50%; transform: translateY(-50%);" onclick="openDetail('kyc')">KYC Education</div>
-                        <div class="bar bar-product" style="left: 23%; width: 10%; top: 50%; transform: translateY(-50%);" onclick="openDetail('pro')">Solvida Pro</div>
-                        <div class="bar bar-product" style="left: 37.5%; width: 25%; top: 50%; transform: translateY(-50%);" onclick="openDetail('waitlist')">Public Waitlist</div>
-                        <div class="diamond diamond-yellow" style="left: 62%; top: 30%;" onclick="openDetail('waitlist-star')"><span class="diamond-label">★ Milestone</span></div>
-                        <div class="bar bar-product" style="left: 75%; width: 12.5%; top: 50%; transform: translateY(-50%);" onclick="openDetail('gamify')">Platform Gamification</div>
-                    </div>
+            <!-- PRODUCT MARKETING -->
+            <div class="swimlane" data-category="product">
+                <div class="swim-label" style="border-left: 3px solid var(--cat-product);">Product<br>Marketing</div>
+                <div class="swim-track" id="track-product">
+                    <div class="track-grid"><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div></div>
+                    <!-- KYC Education: Jan 26 - Feb 8 (left: ~14.5%, width: ~4.5%) -->
+                    <div class="bar bar-product" data-id="kyc" style="left: 14.5%; width: 4.8%;">KYC Education</div>
+                    <!-- Solvida Pro: Feb 9 - Feb 22 (left: ~19.5%, width: ~4.5%) -->
+                    <div class="bar bar-product" data-id="pro" style="left: 19.5%; width: 4.8%;">Solvida Pro</div>
+                    <!-- Public Waitlist: Mar 1 - Jun 1 (left: ~22.2%, width: ~33.3%) -->
+                    <div class="bar bar-product" data-id="waitlist" style="left: 22.2%; width: 33.3%;">Public Waitlist</div>
+                    <!-- Platform Gamification: Jun 1 - Jun 30 (left: ~55.5%, width: ~11%) -->
+                    <div class="bar bar-product" data-id="gamify" style="left: 55.5%; width: 11%;">Platform Gamification</div>
                 </div>
+            </div>
 
-                <!-- SOCIAL MEDIA -->
-                <div class="swimlane">
-                    <div class="swim-label" style="border-left: 4px solid var(--cat-social);">Social Media &<br>Community</div>
-                    <div class="swim-track">
-                        <div class="track-grid"><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div></div>
-                        <div class="bar bar-social" style="left: 2%; width: 10%; top: 25%; transform: translateY(-50%);" onclick="openDetail('follower-acq')">Follower Acquisition (Paid)</div>
-                        <div class="bar bar-social" style="left: 2%; width: 12%; top: 75%; transform: translateY(-50%);" onclick="openDetail('community-outreach')">Community Outreach</div>
-                        <div class="bar bar-social" style="left: 14%; width: 12%; top: 50%; transform: translateY(-50%); border: 2px solid white;" onclick="openDetail('enero')">#EneroSinCuesta Campaign</div>
-                    </div>
+            <!-- SOCIAL MEDIA -->
+            <div class="swimlane" data-category="social">
+                <div class="swim-label" style="border-left: 3px solid var(--cat-social);">Social Media &<br>Community</div>
+                <div class="swim-track" id="track-social">
+                    <div class="track-grid"><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div></div>
+                    <!-- Follower Acq: Dec 15 - Jan 3 (left: ~5.5%, width: ~6.5%) -->
+                    <div class="bar bar-social" data-id="follower-acq" style="left: 5.5%; width: 6.5%;">Follower Acquisition (Paid)</div>
+                    <!-- Community Outreach: Dec 15 - Jan 15 (left: ~5.5%, width: ~11%) - overlaps with above -->
+                    <div class="bar bar-social" data-id="community-outreach" style="left: 5.5%; width: 11%; top: 75%; transform: translateY(-50%);">Community Outreach</div>
+                    <!-- #EneroSinCuesta: Jan 1 - Jan 31 (left: ~11.1%, width: ~11.1%) -->
+                    <div class="bar bar-social" data-id="enero" style="left: 11.1%; width: 11.1%; top: 25%; transform: translateY(-50%); border: 2px solid white;">#EneroSinCuesta Campaign</div>
                 </div>
+            </div>
 
-                <!-- CRYPTO EVENTS -->
-                <div class="swimlane">
-                    <div class="swim-label" style="border-left: 4px solid var(--cat-events);">Crypto Events<br>& Meetups</div>
-                    <div class="swim-track">
-                        <div class="track-grid"><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div></div>
-                        <div class="diamond diamond-orange" style="left: 8%; top: 50%;" onclick="openDetail('uniswap-eth-cali')"><span class="diamond-label">Uniswap x ETH Cali<br>Dec 20</span></div>
-                        <div class="diamond diamond-orange" style="left: 18%; top: 30%;" onclick="openDetail('bitcoin-medellin')"><span class="diamond-label">Bitcoin Medellin<br>Jan 15</span></div>
-                        <div class="diamond diamond-orange" style="left: 22%; top: 70%;" onclick="openDetail('eth-cali')"><span class="diamond-label">ETH Cali<br>Jan 30</span></div>
-                        <div class="diamond diamond-orange" style="left: 28%; top: 50%;" onclick="openDetail('eth-bogota')"><span class="diamond-label">ETH Bogota<br>Feb 15</span></div>
-                        <div class="diamond diamond-orange" style="left: 40%; top: 50%;" onclick="openDetail('eth-medellin')"><span class="diamond-label">ETH Medellin<br>Mar 15</span></div>
-                        <div class="diamond diamond-orange" style="left: 52%; top: 30%;" onclick="openDetail('uni-event-1')"><span class="diamond-label">University 1<br>May 1</span></div>
-                        <div class="diamond diamond-orange" style="left: 55%; top: 70%;" onclick="openDetail('uni-event-2')"><span class="diamond-label">University 2<br>May 15</span></div>
-                        <div class="diamond diamond-orange" style="left: 62%; top: 30%;" onclick="openDetail('uni-event-3')"><span class="diamond-label">University 3<br>Jun 1</span></div>
-                        <div class="diamond diamond-orange" style="left: 65%; top: 70%;" onclick="openDetail('uni-event-4')"><span class="diamond-label">University 4<br>Jun 15</span></div>
-                        <div class="diamond diamond-orange" style="left: 56%; top: 50%;" onclick="openDetail('consensus-miami')"><span class="diamond-label">Consensus Miami<br>May 5-7</span></div>
-                        <div class="diamond diamond-orange" style="left: 95%; top: 50%;" onclick="openDetail('crypto-latin-fest')"><span class="diamond-label">Crypto Latin Fest<br>Aug 15</span></div>
-                    </div>
+            <!-- CRYPTO EVENTS & MEETUPS -->
+            <div class="swimlane" data-category="events">
+                <div class="swim-label" style="border-left: 3px solid var(--cat-events);">Crypto Events<br>& Meetups</div>
+                <div class="swim-track" id="track-events">
+                    <div class="track-grid"><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div></div>
+                    <!-- Uniswap x ETH Cali: Dec 20 -->
+                    <div class="diamond diamond-orange" data-id="uniswap-eth-cali" style="left: 7.3%;"><span class="d-label">Uniswap x ETH Cali · Dec 20</span></div>
+                    <!-- Bitcoin Medellin: Jan 15-16 (bar since 2 days) -->
+                    <div class="bar bar-events" data-id="bitcoin-medellin" style="left: 16.5%; width: 1%;">Bitcoin Medellin</div>
+                    <!-- ETH Cali: Jan 30 -->
+                    <div class="diamond diamond-orange" data-id="eth-cali" style="left: 21%;"><span class="d-label">ETH Cali · Jan 30</span></div>
+                    <!-- ETH Bogota: Feb 15 -->
+                    <div class="diamond diamond-orange" data-id="eth-bogota" style="left: 27.5%;"><span class="d-label">ETH Bogota · Feb 15</span></div>
+                    <!-- ETH Medellin: Mar 15 -->
+                    <div class="diamond diamond-orange" data-id="eth-medellin" style="left: 38.5%;"><span class="d-label">ETH Medellin · Mar 15</span></div>
+                    <!-- Consensus Miami: May 5-7 -->
+                    <div class="bar bar-events" data-id="consensus-miami" style="left: 57%; width: 1%;">Consensus Miami</div>
+                    <!-- Crypto Latin Fest: Aug 15 -->
+                    <div class="diamond diamond-orange" data-id="crypto-latin-fest" style="left: 94%;"><span class="d-label">Crypto Latin Fest · Aug 15</span></div>
                 </div>
+            </div>
 
-                <!-- UNIVERSITY -->
-                <div class="swimlane">
-                    <div class="swim-label" style="border-left: 4px solid var(--cat-uni);">University<br>Engagement</div>
-                    <div class="swim-track">
-                        <div class="track-grid"><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div></div>
-                        <div class="bar bar-uni" style="left: 2%; width: 6%; top: 25%; transform: translateY(-50%);" onclick="openDetail('uni-list')">University List...</div>
-                        <div class="bar bar-uni" style="left: 8%; width: 10%; top: 50%; transform: translateY(-50%);" onclick="openDetail('uni-program')">Program Dev</div>
-                        <div class="bar bar-uni" style="left: 18%; width: 8%; top: 75%; transform: translateY(-50%);" onclick="openDetail('uni-outreach')">University Outreach</div>
-                        <div class="bar bar-uni" style="left: 50%; width: 12%; top: 50%; transform: translateY(-50%);" onclick="openDetail('uni-copromotion')">Co Promotion</div>
-                    </div>
+            <!-- UNIVERSITY ENGAGEMENT -->
+            <div class="swimlane" data-category="uni">
+                <div class="swim-label" style="border-left: 3px solid var(--cat-uni);">University<br>Engagement</div>
+                <div class="swim-track" id="track-uni">
+                    <div class="track-grid"><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div></div>
+                    <!-- University List: Dec 15 - Dec 22 -->
+                    <div class="bar bar-uni" data-id="uni-list" style="left: 5.5%; width: 2.5%;">University List</div>
+                    <!-- Program Dev: Dec 22 - Jan 15 -->
+                    <div class="bar bar-uni" data-id="uni-program" style="left: 8%; width: 8.5%;">Program Dev</div>
+                    <!-- University Outreach: Jan 15 - Jan 20 -->
+                    <div class="bar bar-uni" data-id="uni-outreach" style="left: 16.5%; width: 2%;">Outreach</div>
+                    <!-- Co Promotion: Apr 1 - Apr 30 -->
+                    <div class="bar bar-uni" data-id="uni-copromotion" style="left: 44.4%; width: 11%;">Co Promotion</div>
+                    <!-- University 1-4 diamonds -->
+                    <div class="diamond diamond-green" data-id="uni-event-1" style="left: 56%;"><span class="d-label">University 1 · May 1</span></div>
+                    <div class="diamond diamond-green" data-id="uni-event-2" style="left: 61%;"><span class="d-label">University 2 · May 15</span></div>
+                    <div class="diamond diamond-green" data-id="uni-event-3" style="left: 66.6%;"><span class="d-label">University 3 · Jun 1</span></div>
+                    <div class="diamond diamond-green" data-id="uni-event-4" style="left: 72%;"><span class="d-label">University 4 · Jun 15</span></div>
                 </div>
+            </div>
 
-                <!-- INFLUENCER -->
-                <div class="swimlane">
-                    <div class="swim-label" style="border-left: 4px solid var(--cat-influencer);">Influencer &<br>Affiliate</div>
-                    <div class="swim-track">
-                        <div class="track-grid"><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div></div>
-                        <div class="bar bar-influencer" style="left: 2%; width: 8%; top: 25%; transform: translateY(-50%);" onclick="openDetail('inf-outreach')">List Dev...</div>
-                        <div class="bar bar-influencer" style="left: 12.5%; width: 12.5%; top: 50%; transform: translateY(-50%);" onclick="openDetail('inf-program')">Program Dev</div>
-                        <div class="bar bar-influencer" style="left: 25%; width: 12.5%; top: 75%; transform: translateY(-50%);" onclick="openDetail('inf-recruitment')">Recruitment...</div>
-                        <div class="diamond diamond-yellow" style="left: 50%; top: 30%;" onclick="openDetail('inf-launch')"><span class="diamond-label">Program Launch<br>Apr 1</span></div>
-                        <div class="bar bar-influencer" style="left: 62.5%; width: 25%; top: 50%; transform: translateY(-50%);" onclick="openDetail('inf-live')">Program Live (Revenue)</div>
-                    </div>
+            <!-- INFLUENCER -->
+            <div class="swimlane" data-category="influencer">
+                <div class="swim-label" style="border-left: 3px solid var(--cat-influencer);">Influencer &<br>Affiliate</div>
+                <div class="swim-track" id="track-influencer">
+                    <div class="track-grid"><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div></div>
+                    <!-- List Dev & Outreach: Dec 15 - Jan 15 -->
+                    <div class="bar bar-influencer" data-id="inf-outreach" style="left: 5.5%; width: 11%;">List Dev & Outreach</div>
+                    <!-- Program Dev: Jan 15 - Feb 15 -->
+                    <div class="bar bar-influencer" data-id="inf-program" style="left: 16.5%; width: 11%;">Program Dev</div>
+                    <!-- Recruitment: Feb 15 - Mar 15 -->
+                    <div class="bar bar-influencer" data-id="inf-recruitment" style="left: 27.5%; width: 11%;">Recruitment</div>
+                    <!-- Program Launch: Apr 1 -->
+                    <div class="diamond diamond-yellow" data-id="inf-launch" style="left: 44.4%;"><span class="d-label">Program Launch · Apr 1</span></div>
+                    <!-- Program Live: Jun 1+ -->
+                    <div class="bar bar-influencer" data-id="inf-live" style="left: 55.5%; width: 33%;">Program Live (Revenue)</div>
                 </div>
+            </div>
 
-                <!-- WEBSITE & CHANNELS -->
-                <div class="swimlane">
-                    <div class="swim-label" style="border-left: 4px solid var(--cat-web);">Website &<br>Channels</div>
-                    <div class="swim-track">
-                        <div class="track-grid"><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div></div>
-                        <div class="bar bar-web" style="left: 3%; width: 8%; top: 25%; transform: translateY(-50%);" onclick="openDetail('blog-live')">Solvida Blog Live<br>Dec 29</div>
-                        <div class="diamond diamond-cyan" style="left: 18%; top: 30%;" onclick="openDetail('markets-page')"><span class="diamond-label">Markets<br>Jan 15</span></div>
-                        <div class="bar bar-web" style="left: 22%; width: 5%; top: 75%; transform: translateY(-50%);" onclick="openDetail('customer-service')">Customer<br>Service Bot<br>Feb 1</div>
-                        <div class="diamond diamond-cyan" style="left: 22%; top: 30%;" onclick="openDetail('telegram')"><span class="diamond-label">Telegram<br>Feb 1</span></div>
-                        <div class="bar bar-web" style="left: 28%; width: 8%; top: 30%; transform: translateY(-50%);" onclick="openDetail('pro-lander')">Solvida Pro & Lite Lander<br>Feb 15</div>
-                        <div class="diamond diamond-cyan" style="left: 37%; top: 70%;" onclick="openDetail('discord')"><span class="diamond-label">Discord<br>Mar 1</span></div>
-                        <div class="diamond diamond-cyan" style="left: 50%; top: 50%;" onclick="openDetail('whatsapp')"><span class="diamond-label">Whatsapp<br>Apr 1</span></div>
-                        <div class="diamond diamond-cyan" style="left: 57%; top: 30%;" onclick="openDetail('instagram')"><span class="diamond-label">Instagram<br>May 1</span></div>
-                        <div class="diamond diamond-cyan" style="left: 57%; top: 70%;" onclick="openDetail('tiktok')"><span class="diamond-label">TikTok<br>May 1</span></div>
-                    </div>
+            <!-- WEBSITE & CHANNELS -->
+            <div class="swimlane" data-category="web">
+                <div class="swim-label" style="border-left: 3px solid var(--cat-web);">Website &<br>Channels</div>
+                <div class="swim-track" id="track-web">
+                    <div class="track-grid"><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div></div>
+                    <!-- Solvida Blog: Dec 29 -->
+                    <div class="diamond diamond-cyan" data-id="blog-live" style="left: 10.5%;"><span class="d-label">Solvida Blog Live · Dec 29</span></div>
+                    <!-- Markets: Jan 15 -->
+                    <div class="diamond diamond-cyan" data-id="markets-page" style="left: 16.5%;"><span class="d-label">Markets · Jan 15</span></div>
+                    <!-- Customer Service Bot: Feb 1 -->
+                    <div class="diamond diamond-cyan" data-id="customer-service" style="left: 22.2%;"><span class="d-label">Customer Service Bot · Feb 1</span></div>
+                    <!-- Pro & Lite Lander: Feb 15 -->
+                    <div class="diamond diamond-cyan" data-id="pro-lander" style="left: 27.5%;"><span class="d-label">Pro & Lite Lander · Feb 15</span></div>
+                    <!-- Telegram: Feb 1 -->
+                    <div class="diamond diamond-cyan" data-id="telegram" style="left: 22.2%; top: 25%; transform: translate(-50%, -50%) rotate(45deg);"><span class="d-label">Telegram · Feb 1</span></div>
+                    <!-- Discord: Mar 1 -->
+                    <div class="diamond diamond-cyan" data-id="discord" style="left: 33.3%;"><span class="d-label">Discord · Mar 1</span></div>
+                    <!-- Whatsapp: Apr 1 -->
+                    <div class="diamond diamond-cyan" data-id="whatsapp" style="left: 44.4%;"><span class="d-label">Whatsapp · Apr 1</span></div>
+                    <!-- Instagram: May 1 -->
+                    <div class="diamond diamond-cyan" data-id="instagram" style="left: 55.5%;"><span class="d-label">Instagram · May 1</span></div>
+                    <!-- TikTok: May 1 -->
+                    <div class="diamond diamond-cyan" data-id="tiktok" style="left: 55.5%; top: 75%; transform: translate(-50%, -50%) rotate(45deg);"><span class="d-label">TikTok · May 1</span></div>
                 </div>
+            </div>
 
-                <!-- CULTURAL MOMENTS -->
-                <div class="swimlane">
-                    <div class="swim-label" style="border-left: 4px solid var(--cat-culture);">Cultural<br>Moments</div>
-                    <div class="swim-track" style="border-bottom: none;">
-                        <div class="track-grid"><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div></div>
-                        <div class="bar bar-culture" style="left: 47%; width: 6%; top: 30%; transform: translateY(-50%);" onclick="openDetail('semana-santa')">Semana Santa<br>Apr 2-3</div>
-                        <div class="diamond diamond-red" style="left: 56%; top: 70%;" onclick="openDetail('dia-trabajo')"><span class="diamond-label">Día del Trabajo<br>May 1</span></div>
-                        <div class="bar bar-culture" style="left: 68%; width: 12%; top: 50%; transform: translateY(-50%);" onclick="openDetail('fifa-world-cup')">Fifa World Cup</div>
-                        <div class="bar bar-culture" style="left: 85%; width: 8%; top: 30%; transform: translateY(-50%);" onclick="openDetail('independencia')">Día de la<br>Independencia<br>Jul 20</div>
-                        <div class="bar bar-culture" style="left: 93%; width: 6%; top: 70%; transform: translateY(-50%);" onclick="openDetail('batalla-boyaca')">Batalla de<br>Boyacá<br>Aug 7</div>
-                    </div>
+            <!-- CULTURAL MOMENTS -->
+            <div class="swimlane" data-category="culture">
+                <div class="swim-label" style="border-left: 3px solid var(--cat-culture);">Cultural<br>Moments</div>
+                <div class="swim-track" id="track-culture" style="border-bottom: none;">
+                    <div class="track-grid"><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div><div class="track-col"></div></div>
+                    <!-- Semana Santa: Apr 2-3 -->
+                    <div class="bar bar-culture" data-id="semana-santa" style="left: 44.8%; width: 1%;">Semana Santa</div>
+                    <!-- Día del Trabajo: May 1 -->
+                    <div class="diamond diamond-red" data-id="dia-trabajo" style="left: 55.5%;"><span class="d-label">Día del Trabajo · May 1</span></div>
+                    <!-- FIFA World Cup: Jun 11 - Jul 14 -->
+                    <div class="bar bar-culture" data-id="fifa-world-cup" style="left: 59.5%; width: 18.5%;">FIFA World Cup</div>
+                    <!-- Día de la Independencia: Jul 20 -->
+                    <div class="diamond diamond-red" data-id="independencia" style="left: 80%;"><span class="d-label">Día de la Independencia · Jul 20</span></div>
+                    <!-- Batalla de Boyacá: Aug 7 -->
+                    <div class="diamond diamond-red" data-id="batalla-boyaca" style="left: 91%;"><span class="d-label">Batalla de Boyacá · Aug 7</span></div>
                 </div>
             </div>
         </div>
@@ -588,343 +604,406 @@
     <!-- Details Pane -->
     <div class="details-pane" id="detailPane">
         <div class="pane-header">
-            <div>
+            <div class="pane-title-wrap">
                 <div class="pane-title" id="dTitle">Select an Item</div>
-                <div class="pane-meta" id="dDate">Click any bar or diamond above</div>
+                <div class="pane-meta" id="dDate">Click any item above</div>
             </div>
+            <button class="btn pane-edit-btn" onclick="togglePaneEdit()" id="paneEditBtn">✎ Edit</button>
         </div>
         <div class="pane-content">
             <div class="pane-left">
-                <div class="section-label">
-                    <span>Deliverables</span>
-                    <button class="edit-section-btn" onclick="toggleSectionEdit('dList')">✎ Edit</button>
-                </div>
+                <div class="section-label">Deliverables</div>
                 <ul class="deliverables-list" id="dList">
-                    <li>Select an item from the calendar to view deliverables.</li>
+                    <li>Select an item from the calendar.</li>
                 </ul>
             </div>
             <div class="pane-right">
-                <div class="impact-title">
-                    <span>Business Impact</span>
-                    <button class="edit-section-btn" onclick="toggleSectionEdit('dImpact')">✎ Edit</button>
-                </div>
-                <p class="impact-text" id="dImpact">Select an item from the calendar to view business impact.</p>
+                <div class="impact-title">Business Impact</div>
+                <p class="impact-text" id="dImpact">Select an item to view business impact.</p>
             </div>
         </div>
     </div>
-
 </div>
 
 <script>
-    // Campaign Data Store
+    // Data Store
     const campaignData = {
-        'kyc': { 
-            title: 'KYC Education Campaign', 
-            date: 'Jan 26 - Feb 8', 
-            tasks: ['Video tutorials for COP deposit process', 'Blog post series on asset protection and security', 'Email sequence for unverified users', 'In-app tooltips and guided onboarding', 'FAQ section expansion with KYC-specific content'], 
-            impact: 'Increase verification conversion by 15%. Reduce support tickets related to KYC by 30%. Build trust through transparency and clear communication.' 
-        },
-        'pro': { 
-            title: 'Solvida Pro Launch Campaign', 
-            date: 'Feb 9 - Feb 22', 
-            tasks: ['Advanced trader targeting via paid ads', 'Trading competition with leaderboard', 'Pro features highlight video series', 'Webinar for professional traders', 'Early access program for high-volume users'], 
-            impact: 'Acquire high-volume traders. Target 500+ Pro accounts in first month. Increase average transaction volume by 40%.' 
-        },
-        'waitlist': { 
-            title: 'Public Waitlist Program', 
-            date: 'Mar 1 - Jun 1', 
-            tasks: ['Referral mechanic implementation with rewards', 'Exclusive swag for top referrers', 'Weekly feature drops and updates', 'Email nurture sequence for waitlist members', 'Social proof campaigns showcasing early adopters'], 
-            impact: 'Build database of 50k+ leads before major feature rollout. Create anticipation and FOMO. Generate organic growth through referrals.' 
-        },
-        'waitlist-star': { 
-            title: 'Waitlist Milestone', 
-            date: 'May 15', 
-            tasks: ['50k waitlist members celebration', 'Top referrer rewards distribution', 'Media announcement', 'Community celebration event', 'Special early access batch'], 
-            impact: 'Generate PR buzz. Reward top community members. Create momentum for product launch.' 
-        },
-        'gamify': { 
-            title: 'Platform Gamification Launch', 
-            date: 'Jun 1 - Jul 15', 
-            tasks: ['Leaderboards for trading activity', 'Achievement badges system', 'Trading streaks and daily challenges', 'Rewards program integration', 'Social sharing of achievements'], 
-            impact: 'Increase daily active usage by 25%. Improve user retention by 30%. Create viral sharing moments through achievements.' 
-        },
-        'follower-acq': {
-            title: 'Follower Acquisition Campaign',
-            date: 'Dec 1 - Ongoing',
-            tasks: ['Paid Twitter/X promotion targeting crypto enthusiasts', 'Engagement campaigns with trending topics', 'Influencer collaborations for reach', 'Content calendar focused on value-driven posts', 'Community growth tactics'],
-            impact: 'Grow follower base by 10k+ per month. Increase brand awareness in LATAM crypto space. Build engaged community for product launches.'
-        },
-        'community-outreach': {
-            title: 'Community Outreach Program',
-            date: 'Dec 1 - Ongoing',
-            tasks: ['Daily engagement with crypto communities', 'AMA sessions and Q&A threads', 'User-generated content campaigns', 'Community moderator program', 'Feedback collection and implementation'],
-            impact: 'Build authentic relationships with users. Increase community sentiment score. Generate organic word-of-mouth growth.'
-        },
-        'enero': { 
-            title: '#EneroSinCuesta Campaign', 
-            date: 'Jan 1 - Jan 31', 
-            tasks: ['Capitalize on "January Financial Hangover" cultural moment', 'Promote Earn products through targeted campaigns', 'Community savings contest with prizes', 'Social media content series on financial recovery', 'Partnership with financial wellness influencers'], 
-            impact: 'Drive engagement during slow financial month. Position Solvida as financial ally. Expected 20% increase in Earn product adoption.' 
-        },
-        'uniswap-eth-cali': {
-            title: 'Uniswap x ETH Cali Event',
-            date: 'Dec 20',
-            tasks: ['Sponsorship and booth presence', 'Live product demos', 'Networking with developers and traders', 'Swag distribution and brand visibility', 'Content creation for social media'],
-            impact: 'Connect with 500+ attendees. Generate 50+ qualified leads. Establish presence in Colombian crypto community.'
-        },
-        'bitcoin-medellin': {
-            title: 'Bitcoin Medellin Meetup',
-            date: 'Jan 15',
-            tasks: ['Community meetup sponsorship', 'Educational presentation on trading', 'Local influencer partnerships', 'Product feedback session', 'Brand awareness in Medellin market'],
-            impact: 'Engage with 200+ local crypto enthusiasts. Build regional presence. Collect user insights for product development.'
-        },
-        'eth-cali': {
-            title: 'ETH Cali Conference',
-            date: 'Jan 30',
-            tasks: ['Main stage presentation on Solvida', 'Developer workshop on exchange APIs', 'Sponsor networking dinner', 'Media interviews and press coverage', 'Product launch announcement'],
-            impact: 'Position as thought leader in LATAM crypto. Generate media coverage. Acquire high-value institutional contacts.'
-        },
-        'eth-bogota': {
-            title: 'ETH Bogota Conference',
-            date: 'Feb 15',
-            tasks: ['Conference sponsorship package', 'Technical talk on exchange architecture', 'Developer relations activities', 'Partnership announcements', 'Media and influencer engagement'],
-            impact: 'Reach 1000+ conference attendees. Establish technical credibility. Generate partnership opportunities.'
-        },
-        'eth-medellin': {
-            title: 'ETH Medellin Event',
-            date: 'Mar 15',
-            tasks: ['Regional event presence', 'Local community building', 'Product demonstrations', 'Educational workshops', 'Regional expansion messaging'],
-            impact: 'Strengthen Medellin market presence. Build local ambassador network. Drive regional user acquisition.'
-        },
-        'consensus-miami': {
-            title: 'Consensus Miami',
-            date: 'May 5-7',
-            tasks: ['International conference presence', 'LATAM-focused panel participation', 'Cross-border partnership discussions', 'Media coverage and interviews', 'Global brand positioning'],
-            impact: 'Expand brand recognition beyond LATAM. Connect with international investors. Explore expansion opportunities.'
-        },
-        'crypto-latin-fest': {
-            title: 'Crypto Latin Fest',
-            date: 'Aug 15',
-            tasks: ['Major regional festival sponsorship', 'Main stage presentation', 'Product launch announcements', 'Regional influencer summit', 'Awards and recognition campaigns'],
-            impact: 'Reach 5000+ attendees. Establish as leading LATAM exchange. Generate significant media coverage and partnerships.'
-        },
-        'uni-list': {
-            title: 'University Contact List Development',
-            date: 'Dec 1 - Jan 15',
-            tasks: ['Research and compile university database', 'Identify key contacts in business and tech departments', 'Create outreach templates', 'Establish initial relationships', 'Schedule informational meetings'],
-            impact: 'Build foundation for university partnerships. Create pipeline of 50+ university contacts. Enable scalable education program.'
-        },
-        'uni-program': {
-            title: 'University Program Development',
-            date: 'Dec 8 - Feb 1',
-            tasks: ['Curriculum development for crypto education', 'Partnership agreement templates', 'Student ambassador program design', 'Educational content creation', 'Program launch materials'],
-            impact: 'Create structured approach to university engagement. Enable consistent messaging across all partnerships.'
-        },
-        'uni-outreach': {
-            title: 'University Outreach Campaign',
-            date: 'Jan 16 - Feb 15',
-            tasks: ['Direct outreach to university contacts', 'Presentation scheduling and delivery', 'Partnership proposal submissions', 'Follow-up communications', 'Agreement negotiations'],
-            impact: 'Secure 10+ university partnerships. Establish Solvida as educational partner. Create pipeline for student acquisition.'
-        },
-        'uni-copromotion': {
-            title: 'University Co-Promotion Activities',
-            date: 'May 1 - Ongoing',
-            tasks: ['Joint marketing campaigns with universities', 'Student workshops and seminars', 'Case study development', 'Success story content', 'Ongoing relationship management'],
-            impact: 'Reach 5000+ students through partnerships. Build brand loyalty among young adults.'
-        },
-        'uni-event-1': { title: 'University Event 1', date: 'May 1', tasks: ['On-campus workshop delivery', 'Product demonstration', 'Student recruitment', 'Content creation', 'Feedback collection'], impact: 'Engage 100+ students directly. Generate sign-ups and referrals.' },
-        'uni-event-2': { title: 'University Event 2', date: 'May 15', tasks: ['Educational seminar on crypto trading', 'Q&A session with students', 'Networking with faculty', 'Student ambassador recruitment'], impact: 'Deepen relationships with partner universities. Recruit student ambassadors.' },
-        'uni-event-3': { title: 'University Event 3', date: 'Jun 1', tasks: ['Career fair participation', 'Internship program promotion', 'Industry connections', 'Student project collaborations'], impact: 'Position as employer of choice. Build talent pipeline.' },
-        'uni-event-4': { title: 'University Event 4', date: 'Jun 15', tasks: ['End-of-semester celebration', 'Student success stories', 'Program evaluation', 'Next semester planning'], impact: 'Maintain engagement during break. Build alumni network.' },
-        'inf-outreach': {
-            title: 'Influencer Outreach Program',
-            date: 'Dec 1 - Jan 31',
-            tasks: ['Identify and research relevant influencers', 'Outreach to micro and macro influencers', 'Partnership proposal development', 'Initial collaboration discussions', 'Contract negotiations'],
-            impact: 'Build pipeline of 100+ influencer partnerships. Establish relationships before program launch.'
-        },
-        'inf-program': {
-            title: 'Influencer Program Development',
-            date: 'Jan 16 - Mar 31',
-            tasks: ['Program structure and guidelines creation', 'Compensation model design', 'Content requirements definition', 'Tracking and analytics setup', 'Onboarding materials development'],
-            impact: 'Create scalable influencer program. Enable consistent brand messaging. Establish clear ROI metrics.'
-        },
-        'inf-recruitment': {
-            title: 'Influencer Recruitment Phase',
-            date: 'Feb 1 - Mar 31',
-            tasks: ['Active recruitment of program participants', 'Vetting and selection process', 'Onboarding sessions', 'Content strategy alignment', 'Campaign briefings'],
-            impact: 'Recruit 50+ active influencers. Ensure quality and brand fit. Prepare for program launch.'
-        },
-        'inf-launch': {
-            title: 'Influencer Program Launch',
-            date: 'Apr 1',
-            tasks: ['Program kickoff event', 'Coordinated launch content', 'Media announcement', 'First wave of influencer content', 'Performance tracking initiation'],
-            impact: 'Generate significant brand awareness. Reach 500k+ potential users. Establish program credibility.'
-        },
-        'inf-live': {
-            title: 'Influencer Program Live (Revenue)',
-            date: 'Jun 1 - Ongoing',
-            tasks: ['Ongoing content creation and distribution', 'Performance monitoring and optimization', 'New influencer onboarding', 'Revenue tracking and reporting', 'Program expansion'],
-            impact: 'Generate consistent user acquisition. Maintain 20%+ conversion rate. Scale program to 100+ active influencers. Target $25 CAC reduction.'
-        },
-        'blog-live': {
-            title: 'Solvida Blog Launch',
-            date: 'Dec 29',
-            tasks: ['Blog platform setup and design', 'Initial content publication (10+ articles)', 'SEO optimization', 'Content calendar establishment', 'Social media integration'],
-            impact: 'Establish thought leadership. Drive organic traffic. Support SEO strategy. Target 5k+ monthly visitors within 3 months.'
-        },
-        'markets-page': {
-            title: 'Markets Page Launch',
-            date: 'Jan 15',
-            tasks: ['Real-time market data integration', 'Charting and analytics features', 'SEO-optimized market pages', 'Social sharing functionality', 'Performance monitoring'],
-            impact: 'Capture high-intent search traffic. Provide value to traders. Support organic discovery.'
-        },
-        'customer-service': {
-            title: 'Customer Service Bot',
-            date: 'Feb 1',
-            tasks: ['AI chatbot implementation', 'FAQ automation', 'Ticket routing system', 'Response templates', 'Performance monitoring'],
-            impact: 'Reduce support response time by 50%. Handle 80% of common queries automatically. Improve customer satisfaction.'
-        },
-        'telegram': {
-            title: 'Telegram Community Launch',
-            date: 'Feb 1',
-            tasks: ['Telegram channel and group setup', 'Community guidelines and moderation', 'Initial member recruitment', 'Content strategy for Telegram', 'Engagement campaigns'],
-            impact: 'Build direct communication channel. Create engaged community. Enable real-time support. Target 5k+ members.'
-        },
-        'pro-lander': {
-            title: 'Solvida Pro & Lite Landing Pages',
-            date: 'Feb 15',
-            tasks: ['Dedicated landing page design', 'Feature highlights and benefits', 'Conversion optimization', 'A/B testing setup', 'Analytics integration'],
-            impact: 'Improve Pro sign-up conversion by 30%. Provide clear value proposition. Support paid acquisition campaigns.'
-        },
-        'discord': {
-            title: 'Discord Community Launch',
-            date: 'Mar 1',
-            tasks: ['Discord server setup and structure', 'Channel organization and moderation', 'Bot integration for automation', 'Community events planning', 'Member onboarding process'],
-            impact: 'Build deeper community engagement. Enable real-time discussions. Create space for power users. Target 3k+ active members.'
-        },
-        'whatsapp': {
-            title: 'WhatsApp Channel Launch',
-            date: 'Apr 1',
-            tasks: ['WhatsApp Business setup', 'Broadcast list creation', 'Content strategy for messaging', 'Automated response system', 'User segmentation'],
-            impact: 'Reach users in preferred channel. Enable personalized communication. Support customer service.'
-        },
-        'instagram': {
-            title: 'Instagram Launch',
-            date: 'May 1',
-            tasks: ['Account setup and branding', 'Content strategy for visual platform', 'Influencer collaborations', 'Reels and Stories content', 'Community building'],
-            impact: 'Reach younger demographic. Increase brand awareness. Create visual brand identity.'
-        },
-        'tiktok': {
-            title: 'TikTok Launch',
-            date: 'May 1',
-            tasks: ['Account setup and strategy', 'Trending content creation', 'Influencer partnerships', 'Educational short-form videos', 'Engagement campaigns'],
-            impact: 'Reach Gen-Z audience. Create viral potential. Build brand personality.'
-        },
-        'semana-santa': {
-            title: 'Semana Santa Campaign',
-            date: 'Apr 2-3',
-            tasks: ['Cultural moment content creation', 'Holiday-themed promotions', 'Community engagement activities', 'Respectful cultural messaging', 'Limited-time offers'],
-            impact: 'Connect with users during important cultural period. Show cultural awareness. Drive engagement during holiday week.'
-        },
-        'dia-trabajo': {
-            title: 'Día del Trabajo Campaign',
-            date: 'May 1',
-            tasks: ['Labor Day themed content', 'Financial independence messaging', 'Worker-focused promotions', 'Community appreciation', 'Educational content'],
-            impact: 'Align with worker values. Position as financial empowerment tool. Drive sign-ups from working professionals.'
-        },
-        'fifa-world-cup': {
-            title: 'FIFA World Cup Campaign',
-            date: 'Jun 15 - Jul 15',
-            tasks: ['World Cup themed promotions', 'Sports betting alternative messaging', 'Community watch parties', 'Limited edition campaigns', 'Partnership opportunities'],
-            impact: 'Leverage massive cultural moment. Reach broader audience. Create memorable brand experiences. Target 50k+ campaign impressions.'
-        },
-        'independencia': {
-            title: 'Independence Day Campaign',
-            date: 'Jul 20',
-            tasks: ['Patriotic themed content', 'Colombian pride messaging', 'Local success stories', 'Community celebrations', 'National brand positioning'],
-            impact: 'Strengthen Colombian brand identity. Build national pride connection. Drive local user acquisition.'
-        },
-        'batalla-boyaca': {
-            title: 'Batalla de Boyacá Campaign',
-            date: 'Aug 7',
-            tasks: ['Historical commemoration content', 'Educational campaigns', 'Community engagement', 'National pride messaging', 'Special promotions'],
-            impact: 'Connect with Colombian heritage. Show cultural awareness. Build authentic local brand.'
-        }
+        'kyc': { title: 'KYC Education Campaign', date: 'Jan 26 - Feb 8', start: '2026-01-26', end: '2026-02-08', tasks: ['Video tutorials for COP deposit process', 'Blog post series on asset protection', 'Email sequence for unverified users', 'In-app tooltips and guided onboarding', 'FAQ section expansion'], impact: 'Increase verification conversion by 15%. Reduce support tickets by 30%. Build trust through transparency.' },
+        'pro': { title: 'Solvida Pro Launch', date: 'Feb 9 - Feb 22', start: '2026-02-09', end: '2026-02-22', tasks: ['Advanced trader targeting via paid ads', 'Trading competition with leaderboard', 'Pro features highlight video series', 'Webinar for professional traders', 'Early access program'], impact: 'Acquire high-volume traders. Target 500+ Pro accounts in first month. Increase average transaction volume by 40%.' },
+        'waitlist': { title: 'Public Waitlist', date: 'Mar 1 - Jun 1', start: '2026-03-01', end: '2026-06-01', tasks: ['Referral mechanic with rewards', 'Exclusive swag for top referrers', 'Weekly feature drops', 'Email nurture sequence', 'Social proof campaigns'], impact: 'Build database of 50k+ leads. Create anticipation and FOMO. Generate organic growth through referrals.' },
+        'gamify': { title: 'Platform Gamification', date: 'Jun 1 - Jun 30', start: '2026-06-01', end: '2026-06-30', tasks: ['Trading leaderboards', 'Achievement badges system', 'Trading streaks and daily challenges', 'Rewards program integration', 'Social sharing'], impact: 'Increase daily active usage by 25%. Improve retention by 30%. Create viral sharing moments.' },
+        'follower-acq': { title: 'Follower Acquisition (Paid)', date: 'Dec 15 - Jan 3', start: '2025-12-15', end: '2026-01-03', tasks: ['Paid Twitter/X promotion', 'Engagement campaigns', 'Influencer collaborations', 'Value-driven content calendar', 'Community growth tactics'], impact: 'Grow follower base by 10k+ per month. Increase brand awareness in LATAM crypto space.' },
+        'community-outreach': { title: 'Community Outreach', date: 'Dec 15 - Jan 15', start: '2025-12-15', end: '2026-01-15', tasks: ['Daily engagement with crypto communities', 'AMA sessions and Q&A threads', 'User-generated content campaigns', 'Community moderator program', 'Feedback collection'], impact: 'Build authentic relationships. Increase community sentiment. Generate organic word-of-mouth.' },
+        'enero': { title: '#EneroSinCuesta Campaign', date: 'Jan 1 - Jan 31', start: '2026-01-01', end: '2026-01-31', tasks: ['Capitalize on "January Financial Hangover"', 'Promote Earn products', 'Community savings contest', 'Social media content series', 'Financial wellness partnerships'], impact: 'Drive engagement during slow financial month. Position Solvida as financial ally. 20% increase in Earn adoption.' },
+        'uniswap-eth-cali': { title: 'Uniswap x ETH Cali', date: 'Dec 20', start: '2025-12-20', end: '2025-12-20', tasks: ['Sponsorship and booth presence', 'Live product demos', 'Developer networking', 'Swag distribution', 'Social media content'], impact: 'Connect with 500+ attendees. Generate 50+ qualified leads. Establish community presence.' },
+        'bitcoin-medellin': { title: 'Bitcoin Medellin', date: 'Jan 15-16', start: '2026-01-15', end: '2026-01-16', tasks: ['Community meetup sponsorship', 'Educational presentation', 'Local influencer partnerships', 'Product feedback session', 'Brand awareness'], impact: 'Engage with 200+ local enthusiasts. Build regional presence. Collect user insights.' },
+        'eth-cali': { title: 'ETH Cali', date: 'Jan 30', start: '2026-01-30', end: '2026-01-30', tasks: ['Main stage presentation', 'Developer workshop', 'Sponsor networking dinner', 'Media interviews', 'Product announcement'], impact: 'Position as thought leader. Generate media coverage. Acquire institutional contacts.' },
+        'eth-bogota': { title: 'ETH Bogota', date: 'Feb 15', start: '2026-02-15', end: '2026-02-15', tasks: ['Conference sponsorship', 'Technical talk', 'Developer relations', 'Partnership announcements', 'Influencer engagement'], impact: 'Reach 1000+ attendees. Establish technical credibility. Generate partnerships.' },
+        'eth-medellin': { title: 'ETH Medellin', date: 'Mar 15', start: '2026-03-15', end: '2026-03-15', tasks: ['Regional event presence', 'Local community building', 'Product demonstrations', 'Educational workshops', 'Regional expansion'], impact: 'Strengthen Medellin presence. Build local ambassador network. Drive regional acquisition.' },
+        'consensus-miami': { title: 'Consensus Miami', date: 'May 5-7', start: '2026-05-05', end: '2026-05-07', tasks: ['International conference presence', 'LATAM panel participation', 'Cross-border partnerships', 'Media coverage', 'Global positioning'], impact: 'Expand brand recognition. Connect with international investors. Explore expansion.' },
+        'crypto-latin-fest': { title: 'Crypto Latin Fest', date: 'Aug 15', start: '2026-08-15', end: '2026-08-15', tasks: ['Major regional sponsorship', 'Main stage presentation', 'Product launch announcements', 'Influencer summit', 'Awards campaigns'], impact: 'Reach 5000+ attendees. Establish as leading LATAM exchange. Generate media coverage.' },
+        'uni-list': { title: 'University List & Contacts', date: 'Dec 15 - Dec 22', start: '2025-12-15', end: '2025-12-22', tasks: ['Research and compile database', 'Identify key contacts', 'Create outreach templates', 'Establish initial relationships', 'Schedule meetings'], impact: 'Build foundation for partnerships. Create pipeline of 50+ contacts. Enable scalable program.' },
+        'uni-program': { title: 'Program Development', date: 'Dec 22 - Jan 15', start: '2025-12-22', end: '2026-01-15', tasks: ['Curriculum development', 'Partnership agreement templates', 'Student ambassador program', 'Educational content', 'Launch materials'], impact: 'Create structured approach. Enable consistent messaging. Build scalable education model.' },
+        'uni-outreach': { title: 'University Outreach', date: 'Jan 15 - Jan 20', start: '2026-01-15', end: '2026-01-20', tasks: ['Direct outreach to contacts', 'Presentation scheduling', 'Partnership proposals', 'Follow-up communications', 'Agreement negotiations'], impact: 'Secure 10+ partnerships. Establish as educational partner. Create student acquisition pipeline.' },
+        'uni-copromotion': { title: 'Co Promotion', date: 'Apr 1 - Apr 30', start: '2026-04-01', end: '2026-04-30', tasks: ['Joint marketing campaigns', 'Student workshops', 'Case study development', 'Success stories', 'Relationship management'], impact: 'Reach 5000+ students. Build brand loyalty among young adults. Long-term acquisition channel.' },
+        'uni-event-1': { title: 'University Event 1', date: 'May 1', start: '2026-05-01', end: '2026-05-01', tasks: ['On-campus workshop', 'Product demonstration', 'Student recruitment', 'Content creation', 'Feedback collection'], impact: 'Engage 100+ students. Generate sign-ups and referrals. Build university presence.' },
+        'uni-event-2': { title: 'University Event 2', date: 'May 15', start: '2026-05-15', end: '2026-05-15', tasks: ['Educational seminar', 'Q&A session', 'Faculty networking', 'Ambassador recruitment', 'Partnership strengthening'], impact: 'Deepen relationships. Recruit ambassadors. Generate educational content.' },
+        'uni-event-3': { title: 'University Event 3', date: 'Jun 1', start: '2026-06-01', end: '2026-06-01', tasks: ['Career fair participation', 'Internship program', 'Industry connections', 'Student projects', 'Brand visibility'], impact: 'Position as employer of choice. Build talent pipeline. Increase awareness.' },
+        'uni-event-4': { title: 'University Event 4', date: 'Jun 15', start: '2026-06-15', end: '2026-06-15', tasks: ['End-of-semester celebration', 'Success stories', 'Program evaluation', 'Next semester planning', 'Alumni network'], impact: 'Maintain engagement. Build alumni network. Plan expanded program.' },
+        'inf-outreach': { title: 'List Development & Outreach', date: 'Dec 15 - Jan 15', start: '2025-12-15', end: '2026-01-15', tasks: ['Identify relevant influencers', 'Outreach to micro/macro influencers', 'Partnership proposals', 'Initial discussions', 'Contract negotiations'], impact: 'Build pipeline of 100+ partnerships. Establish relationships before launch.' },
+        'inf-program': { title: 'Program Development', date: 'Jan 15 - Feb 15', start: '2026-01-15', end: '2026-02-15', tasks: ['Program structure and guidelines', 'Compensation model', 'Content requirements', 'Tracking and analytics', 'Onboarding materials'], impact: 'Create scalable program. Enable consistent messaging. Establish ROI metrics.' },
+        'inf-recruitment': { title: 'Recruitment & Onboarding', date: 'Feb 15 - Mar 15', start: '2026-02-15', end: '2026-03-15', tasks: ['Active recruitment', 'Vetting and selection', 'Onboarding sessions', 'Content strategy alignment', 'Campaign briefings'], impact: 'Recruit 50+ active influencers. Ensure quality and brand fit. Prepare for launch.' },
+        'inf-launch': { title: 'Program Launch', date: 'Apr 1', start: '2026-04-01', end: '2026-04-01', tasks: ['Program kickoff event', 'Coordinated launch content', 'Media announcement', 'First wave content', 'Performance tracking'], impact: 'Generate brand awareness. Reach 500k+ potential users. Establish credibility.' },
+        'inf-live': { title: 'Program Live (Revenue)', date: 'Jun 1+', start: '2026-06-01', end: '2026-08-31', tasks: ['Ongoing content creation', 'Performance monitoring', 'New influencer onboarding', 'Revenue tracking', 'Program expansion'], impact: 'Consistent user acquisition. 20%+ conversion rate. Scale to 100+ influencers. Target $25 CAC.' },
+        'blog-live': { title: 'Solvida Blog Live', date: 'Dec 29', start: '2025-12-29', end: '2025-12-29', tasks: ['Blog platform setup', 'Initial content (10+ articles)', 'SEO optimization', 'Content calendar', 'Social integration'], impact: 'Establish thought leadership. Drive organic traffic. Target 5k+ monthly visitors.' },
+        'markets-page': { title: 'Markets Page', date: 'Jan 15', start: '2026-01-15', end: '2026-01-15', tasks: ['Real-time market data', 'Charting features', 'SEO-optimized pages', 'Social sharing', 'Performance monitoring'], impact: 'Capture high-intent traffic. Provide value to traders. Support organic discovery.' },
+        'customer-service': { title: 'Customer Service Bot', date: 'Feb 1', start: '2026-02-01', end: '2026-02-01', tasks: ['AI chatbot implementation', 'FAQ automation', 'Ticket routing', 'Response templates', 'Performance monitoring'], impact: 'Reduce response time by 50%. Handle 80% of common queries. Improve satisfaction.' },
+        'pro-lander': { title: 'Pro & Lite Lander', date: 'Feb 15', start: '2026-02-15', end: '2026-02-15', tasks: ['Landing page design', 'Feature highlights', 'Conversion optimization', 'A/B testing', 'Analytics integration'], impact: 'Improve sign-up conversion by 30%. Provide clear value proposition.' },
+        'telegram': { title: 'Telegram', date: 'Feb 1', start: '2026-02-01', end: '2026-02-01', tasks: ['Channel and group setup', 'Community guidelines', 'Member recruitment', 'Content strategy', 'Engagement campaigns'], impact: 'Build direct communication. Create engaged community. Target 5k+ members.' },
+        'discord': { title: 'Discord', date: 'Mar 1', start: '2026-03-01', end: '2026-03-01', tasks: ['Server setup and structure', 'Channel organization', 'Bot integration', 'Community events', 'Member onboarding'], impact: 'Deeper community engagement. Real-time discussions. Target 3k+ active members.' },
+        'whatsapp': { title: 'WhatsApp', date: 'Apr 1', start: '2026-04-01', end: '2026-04-01', tasks: ['WhatsApp Business setup', 'Broadcast list creation', 'Content strategy', 'Automated responses', 'User segmentation'], impact: 'Reach users in preferred channel. Personalized communication. Support customer service.' },
+        'instagram': { title: 'Instagram', date: 'May 1', start: '2026-05-01', end: '2026-05-01', tasks: ['Account setup and branding', 'Visual content strategy', 'Influencer collaborations', 'Reels and Stories', 'Community building'], impact: 'Reach younger demographic. Increase brand awareness. Create visual identity.' },
+        'tiktok': { title: 'TikTok', date: 'May 1', start: '2026-05-01', end: '2026-05-01', tasks: ['Account setup and strategy', 'Trending content', 'Influencer partnerships', 'Educational short-form', 'Engagement campaigns'], impact: 'Reach Gen-Z audience. Create viral potential. Build brand personality.' },
+        'semana-santa': { title: 'Semana Santa', date: 'Apr 2-3', start: '2026-04-02', end: '2026-04-03', tasks: ['Cultural content creation', 'Holiday promotions', 'Community engagement', 'Respectful messaging', 'Limited-time offers'], impact: 'Connect during cultural period. Show cultural awareness. Drive engagement.' },
+        'dia-trabajo': { title: 'Día del Trabajo', date: 'May 1', start: '2026-05-01', end: '2026-05-01', tasks: ['Labor Day content', 'Financial independence messaging', 'Worker-focused promotions', 'Community appreciation', 'Educational content'], impact: 'Align with worker values. Position as empowerment tool. Drive professional sign-ups.' },
+        'fifa-world-cup': { title: 'FIFA World Cup', date: 'Jun 11 - Jul 14', start: '2026-06-11', end: '2026-07-14', tasks: ['World Cup themed promotions', 'Community watch parties', 'Limited edition campaigns', 'Partnership opportunities', 'Social engagement'], impact: 'Leverage massive cultural moment. Reach broader audience. Target 50k+ impressions.' },
+        'independencia': { title: 'Día de la Independencia', date: 'Jul 20', start: '2026-07-20', end: '2026-07-20', tasks: ['Patriotic content', 'Colombian pride messaging', 'Local success stories', 'Community celebrations', 'National positioning'], impact: 'Strengthen Colombian identity. Build national pride connection. Drive local acquisition.' },
+        'batalla-boyaca': { title: 'Batalla de Boyacá', date: 'Aug 7', start: '2026-08-07', end: '2026-08-07', tasks: ['Historical commemoration', 'Educational campaigns', 'Community engagement', 'National pride', 'Special promotions'], impact: 'Connect with heritage. Show cultural awareness. Build authentic local brand.' }
     };
 
-    // Open Detail Pane
+    let editMode = false;
+    let paneEditMode = false;
+    let hasUnsavedChanges = false;
+    let currentItemId = null;
+    let selectedElement = null;
+
+    // Init
+    document.addEventListener('DOMContentLoaded', () => {
+        loadSettings();
+        attachClickHandlers();
+        
+        // Warn before leaving with unsaved changes
+        window.addEventListener('beforeunload', (e) => {
+            if (hasUnsavedChanges) {
+                e.preventDefault();
+                e.returnValue = 'You have unsaved changes. Are you sure you want to leave?';
+            }
+        });
+    });
+
+    function attachClickHandlers() {
+        document.querySelectorAll('.bar, .diamond').forEach(el => {
+            el.addEventListener('click', (e) => {
+                if (!editMode) {
+                    openDetail(el.dataset.id);
+                } else {
+                    selectElement(el);
+                }
+            });
+        });
+    }
+
+    function selectElement(el) {
+        if (selectedElement) selectedElement.classList.remove('selected');
+        selectedElement = el;
+        el.classList.add('selected');
+        openDetail(el.dataset.id);
+    }
+
     function openDetail(id) {
+        currentItemId = id;
         const pane = document.getElementById('detailPane');
-        const data = campaignData[id] || { 
-            title: 'Campaign Details', 
-            date: 'TBD', 
-            tasks: ['Add deliverables for this campaign...'], 
-            impact: 'Define business impact and expected outcomes for this campaign...' 
-        };
+        const data = campaignData[id] || { title: 'Unknown Item', date: 'TBD', tasks: ['No data available'], impact: 'No impact data available.' };
         
         document.getElementById('dTitle').textContent = data.title;
         document.getElementById('dDate').textContent = data.date;
-        
-        let tasksList = Array.isArray(data.tasks) ? data.tasks : data.tasks.split('. ').filter(t => t.trim());
-        document.getElementById('dList').innerHTML = tasksList.map(t => `<li>${t.trim()}</li>`).join('');
+        document.getElementById('dList').innerHTML = data.tasks.map(t => `<li>${t}</li>`).join('');
         document.getElementById('dImpact').textContent = data.impact;
         
         pane.classList.add('active');
-        pane.scrollIntoView({behavior: 'smooth', block: 'center'});
-    }
-    
-    // Toggle Section Edit
-    function toggleSectionEdit(elementId) {
-        const element = document.getElementById(elementId);
-        const isEditable = element.contentEditable === 'true';
-        element.contentEditable = !isEditable;
-        
-        if (isEditable) {
-            element.style.border = '';
-            element.style.background = '';
-            showToast('Changes saved');
-        } else {
-            element.style.border = '1px dashed var(--border-edit)';
-            element.style.background = 'rgba(234, 179, 8, 0.05)';
-            element.focus();
-        }
     }
 
     // Edit Mode
-    let editMode = false;
-    function toggleEdit() {
+    function toggleEditMode() {
         editMode = !editMode;
         const btn = document.getElementById('editBtn');
         
         if (editMode) {
-            btn.textContent = 'Save';
-            btn.style.background = 'rgba(234, 179, 8, 0.1)';
-            btn.style.borderColor = '#eab308';
-            btn.style.color = '#eab308';
+            btn.textContent = 'Done Editing';
+            btn.classList.add('edit-active');
             document.body.classList.add('edit-mode');
+            enableDragAndResize();
         } else {
             btn.textContent = 'Edit';
-            btn.style.background = '';
-            btn.style.borderColor = '';
-            btn.style.color = '';
+            btn.classList.remove('edit-active');
             document.body.classList.remove('edit-mode');
-            localStorage.setItem('solvida_mkt_content', document.querySelector('.container').innerHTML);
-            showToast('Changes saved locally');
+            disableDragAndResize();
+            if (selectedElement) {
+                selectedElement.classList.remove('selected');
+                selectedElement = null;
+            }
         }
     }
-    
+
+    function enableDragAndResize() {
+        document.querySelectorAll('.bar').forEach(bar => {
+            bar.draggable = true;
+            bar.addEventListener('dragstart', handleDragStart);
+            bar.addEventListener('dragend', handleDragEnd);
+            
+            // Add resize handle
+            const handle = document.createElement('div');
+            handle.className = 'resize-handle';
+            handle.addEventListener('mousedown', startResize);
+            bar.appendChild(handle);
+        });
+        
+        document.querySelectorAll('.diamond').forEach(diamond => {
+            diamond.draggable = true;
+            diamond.addEventListener('dragstart', handleDragStart);
+            diamond.addEventListener('dragend', handleDragEnd);
+        });
+        
+        document.querySelectorAll('.swim-track').forEach(track => {
+            track.addEventListener('dragover', handleDragOver);
+            track.addEventListener('drop', handleDrop);
+        });
+    }
+
+    function disableDragAndResize() {
+        document.querySelectorAll('.bar, .diamond').forEach(el => {
+            el.draggable = false;
+            el.removeEventListener('dragstart', handleDragStart);
+            el.removeEventListener('dragend', handleDragEnd);
+        });
+        document.querySelectorAll('.resize-handle').forEach(h => h.remove());
+    }
+
+    let draggedElement = null;
+    function handleDragStart(e) {
+        draggedElement = e.target.closest('.bar, .diamond');
+        e.dataTransfer.effectAllowed = 'move';
+    }
+    function handleDragEnd(e) {
+        draggedElement = null;
+    }
+    function handleDragOver(e) {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+    }
+    function handleDrop(e) {
+        e.preventDefault();
+        if (!draggedElement) return;
+        
+        const track = e.target.closest('.swim-track');
+        const rect = track.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const percent = (x / rect.width) * 100;
+        
+        draggedElement.style.left = Math.max(0, Math.min(95, percent)) + '%';
+        updateItemDate(draggedElement.dataset.id, percent);
+        markUnsaved();
+    }
+
+    let resizing = false;
+    let resizeElement = null;
+    function startResize(e) {
+        e.stopPropagation();
+        resizing = true;
+        resizeElement = e.target.parentElement;
+        document.addEventListener('mousemove', doResize);
+        document.addEventListener('mouseup', stopResize);
+    }
+    function doResize(e) {
+        if (!resizing || !resizeElement) return;
+        const track = resizeElement.parentElement;
+        const rect = track.getBoundingClientRect();
+        const left = parseFloat(resizeElement.style.left);
+        const newWidth = ((e.clientX - rect.left) / rect.width * 100) - left;
+        if (newWidth > 1) {
+            resizeElement.style.width = newWidth + '%';
+            markUnsaved();
+        }
+    }
+    function stopResize() {
+        resizing = false;
+        resizeElement = null;
+        document.removeEventListener('mousemove', doResize);
+        document.removeEventListener('mouseup', stopResize);
+    }
+
+    function updateItemDate(id, leftPercent) {
+        // Convert percent to date (Dec 2025 = 0%, Aug 2026 = 100%)
+        const months = ['Dec 2025', 'Jan 2026', 'Feb 2026', 'Mar 2026', 'Apr 2026', 'May 2026', 'Jun 2026', 'Jul 2026', 'Aug 2026'];
+        const monthIndex = Math.floor(leftPercent / 11.11);
+        const dayInMonth = Math.floor(((leftPercent % 11.11) / 11.11) * 30) + 1;
+        const newDate = months[Math.min(monthIndex, 8)] + ' ' + dayInMonth;
+        
+        if (campaignData[id]) {
+            campaignData[id].date = newDate;
+            if (currentItemId === id) {
+                document.getElementById('dDate').textContent = newDate;
+            }
+        }
+    }
+
+    // Pane Edit Mode
+    function togglePaneEdit() {
+        paneEditMode = !paneEditMode;
+        const btn = document.getElementById('paneEditBtn');
+        const title = document.getElementById('dTitle');
+        const date = document.getElementById('dDate');
+        const list = document.getElementById('dList');
+        const impact = document.getElementById('dImpact');
+        
+        if (paneEditMode) {
+            btn.textContent = '✓ Save';
+            btn.classList.add('edit-active');
+            [title, date, list, impact].forEach(el => {
+                el.contentEditable = true;
+                el.classList.add('editable-active');
+            });
+        } else {
+            btn.textContent = '✎ Edit';
+            btn.classList.remove('edit-active');
+            [title, date, list, impact].forEach(el => {
+                el.contentEditable = false;
+                el.classList.remove('editable-active');
+            });
+            
+            // Save changes to data
+            if (currentItemId && campaignData[currentItemId]) {
+                campaignData[currentItemId].title = title.textContent;
+                campaignData[currentItemId].date = date.textContent;
+                campaignData[currentItemId].tasks = Array.from(list.querySelectorAll('li')).map(li => li.textContent);
+                campaignData[currentItemId].impact = impact.textContent;
+                
+                // Update calendar item text
+                const calItem = document.querySelector(`[data-id="${currentItemId}"]`);
+                if (calItem && calItem.classList.contains('bar')) {
+                    calItem.childNodes[0].textContent = title.textContent;
+                }
+            }
+            markUnsaved();
+        }
+    }
+
+    // Add New Item
+    function addNewItem() {
+        const type = document.getElementById('newItemType').value;
+        const title = document.getElementById('newItemTitle').value;
+        const category = document.getElementById('newItemCategory').value;
+        const startDate = document.getElementById('newItemStart').value;
+        const endDate = document.getElementById('newItemEnd').value;
+        const deliverables = document.getElementById('newItemDeliverables').value.split('\n').filter(d => d.trim());
+        const impact = document.getElementById('newItemImpact').value;
+        
+        if (!title || !startDate) {
+            alert('Please fill in at least a title and start date.');
+            return;
+        }
+        
+        const id = 'custom-' + Date.now();
+        const leftPercent = dateToPercent(startDate);
+        const widthPercent = type === 'bar' && endDate ? dateToPercent(endDate) - leftPercent : 0;
+        
+        const track = document.getElementById('track-' + category);
+        const element = document.createElement('div');
+        
+        if (type === 'bar') {
+            element.className = `bar bar-${category}`;
+            element.style.left = leftPercent + '%';
+            element.style.width = Math.max(widthPercent, 3) + '%';
+            element.textContent = title;
+        } else {
+            element.className = `diamond diamond-${getDiamondColor(category)}`;
+            element.style.left = leftPercent + '%';
+            element.innerHTML = `<span class="d-label">${title} · ${formatDate(startDate)}</span>`;
+        }
+        
+        element.dataset.id = id;
+        element.addEventListener('click', () => openDetail(id));
+        track.appendChild(element);
+        
+        // Add to data
+        campaignData[id] = {
+            title: title,
+            date: endDate ? formatDate(startDate) + ' - ' + formatDate(endDate) : formatDate(startDate),
+            start: startDate,
+            end: endDate || startDate,
+            tasks: deliverables.length ? deliverables : ['New item'],
+            impact: impact || 'Define business impact...'
+        };
+        
+        closeModal('addItemModal');
+        markUnsaved();
+        showToast('Item added');
+        
+        // Clear form
+        document.getElementById('newItemTitle').value = '';
+        document.getElementById('newItemStart').value = '';
+        document.getElementById('newItemEnd').value = '';
+        document.getElementById('newItemDeliverables').value = '';
+        document.getElementById('newItemImpact').value = '';
+    }
+
+    function dateToPercent(dateStr) {
+        const date = new Date(dateStr);
+        const start = new Date('2025-12-01');
+        const end = new Date('2026-08-31');
+        const total = end - start;
+        const elapsed = date - start;
+        return Math.max(0, Math.min(100, (elapsed / total) * 100));
+    }
+
+    function formatDate(dateStr) {
+        const date = new Date(dateStr);
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        return months[date.getMonth()] + ' ' + date.getDate();
+    }
+
+    function getDiamondColor(category) {
+        const colors = { product: 'yellow', social: 'cyan', events: 'orange', uni: 'green', influencer: 'yellow', web: 'cyan', culture: 'red' };
+        return colors[category] || 'orange';
+    }
+
+    // Unsaved Changes
+    function markUnsaved() {
+        hasUnsavedChanges = true;
+        document.getElementById('unsavedIndicator').classList.add('show');
+    }
+
+    function markSaved() {
+        hasUnsavedChanges = false;
+        document.getElementById('unsavedIndicator').classList.remove('show');
+    }
+
+    // Modal Helpers
+    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+    // Toggle end date visibility
+    document.getElementById('newItemType').addEventListener('change', (e) => {
+        document.getElementById('endDateGroup').style.display = e.target.value === 'bar' ? 'block' : 'none';
+    });
+
     // Toast
-    function showToast(msg) {
+    function showToast(msg, type = '') {
         const toast = document.getElementById('toast');
         toast.textContent = msg;
-        toast.classList.add('show');
+        toast.className = 'toast show' + (type ? ' ' + type : '');
         setTimeout(() => toast.classList.remove('show'), 3000);
     }
 
-    // GitHub Settings
-    function openSettings() { document.getElementById('settingsModal').style.display = 'flex'; }
-    function closeSettings() { document.getElementById('settingsModal').style.display = 'none'; }
-    
+    // Settings
+    function loadSettings() {
+        const config = JSON.parse(localStorage.getItem('solvida_gh_mkt_config') || '{}');
+        document.getElementById('ghUsername').value = config.user || '';
+        document.getElementById('ghRepo').value = config.repo || '';
+        document.getElementById('ghToken').value = config.token || '';
+        document.getElementById('ghPath').value = config.path || 'marketing.html';
+    }
+
     function saveSettings() {
         const config = {
             user: document.getElementById('ghUsername').value,
@@ -933,17 +1012,24 @@
             path: document.getElementById('ghPath').value
         };
         localStorage.setItem('solvida_gh_mkt_config', JSON.stringify(config));
-        closeSettings();
+        closeModal('settingsModal');
         showToast('Settings saved');
     }
 
     async function publishToGitHub() {
-        if(editMode) toggleEdit();
-        const config = JSON.parse(localStorage.getItem('solvida_gh_mkt_config'));
-        if(!config) { alert('Please configure GitHub settings first.'); openSettings(); return; }
+        if (editMode) toggleEditMode();
+        if (paneEditMode) togglePaneEdit();
+        
+        const config = JSON.parse(localStorage.getItem('solvida_gh_mkt_config') || '{}');
+        if (!config.token) { 
+            alert('Please configure GitHub settings first.'); 
+            openModal('settingsModal'); 
+            return; 
+        }
         
         const btn = document.getElementById('publishBtn');
         btn.textContent = 'Publishing...';
+        btn.disabled = true;
         
         try {
             const getRes = await fetch(`https://api.github.com/repos/${config.user}/${config.repo}/contents/${config.path}`, {
@@ -954,35 +1040,29 @@
             const htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
             const contentEncoded = btoa(unescape(encodeURIComponent(htmlContent)));
             
-            await fetch(`https://api.github.com/repos/${config.user}/${config.repo}/contents/${config.path}`, {
+            const putRes = await fetch(`https://api.github.com/repos/${config.user}/${config.repo}/contents/${config.path}`, {
                 method: 'PUT',
                 headers: { 'Authorization': `Bearer ${config.token}`, 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    message: 'Update Marketing Calendar',
+                    message: 'Update Marketing Calendar - ' + new Date().toLocaleString(),
                     content: contentEncoded,
                     sha: getData.sha
                 })
             });
             
-            showToast('Published successfully!');
+            if (putRes.ok) {
+                markSaved();
+                showToast('Published successfully!');
+            } else {
+                throw new Error('Publish failed');
+            }
         } catch(e) {
-            alert('Error publishing: ' + e.message);
+            showToast('Error: ' + e.message, 'warning');
         }
+        
         btn.textContent = 'Publish';
+        btn.disabled = false;
     }
-
-    // Load saved data
-    window.addEventListener('DOMContentLoaded', () => {
-        const config = JSON.parse(localStorage.getItem('solvida_gh_mkt_config'));
-        if(config) {
-            document.getElementById('ghUsername').value = config.user || '';
-            document.getElementById('ghRepo').value = config.repo || '';
-            document.getElementById('ghToken').value = config.token || '';
-            document.getElementById('ghPath').value = config.path || 'marketing.html';
-        }
-    });
 </script>
 </body>
-</html>
-
 </html>
