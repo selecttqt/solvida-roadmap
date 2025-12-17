@@ -949,8 +949,17 @@
     }
 
     function openDetail(id) {
-        currentItemId = id;
         const pane = document.getElementById('detailPane');
+        
+        // If clicking the same item that's already open, close the panel
+        if (currentItemId === id && pane.classList.contains('active')) {
+            pane.classList.remove('active');
+            currentItemId = null;
+            return;
+        }
+        
+        // Otherwise open with new item data
+        currentItemId = id;
         const data = campaignData[id] || { title: 'Unknown Item', date: 'TBD', tasks: ['No data available'], impact: 'No impact data available.' };
         
         document.getElementById('dTitle').textContent = data.title;
@@ -1056,6 +1065,66 @@
     // 9 months (Dec-Aug) = 100%, so ~11.11% per month, ~0.37% per day
     const MONTH_PERCENT = 11.11;
     const DAY_PERCENT = MONTH_PERCENT / 30; // ~0.37%
+    const MONTH_NAMES = ['Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'];
+
+    // Parse date string to calendar percentages
+    function parseDateToPercent(dateStr) {
+        // Handle formats like "Jan 26 - Feb 8", "Jan 1 - Jan 31", "May 1", "Jan 15-16"
+        const parts = dateStr.split(' - ');
+        let startStr = parts[0].trim();
+        let endStr = parts.length > 1 ? parts[1].trim() : startStr;
+        
+        // Handle "Jan 15-16" format (hyphen without spaces)
+        if (parts.length === 1 && startStr.includes('-')) {
+            const match = startStr.match(/(\w+)\s+(\d+)-(\d+)/);
+            if (match) {
+                startStr = match[1] + ' ' + match[2];
+                endStr = match[1] + ' ' + match[3];
+            }
+        }
+        
+        // Parse start date
+        const startParts = startStr.split(' ');
+        const startMonth = startParts[0];
+        const startDay = parseInt(startParts[1]) || 1;
+        const startMonthIndex = MONTH_NAMES.indexOf(startMonth);
+        
+        // Parse end date (might just be a day number if same month)
+        let endMonth, endDay;
+        const endParts = endStr.split(' ');
+        if (endParts.length === 1 && !isNaN(parseInt(endParts[0]))) {
+            // Just a day number, same month as start
+            endMonth = startMonth;
+            endDay = parseInt(endParts[0]);
+        } else {
+            endMonth = endParts[0];
+            endDay = parseInt(endParts[1]) || 1;
+        }
+        const endMonthIndex = MONTH_NAMES.indexOf(endMonth);
+        
+        if (startMonthIndex === -1 || endMonthIndex === -1) {
+            return null; // Invalid date format
+        }
+        
+        // Calculate percentages
+        const left = (startMonthIndex * MONTH_PERCENT) + ((startDay - 1) / 30 * MONTH_PERCENT);
+        const endPercent = (endMonthIndex * MONTH_PERCENT) + ((endDay - 1) / 30 * MONTH_PERCENT);
+        const width = Math.max(endPercent - left + DAY_PERCENT, DAY_PERCENT * 2); // At least 2 days
+        
+        return { left: snapToDay(left), width: snapToDay(width) };
+    }
+
+    // Update calendar bar from date change
+    function updateCalendarFromDate(id, dateStr) {
+        const bar = document.querySelector(`[data-id="${id}"]`);
+        if (!bar || !bar.classList.contains('bar')) return; // Only update bars, not diamonds
+        
+        const result = parseDateToPercent(dateStr);
+        if (result) {
+            bar.style.left = result.left + '%';
+            bar.style.width = result.width + '%';
+        }
+    }
 
     function snapToDay(percent) {
         // Snap to nearest day interval
@@ -1222,6 +1291,9 @@
                 if (calItem && calItem.classList.contains('bar')) {
                     calItem.childNodes[0].textContent = title.textContent;
                 }
+                
+                // Update calendar bar position from date change
+                updateCalendarFromDate(currentItemId, date.textContent);
             }
             markUnsaved();
         }
