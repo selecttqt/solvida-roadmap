@@ -90,8 +90,8 @@
         
         /* Swimlanes */
         .swimlane { display: contents; }
-        .swim-label { padding: 20px 25px; background: var(--bg-panel); border-right: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle); font-weight: 700; font-size: 12px; display: flex; align-items: center; position: sticky; left: 0; z-index: 10; }
-        .swim-track { grid-column: 2 / -1; position: relative; border-bottom: 1px solid var(--border-subtle); min-height: 60px; }
+        .swim-label { padding: 20px 25px; background: var(--bg-panel); border-right: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle); font-weight: 700; font-size: 13px; display: flex; align-items: center; position: sticky; left: 0; z-index: 10; color: var(--text-primary); }
+        .swim-track { grid-column: 2 / -1; position: relative; border-bottom: 1px solid var(--border-subtle); min-height: 70px; background: var(--bg-deep); }
         
         /* Grid Lines */
         .grid-lines { display: grid; grid-template-columns: repeat(9, 1fr); position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
@@ -99,14 +99,16 @@
 
         /* Bars */
         .camp-bar {
-            position: absolute; top: 50%; transform: translateY(-50%); height: 32px;
-            border-radius: 6px; font-size: 10px; font-weight: 600; color: white;
-            display: flex; align-items: center; padding: 0 10px; cursor: pointer;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2); white-space: nowrap; overflow: hidden;
-            z-index: 2;
+            position: absolute; top: 50%; transform: translateY(-50%); height: 40px;
+            border-radius: 8px; font-size: 11px; font-weight: 600; color: white;
+            display: flex; align-items: center; padding: 0 12px; cursor: pointer;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.3); white-space: nowrap; overflow: hidden;
+            z-index: 2; transition: all 0.2s ease;
         }
-        .camp-bar:hover { z-index: 10; transform: translateY(-50%) scale(1.05); filter: brightness(1.1); }
+        .camp-bar:hover { z-index: 10; transform: translateY(-50%) scale(1.05); filter: brightness(1.15); box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
         .camp-bar.dragging { opacity: 0.5; cursor: grabbing; }
+        .camp-bar::after { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent); transform: skewX(-20deg); animation: shimmer 3s infinite; }
+        @keyframes shimmer { 100% { left: 200%; } }
 
         /* Categories */
         .cat-prod { background: linear-gradient(90deg, rgba(217, 70, 239, 0.2), rgba(217, 70, 239, 0.8)); border: 1px solid var(--cat-product); }
@@ -115,10 +117,12 @@
         .cat-uni { background: linear-gradient(90deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.8)); border: 1px solid var(--cat-uni); }
         .cat-inf { background: linear-gradient(90deg, rgba(234, 179, 8, 0.2), rgba(234, 179, 8, 0.8)); border: 1px solid var(--cat-influencer); color: white; }
         .cat-web { background: var(--cat-web); color: #000; }
+        .cat-culture { background: var(--cat-culture); }
         
         /* Event Diamond */
-        .evt-point { position: absolute; top: 50%; width: 14px; height: 14px; transform: translate(-50%, -50%) rotate(45deg); cursor: pointer; z-index: 3; }
-        .evt-label { position: absolute; top: -25px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); padding: 4px 8px; border-radius: 4px; font-size: 10px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s; color: white; }
+        .evt-point { position: absolute; top: 50%; width: 16px; height: 16px; transform: translate(-50%, -50%) rotate(45deg); cursor: pointer; z-index: 3; transition: all 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+        .evt-point:hover { transform: translate(-50%, -50%) rotate(45deg) scale(1.3); z-index: 10; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .evt-label { position: absolute; top: -30px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.9); padding: 6px 10px; border-radius: 6px; font-size: 10px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s; color: white; font-weight: 600; }
         .evt-point:hover .evt-label { opacity: 1; }
 
         /* SECTION 4: DETAILS PANE */
@@ -134,10 +138,12 @@
         .pane-meta { color: var(--text-secondary); font-size: 12px; display: flex; gap: 15px; align-items: center; }
         
         .pane-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; }
-        .pane-list li { margin-bottom: 10px; padding-left: 20px; position: relative; }
-        .pane-list li::before { content: "▸"; position: absolute; left: 0; color: var(--brand-primary); }
-        .impact-box { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); padding: 20px; border-radius: 8px; }
-        .impact-title { color: #10b981; font-size: 11px; text-transform: uppercase; font-weight: 700; margin-bottom: 10px; display: block; }
+        .pane-list { list-style: none; }
+        .pane-list li { margin-bottom: 12px; padding-left: 20px; position: relative; color: var(--text-primary); font-size: 15px; line-height: 1.6; }
+        .pane-list li::before { content: "▹"; position: absolute; left: 0; color: var(--brand-primary); font-size: 14px; }
+        .impact-box { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); padding: 25px; border-radius: 8px; height: 100%; }
+        .impact-title { color: #10b981; font-size: 12px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em; margin-bottom: 12px; display: block; }
+        .impact-text { font-size: 15px; color: var(--text-secondary); line-height: 1.7; }
 
         /* Editing Overrides */
         body.edit-mode [contenteditable="true"] { border: 1px dashed var(--border-edit); background: rgba(234, 179, 8, 0.05); outline: none; padding: 2px; }
@@ -259,10 +265,10 @@
                 <div class="swim-track">
                     <div class="grid-lines"><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div></div>
                     
-                    <div class="camp-bar cat-prod" style="left: 20%; width: 5%;" onclick="openDetail('kyc')">KYC Education</div>
-                    <div class="camp-bar cat-prod" style="left: 25.5%; width: 5%;" onclick="openDetail('pro')">Solvida Pro</div>
-                    <div class="camp-bar cat-prod" style="left: 33.3%; width: 33%;" onclick="openDetail('waitlist')">Public Waitlist</div>
-                    <div class="camp-bar cat-prod" style="left: 66.6%; width: 11%;" onclick="openDetail('gamify')">Platform Gamification</div>
+                    <div class="camp-bar cat-prod" style="left: 20%; width: 5.5%;" onclick="openDetail('kyc')">KYC Education</div>
+                    <div class="camp-bar cat-prod" style="left: 25.5%; width: 5.5%;" onclick="openDetail('pro')">Solvida Pro</div>
+                    <div class="camp-bar cat-prod" style="left: 33.3%; width: 33.3%;" onclick="openDetail('waitlist')">Public Waitlist</div>
+                    <div class="camp-bar cat-prod" style="left: 66.6%; width: 11.1%;" onclick="openDetail('gamify')">Platform Gamification</div>
                 </div>
             </div>
 
@@ -271,8 +277,8 @@
                 <div class="swim-track">
                     <div class="grid-lines"><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div></div>
                     
-                    <div class="camp-bar cat-soc" style="left: 5%; width: 7%; top: 30%;">Follower Acq (Paid)</div>
-                    <div class="camp-bar cat-soc" style="left: 5%; width: 11%; top: 70%;">Community Outreach</div>
+                    <div class="camp-bar cat-soc" style="left: 5%; width: 7%; top: 30%;" onclick="openDetail('follower-acq')">Follower Acq (Paid)</div>
+                    <div class="camp-bar cat-soc" style="left: 5%; width: 11%; top: 70%;" onclick="openDetail('community-outreach')">Community Outreach</div>
                     <div class="camp-bar cat-soc" style="left: 11.1%; width: 11.1%; top: 50%; z-index: 5; border: 1px solid white;" onclick="openDetail('enero')">#EneroSinCuesta</div>
                 </div>
             </div>
@@ -282,13 +288,13 @@
                 <div class="swim-track">
                     <div class="grid-lines"><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div></div>
                     
-                    <div class="evt-point cat-evt" style="left: 7%;" title="Dec 20"><span class="evt-label">Uniswap x ETH Cali</span></div>
-                    <div class="evt-point cat-evt" style="left: 21%;" title="Jan 30"><span class="evt-label">ETH Cali</span></div>
-                    <div class="evt-point cat-evt" style="left: 16%; top: 30%;" title="Jan 15"><span class="evt-label">Bitcoin Medellin</span></div>
-                    <div class="evt-point cat-evt" style="left: 27%;" title="Feb 15"><span class="evt-label">ETH Bogota</span></div>
-                    <div class="evt-point cat-evt" style="left: 38%;" title="Mar 15"><span class="evt-label">ETH Medellin</span></div>
-                    <div class="evt-point cat-evt" style="left: 57%; top: 30%;" title="May 5"><span class="evt-label">Consensus Miami</span></div>
-                    <div class="evt-point cat-evt" style="left: 94%;" title="Aug 15"><span class="evt-label">Crypto Latin Fest</span></div>
+                    <div class="evt-point cat-evt" style="left: 7%;" onclick="openDetail('uniswap-eth-cali')" title="Dec 20"><span class="evt-label">Uniswap x ETH Cali</span></div>
+                    <div class="evt-point cat-evt" style="left: 21%;" onclick="openDetail('eth-cali')" title="Jan 30"><span class="evt-label">ETH Cali</span></div>
+                    <div class="evt-point cat-evt" style="left: 16%; top: 30%;" onclick="openDetail('bitcoin-medellin')" title="Jan 15"><span class="evt-label">Bitcoin Medellin</span></div>
+                    <div class="evt-point cat-evt" style="left: 27%;" onclick="openDetail('eth-bogota')" title="Feb 15"><span class="evt-label">ETH Bogota</span></div>
+                    <div class="evt-point cat-evt" style="left: 38%;" onclick="openDetail('eth-medellin')" title="Mar 15"><span class="evt-label">ETH Medellin</span></div>
+                    <div class="evt-point cat-evt" style="left: 57%; top: 30%;" onclick="openDetail('consensus-miami')" title="May 5"><span class="evt-label">Consensus Miami</span></div>
+                    <div class="evt-point cat-evt" style="left: 94%;" onclick="openDetail('crypto-latin-fest')" title="Aug 15"><span class="evt-label">Crypto Latin Fest</span></div>
                 </div>
             </div>
 
@@ -297,15 +303,15 @@
                 <div class="swim-track">
                     <div class="grid-lines"><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div></div>
                     
-                    <div class="camp-bar cat-uni" style="left: 5%; width: 3%; top: 20%;">List & Contacts</div>
-                    <div class="camp-bar cat-uni" style="left: 8%; width: 8%; top: 50%;">Program Dev</div>
-                    <div class="camp-bar cat-uni" style="left: 16%; width: 2%; top: 80%;">Outreach</div>
-                    <div class="camp-bar cat-uni" style="left: 44.4%; width: 11%; top: 50%;">Co-Promotion</div>
+                    <div class="camp-bar cat-uni" style="left: 5%; width: 3%; top: 20%;" onclick="openDetail('uni-list')">List & Contacts</div>
+                    <div class="camp-bar cat-uni" style="left: 8%; width: 8%; top: 50%;" onclick="openDetail('uni-program')">Program Dev</div>
+                    <div class="camp-bar cat-uni" style="left: 16%; width: 2%; top: 80%;" onclick="openDetail('uni-outreach')">Outreach</div>
+                    <div class="camp-bar cat-uni" style="left: 44.4%; width: 11%; top: 50%;" onclick="openDetail('uni-copromotion')">Co-Promotion</div>
                     
-                    <div class="evt-point cat-uni" style="left: 55.5%; top: 20%;" title="Uni 1"><span class="evt-label">Uni Event 1</span></div>
-                    <div class="evt-point cat-uni" style="left: 60%; top: 80%;" title="Uni 2"><span class="evt-label">Uni Event 2</span></div>
-                    <div class="evt-point cat-uni" style="left: 66.6%; top: 20%;" title="Uni 3"><span class="evt-label">Uni Event 3</span></div>
-                    <div class="evt-point cat-uni" style="left: 71%; top: 80%;" title="Uni 4"><span class="evt-label">Uni Event 4</span></div>
+                    <div class="evt-point cat-uni" style="left: 55.5%; top: 20%;" onclick="openDetail('uni-event-1')" title="Uni 1"><span class="evt-label">Uni Event 1</span></div>
+                    <div class="evt-point cat-uni" style="left: 60%; top: 80%;" onclick="openDetail('uni-event-2')" title="Uni 2"><span class="evt-label">Uni Event 2</span></div>
+                    <div class="evt-point cat-uni" style="left: 66.6%; top: 20%;" onclick="openDetail('uni-event-3')" title="Uni 3"><span class="evt-label">Uni Event 3</span></div>
+                    <div class="evt-point cat-uni" style="left: 71%; top: 80%;" onclick="openDetail('uni-event-4')" title="Uni 4"><span class="evt-label">Uni Event 4</span></div>
                 </div>
             </div>
 
@@ -314,11 +320,11 @@
                 <div class="swim-track">
                     <div class="grid-lines"><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div></div>
                     
-                    <div class="camp-bar cat-inf" style="left: 5%; width: 11%; top: 30%;">Outreach</div>
-                    <div class="camp-bar cat-inf" style="left: 16%; width: 11%; top: 70%;">Program Dev</div>
-                    <div class="camp-bar cat-inf" style="left: 27%; width: 11%; top: 50%;">Recruitment</div>
-                    <div class="evt-point cat-inf" style="left: 44.4%; top: 20%;"><span class="evt-label">Launch (Apr 1)</span></div>
-                    <div class="camp-bar cat-inf" style="left: 66.6%; width: 33%; top: 50%;">Program Live (Revenue)</div>
+                    <div class="camp-bar cat-inf" style="left: 5%; width: 11%; top: 30%;" onclick="openDetail('inf-outreach')">Outreach</div>
+                    <div class="camp-bar cat-inf" style="left: 16%; width: 11%; top: 70%;" onclick="openDetail('inf-program')">Program Dev</div>
+                    <div class="camp-bar cat-inf" style="left: 27%; width: 11%; top: 50%;" onclick="openDetail('inf-recruitment')">Recruitment</div>
+                    <div class="evt-point cat-inf" style="left: 44.4%; top: 20%;" onclick="openDetail('inf-launch')"><span class="evt-label">Launch (Apr 1)</span></div>
+                    <div class="camp-bar cat-inf" style="left: 66.6%; width: 33%; top: 50%;" onclick="openDetail('inf-live')">Program Live (Revenue)</div>
                 </div>
             </div>
 
@@ -327,13 +333,13 @@
                 <div class="swim-track">
                     <div class="grid-lines"><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div></div>
                     
-                    <div class="evt-point cat-web" style="left: 10%;" title="Blog Live"><span class="evt-label">Blog Live</span></div>
-                    <div class="evt-point cat-web" style="left: 16%; top: 80%;" title="Markets"><span class="evt-label">Markets Page</span></div>
-                    <div class="evt-point cat-web" style="left: 22%;" title="Telegram"><span class="evt-label">Telegram</span></div>
-                    <div class="evt-point cat-web" style="left: 27%;" title="Lander"><span class="evt-label">Pro Lander</span></div>
-                    <div class="evt-point cat-web" style="left: 33.3%; top: 80%;" title="Discord"><span class="evt-label">Discord</span></div>
-                    <div class="evt-point cat-web" style="left: 44.4%;" title="WhatsApp"><span class="evt-label">WhatsApp</span></div>
-                    <div class="evt-point cat-web" style="left: 55.5%;" title="Socials"><span class="evt-label">IG / TikTok</span></div>
+                    <div class="evt-point cat-web" style="left: 10%;" onclick="openDetail('blog-live')" title="Blog Live"><span class="evt-label">Blog Live</span></div>
+                    <div class="evt-point cat-web" style="left: 16%; top: 80%;" onclick="openDetail('markets-page')" title="Markets"><span class="evt-label">Markets Page</span></div>
+                    <div class="evt-point cat-web" style="left: 22%;" onclick="openDetail('telegram')" title="Telegram"><span class="evt-label">Telegram</span></div>
+                    <div class="evt-point cat-web" style="left: 27%;" onclick="openDetail('pro-lander')" title="Lander"><span class="evt-label">Pro Lander</span></div>
+                    <div class="evt-point cat-web" style="left: 33.3%; top: 80%;" onclick="openDetail('discord')" title="Discord"><span class="evt-label">Discord</span></div>
+                    <div class="evt-point cat-web" style="left: 44.4%;" onclick="openDetail('whatsapp')" title="WhatsApp"><span class="evt-label">WhatsApp</span></div>
+                    <div class="evt-point cat-web" style="left: 55.5%;" onclick="openDetail('socials')" title="Socials"><span class="evt-label">IG / TikTok</span></div>
                 </div>
             </div>
             
@@ -342,16 +348,10 @@
                 <div class="swim-track" style="border-bottom: none;">
                     <div class="grid-lines"><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div><div class="gl"></div></div>
                     
-                    <div class="camp-bar" style="left: 45%; background: var(--cat-culture); width: 2px; overflow:visible;">
-                        <span style="position:absolute; top:-10px; left:5px; font-size:9px; background:rgba(0,0,0,0.8); padding:2px;">Semana Santa</span>
-                    </div>
-                    <div class="camp-bar" style="left: 55.5%; background: var(--cat-culture); width: 2px; overflow:visible;">
-                        <span style="position:absolute; top:-10px; left:5px; font-size:9px; background:rgba(0,0,0,0.8); padding:2px;">Día Trabajo</span>
-                    </div>
-                    <div class="camp-bar" style="left: 70%; width: 12%; border: 1px solid var(--cat-culture); background: rgba(239, 68, 68, 0.1);">FIFA World Cup</div>
-                    <div class="camp-bar" style="left: 85%; background: var(--cat-culture); width: 2px; overflow:visible;">
-                        <span style="position:absolute; top:-10px; left:5px; font-size:9px; background:rgba(0,0,0,0.8); padding:2px;">Independencia</span>
-                    </div>
+                    <div class="evt-point cat-culture" style="left: 45%;" onclick="openDetail('semana-santa')" title="Semana Santa"><span class="evt-label">Semana Santa</span></div>
+                    <div class="evt-point cat-culture" style="left: 55.5%;" onclick="openDetail('dia-trabajo')" title="Día Trabajo"><span class="evt-label">Día Trabajo</span></div>
+                    <div class="camp-bar" style="left: 70%; width: 12%; border: 1px solid var(--cat-culture); background: rgba(239, 68, 68, 0.1); color: var(--text-primary);" onclick="openDetail('fifa-world-cup')">FIFA World Cup</div>
+                    <div class="evt-point cat-culture" style="left: 85%;" onclick="openDetail('independencia')" title="Independencia"><span class="evt-label">Independencia</span></div>
                 </div>
             </div>
         </div>
@@ -365,14 +365,15 @@
             </div>
         </div>
         <div class="pane-grid">
-            <div>
+            <div class="pane-deliverables">
+                <span class="section-title" style="color: var(--text-secondary); font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; display: block; margin-bottom: 15px;">Deliverables</span>
                 <ul class="pane-list editable-text" id="dList">
                     <li>Deliverables and key tasks will appear here.</li>
                 </ul>
             </div>
             <div class="impact-box">
                 <span class="impact-title">Business Impact</span>
-                <p class="editable-text" id="dImpact">Metric impact description.</p>
+                <p class="impact-text editable-text" id="dImpact">Metric impact description.</p>
             </div>
         </div>
     </div>
@@ -382,11 +383,234 @@
 <script>
     // --- Data Store ---
     const campaignData = {
-        'enero': { title: '#EneroSinCuesta', date: 'Jan 1 - Jan 31', tasks: 'Capitalize on "January Financial Hangover". Promote Earn products. Community savings contest.', impact: 'Drive engagement during slow financial month. Position Solvida as financial ally.' },
-        'kyc': { title: 'KYC Education', date: 'Jan 26 - Feb 8', tasks: 'Video tutorials for COP deposit. Blog post on asset protection. Email sequence for unverified users.', impact: 'Increase verification conversion by 15%.' },
-        'pro': { title: 'Solvida Pro Launch', date: 'Feb 9 - Feb 22', tasks: 'Advanced trader targeting. Trading competition. Pro features highlight video.', impact: 'Acquire high-volume traders.' },
-        'waitlist': { title: 'Public Waitlist', date: 'Mar 1 - Jun 1', tasks: 'Referral mechanic implementation. Exclusive swag for top referrers. Weekly drops.', impact: 'Build database of 50k+ leads before major feature rollout.' },
-        'gamify': { title: 'Platform Gamification', date: 'Jun 1 - Jun 30', tasks: 'Leaderboards. Achievement badges. Trading streaks.', impact: 'Increase daily active usage and retention.' }
+        'enero': { 
+            title: '#EneroSinCuesta', 
+            date: 'Jan 1 - Jan 31', 
+            tasks: ['Capitalize on "January Financial Hangover" cultural moment', 'Promote Earn products through targeted campaigns', 'Community savings contest with prizes', 'Social media content series on financial recovery', 'Partnership with financial wellness influencers'], 
+            impact: 'Drive engagement during slow financial month. Position Solvida as financial ally. Expected 20% increase in Earn product adoption and 15% boost in community engagement.' 
+        },
+        'kyc': { 
+            title: 'KYC Education Campaign', 
+            date: 'Jan 26 - Feb 8', 
+            tasks: ['Video tutorials for COP deposit process', 'Blog post series on asset protection and security', 'Email sequence for unverified users', 'In-app tooltips and guided onboarding', 'FAQ section expansion with KYC-specific content'], 
+            impact: 'Increase verification conversion by 15%. Reduce support tickets related to KYC by 30%. Build trust through transparency.' 
+        },
+        'pro': { 
+            title: 'Solvida Pro Launch Campaign', 
+            date: 'Feb 9 - Feb 22', 
+            tasks: ['Advanced trader targeting via paid ads', 'Trading competition with leaderboard', 'Pro features highlight video series', 'Webinar for professional traders', 'Early access program for high-volume users'], 
+            impact: 'Acquire high-volume traders. Target 500+ Pro accounts in first month. Increase average transaction volume by 40%.' 
+        },
+        'waitlist': { 
+            title: 'Public Waitlist Program', 
+            date: 'Mar 1 - Jun 1', 
+            tasks: ['Referral mechanic implementation with rewards', 'Exclusive swag for top referrers', 'Weekly feature drops and updates', 'Email nurture sequence for waitlist members', 'Social proof campaigns showcasing early adopters'], 
+            impact: 'Build database of 50k+ leads before major feature rollout. Create anticipation and FOMO. Generate organic growth through referrals.' 
+        },
+        'gamify': { 
+            title: 'Platform Gamification Launch', 
+            date: 'Jun 1 - Jun 30', 
+            tasks: ['Leaderboards for trading activity', 'Achievement badges system', 'Trading streaks and daily challenges', 'Rewards program integration', 'Social sharing of achievements'], 
+            impact: 'Increase daily active usage by 25%. Improve user retention by 30%. Create viral sharing moments through achievements.' 
+        },
+        'follower-acq': {
+            title: 'Follower Acquisition Campaign',
+            date: 'Dec 1 - Ongoing',
+            tasks: ['Paid Twitter/X promotion targeting crypto enthusiasts', 'Engagement campaigns with trending topics', 'Influencer collaborations for reach', 'Content calendar focused on value-driven posts', 'Community growth tactics'],
+            impact: 'Grow follower base by 10k+ per month. Increase brand awareness in LATAM crypto space. Build engaged community for product launches.'
+        },
+        'community-outreach': {
+            title: 'Community Outreach Program',
+            date: 'Dec 1 - Ongoing',
+            tasks: ['Daily engagement with crypto communities', 'AMA sessions and Q&A threads', 'User-generated content campaigns', 'Community moderator program', 'Feedback collection and implementation'],
+            impact: 'Build authentic relationships with users. Increase community sentiment score. Generate organic word-of-mouth growth.'
+        },
+        'uniswap-eth-cali': {
+            title: 'Uniswap x ETH Cali Event',
+            date: 'Dec 20',
+            tasks: ['Sponsorship and booth presence', 'Live product demos', 'Networking with developers and traders', 'Swag distribution and brand visibility', 'Content creation for social media'],
+            impact: 'Connect with 500+ attendees. Generate 50+ qualified leads. Establish presence in Colombian crypto community.'
+        },
+        'eth-cali': {
+            title: 'ETH Cali Conference',
+            date: 'Jan 30',
+            tasks: ['Main stage presentation on Solvida', 'Developer workshop on exchange APIs', 'Sponsor networking dinner', 'Media interviews and press coverage', 'Product launch announcement'],
+            impact: 'Position as thought leader in LATAM crypto. Generate media coverage. Acquire high-value institutional contacts.'
+        },
+        'bitcoin-medellin': {
+            title: 'Bitcoin Medellin Meetup',
+            date: 'Jan 15',
+            tasks: ['Community meetup sponsorship', 'Educational presentation on trading', 'Local influencer partnerships', 'Product feedback session', 'Brand awareness in Medellin market'],
+            impact: 'Engage with 200+ local crypto enthusiasts. Build regional presence. Collect user insights for product development.'
+        },
+        'eth-bogota': {
+            title: 'ETH Bogota Conference',
+            date: 'Feb 15',
+            tasks: ['Conference sponsorship package', 'Technical talk on exchange architecture', 'Developer relations activities', 'Partnership announcements', 'Media and influencer engagement'],
+            impact: 'Reach 1000+ conference attendees. Establish technical credibility. Generate partnership opportunities.'
+        },
+        'eth-medellin': {
+            title: 'ETH Medellin Event',
+            date: 'Mar 15',
+            tasks: ['Regional event presence', 'Local community building', 'Product demonstrations', 'Educational workshops', 'Regional expansion messaging'],
+            impact: 'Strengthen Medellin market presence. Build local ambassador network. Drive regional user acquisition.'
+        },
+        'consensus-miami': {
+            title: 'Consensus Miami',
+            date: 'May 5',
+            tasks: ['International conference presence', 'LATAM-focused panel participation', 'Cross-border partnership discussions', 'Media coverage and interviews', 'Global brand positioning'],
+            impact: 'Expand brand recognition beyond LATAM. Connect with international investors. Explore expansion opportunities.'
+        },
+        'crypto-latin-fest': {
+            title: 'Crypto Latin Fest',
+            date: 'Aug 15',
+            tasks: ['Major regional festival sponsorship', 'Main stage presentation', 'Product launch announcements', 'Regional influencer summit', 'Awards and recognition campaigns'],
+            impact: 'Reach 5000+ attendees. Establish as leading LATAM exchange. Generate significant media coverage and partnerships.'
+        },
+        'uni-list': {
+            title: 'University Contact List Development',
+            date: 'Dec 1 - Jan 15',
+            tasks: ['Research and compile university database', 'Identify key contacts in business and tech departments', 'Create outreach templates', 'Establish initial relationships', 'Schedule informational meetings'],
+            impact: 'Build foundation for university partnerships. Create pipeline of 50+ university contacts. Enable scalable education program.'
+        },
+        'uni-program': {
+            title: 'University Program Development',
+            date: 'Dec 8 - Feb 1',
+            tasks: ['Curriculum development for crypto education', 'Partnership agreement templates', 'Student ambassador program design', 'Educational content creation', 'Program launch materials'],
+            impact: 'Create structured approach to university engagement. Enable consistent messaging across all partnerships. Build scalable education model.'
+        },
+        'uni-outreach': {
+            title: 'University Outreach Campaign',
+            date: 'Jan 16 - Feb 15',
+            tasks: ['Direct outreach to university contacts', 'Presentation scheduling and delivery', 'Partnership proposal submissions', 'Follow-up communications', 'Agreement negotiations'],
+            impact: 'Secure 10+ university partnerships. Establish Solvida as educational partner. Create pipeline for student acquisition.'
+        },
+        'uni-copromotion': {
+            title: 'University Co-Promotion Activities',
+            date: 'Apr 1 - Ongoing',
+            tasks: ['Joint marketing campaigns with universities', 'Student workshops and seminars', 'Case study development', 'Success story content', 'Ongoing relationship management'],
+            impact: 'Reach 5000+ students through partnerships. Build brand loyalty among young adults. Create long-term user acquisition channel.'
+        },
+        'uni-event-1': {
+            title: 'University Event 1',
+            date: 'May 1',
+            tasks: ['On-campus workshop delivery', 'Product demonstration', 'Student recruitment', 'Content creation', 'Feedback collection'],
+            impact: 'Engage 100+ students directly. Generate sign-ups and referrals. Build university presence.'
+        },
+        'uni-event-2': {
+            title: 'University Event 2',
+            date: 'May 15',
+            tasks: ['Educational seminar on crypto trading', 'Q&A session with students', 'Networking with faculty', 'Student ambassador recruitment', 'Partnership strengthening'],
+            impact: 'Deepen relationships with partner universities. Recruit student ambassadors. Generate educational content.'
+        },
+        'uni-event-3': {
+            title: 'University Event 3',
+            date: 'Jun 1',
+            tasks: ['Career fair participation', 'Internship program promotion', 'Industry connections', 'Student project collaborations', 'Brand visibility'],
+            impact: 'Position as employer of choice. Build talent pipeline. Increase brand awareness among students.'
+        },
+        'uni-event-4': {
+            title: 'University Event 4',
+            date: 'Jun 15',
+            tasks: ['End-of-semester celebration', 'Student success stories', 'Program evaluation', 'Next semester planning', 'Alumni network building'],
+            impact: 'Maintain engagement during break. Build alumni network. Plan for expanded program.'
+        },
+        'inf-outreach': {
+            title: 'Influencer Outreach Program',
+            date: 'Dec 1 - Jan 31',
+            tasks: ['Identify and research relevant influencers', 'Outreach to micro and macro influencers', 'Partnership proposal development', 'Initial collaboration discussions', 'Contract negotiations'],
+            impact: 'Build pipeline of 100+ influencer partnerships. Establish relationships before program launch. Create diverse influencer portfolio.'
+        },
+        'inf-program': {
+            title: 'Influencer Program Development',
+            date: 'Jan 16 - Mar 31',
+            tasks: ['Program structure and guidelines creation', 'Compensation model design', 'Content requirements definition', 'Tracking and analytics setup', 'Onboarding materials development'],
+            impact: 'Create scalable influencer program. Enable consistent brand messaging. Establish clear ROI metrics.'
+        },
+        'inf-recruitment': {
+            title: 'Influencer Recruitment Phase',
+            date: 'Feb 1 - Mar 31',
+            tasks: ['Active recruitment of program participants', 'Vetting and selection process', 'Onboarding sessions', 'Content strategy alignment', 'Campaign briefings'],
+            impact: 'Recruit 50+ active influencers. Ensure quality and brand fit. Prepare for program launch.'
+        },
+        'inf-launch': {
+            title: 'Influencer Program Launch',
+            date: 'Apr 1',
+            tasks: ['Program kickoff event', 'Coordinated launch content', 'Media announcement', 'First wave of influencer content', 'Performance tracking initiation'],
+            impact: 'Generate significant brand awareness. Reach 500k+ potential users. Establish program credibility.'
+        },
+        'inf-live': {
+            title: 'Influencer Program Live (Revenue)',
+            date: 'Jun 1 - Ongoing',
+            tasks: ['Ongoing content creation and distribution', 'Performance monitoring and optimization', 'New influencer onboarding', 'Revenue tracking and reporting', 'Program expansion'],
+            impact: 'Generate consistent user acquisition. Maintain 20%+ conversion rate. Scale program to 100+ active influencers. Target $25 CAC reduction.'
+        },
+        'blog-live': {
+            title: 'Solvida Blog Launch',
+            date: 'Jan 10',
+            tasks: ['Blog platform setup and design', 'Initial content publication (10+ articles)', 'SEO optimization', 'Content calendar establishment', 'Social media integration'],
+            impact: 'Establish thought leadership. Drive organic traffic. Support SEO strategy. Target 5k+ monthly visitors within 3 months.'
+        },
+        'markets-page': {
+            title: 'Markets Page Launch',
+            date: 'Jan 20',
+            tasks: ['Real-time market data integration', 'Charting and analytics features', 'SEO-optimized market pages', 'Social sharing functionality', 'Performance monitoring'],
+            impact: 'Capture high-intent search traffic. Provide value to traders. Support organic discovery. Target 10k+ monthly page views.'
+        },
+        'telegram': {
+            title: 'Telegram Community Launch',
+            date: 'Feb 1',
+            tasks: ['Telegram channel and group setup', 'Community guidelines and moderation', 'Initial member recruitment', 'Content strategy for Telegram', 'Engagement campaigns'],
+            impact: 'Build direct communication channel. Create engaged community. Enable real-time support. Target 5k+ members in first month.'
+        },
+        'pro-lander': {
+            title: 'Solvida Pro Landing Page',
+            date: 'Feb 9',
+            tasks: ['Dedicated landing page design', 'Feature highlights and benefits', 'Conversion optimization', 'A/B testing setup', 'Analytics integration'],
+            impact: 'Improve Pro sign-up conversion by 30%. Provide clear value proposition. Support paid acquisition campaigns.'
+        },
+        'discord': {
+            title: 'Discord Community Launch',
+            date: 'Mar 15',
+            tasks: ['Discord server setup and structure', 'Channel organization and moderation', 'Bot integration for automation', 'Community events planning', 'Member onboarding process'],
+            impact: 'Build deeper community engagement. Enable real-time discussions. Create space for power users. Target 3k+ active members.'
+        },
+        'whatsapp': {
+            title: 'WhatsApp Channel Launch',
+            date: 'Apr 15',
+            tasks: ['WhatsApp Business setup', 'Broadcast list creation', 'Content strategy for messaging', 'Automated response system', 'User segmentation'],
+            impact: 'Reach users in preferred channel. Enable personalized communication. Support customer service. Target 10k+ subscribers.'
+        },
+        'socials': {
+            title: 'Instagram & TikTok Launch',
+            date: 'May 1',
+            tasks: ['Account setup and branding', 'Content strategy for visual platforms', 'Influencer collaborations', 'Trending content creation', 'Community building'],
+            impact: 'Reach younger demographic. Increase brand awareness. Create viral potential. Target 50k+ combined followers in 6 months.'
+        },
+        'semana-santa': {
+            title: 'Semana Santa Campaign',
+            date: 'Apr 15',
+            tasks: ['Cultural moment content creation', 'Holiday-themed promotions', 'Community engagement activities', 'Respectful cultural messaging', 'Limited-time offers'],
+            impact: 'Connect with users during important cultural period. Show cultural awareness. Drive engagement during holiday week.'
+        },
+        'dia-trabajo': {
+            title: 'Día del Trabajo Campaign',
+            date: 'May 1',
+            tasks: ['Labor Day themed content', 'Financial independence messaging', 'Worker-focused promotions', 'Community appreciation', 'Educational content'],
+            impact: 'Align with worker values. Position as financial empowerment tool. Drive sign-ups from working professionals.'
+        },
+        'fifa-world-cup': {
+            title: 'FIFA World Cup Campaign',
+            date: 'Jun 15 - Jul 15',
+            tasks: ['World Cup themed promotions', 'Sports betting alternative messaging', 'Community watch parties', 'Limited edition campaigns', 'Partnership opportunities'],
+            impact: 'Leverage massive cultural moment. Reach broader audience. Create memorable brand experiences. Target 50k+ campaign impressions.'
+        },
+        'independencia': {
+            title: 'Independence Day Campaign',
+            date: 'Jul 20',
+            tasks: ['Patriotic themed content', 'Colombian pride messaging', 'Local success stories', 'Community celebrations', 'National brand positioning'],
+            impact: 'Strengthen Colombian brand identity. Build national pride connection. Drive local user acquisition. Generate media coverage.'
+        }
     };
 
     // --- Interactive Functions ---
@@ -399,11 +623,19 @@
 
     function openDetail(id) {
         const pane = document.getElementById('detailPane');
-        const data = campaignData[id] || { title: 'Campaign Details', date: 'TBD', tasks: 'Add details for this campaign...', impact: 'Define impact...' };
+        const data = campaignData[id] || { 
+            title: 'Campaign Details', 
+            date: 'TBD', 
+            tasks: ['Add deliverables for this campaign...'], 
+            impact: 'Define business impact and expected outcomes for this campaign...' 
+        };
         
         document.getElementById('dTitle').textContent = data.title;
         document.getElementById('dDate').textContent = data.date;
-        document.getElementById('dList').innerHTML = data.tasks.split('. ').map(t => t.trim() ? `<li>${t}</li>` : '').join('');
+        
+        // Handle both array and string formats for tasks
+        let tasksList = Array.isArray(data.tasks) ? data.tasks : data.tasks.split('. ').filter(t => t.trim());
+        document.getElementById('dList').innerHTML = tasksList.map(t => `<li>${t.trim()}</li>`).join('');
         document.getElementById('dImpact').textContent = data.impact;
         
         pane.classList.add('active');
