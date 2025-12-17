@@ -1071,6 +1071,8 @@ Task 3"></textarea></div>
     // Parse date string to calendar percentages
     function parseDateToPercent(dateStr) {
         // Handle formats like "Jan 26 - Feb 8", "Jan 1 - Jan 31", "May 1", "Jan 15-16"
+        console.log('parseDateToPercent input:', dateStr);
+        
         const parts = dateStr.split(' - ');
         let startStr = parts[0].trim();
         let endStr = parts.length > 1 ? parts[1].trim() : startStr;
@@ -1084,11 +1086,15 @@ Task 3"></textarea></div>
             }
         }
         
+        console.log('Parsed - startStr:', startStr, 'endStr:', endStr);
+        
         // Parse start date
         const startParts = startStr.split(' ');
         const startMonth = startParts[0];
         const startDay = parseInt(startParts[1]) || 1;
         const startMonthIndex = MONTH_NAMES.indexOf(startMonth);
+        
+        console.log('Start - month:', startMonth, 'day:', startDay, 'monthIndex:', startMonthIndex);
         
         // Parse end date (might just be a day number if same month)
         let endMonth, endDay;
@@ -1103,7 +1109,10 @@ Task 3"></textarea></div>
         }
         const endMonthIndex = MONTH_NAMES.indexOf(endMonth);
         
+        console.log('End - month:', endMonth, 'day:', endDay, 'monthIndex:', endMonthIndex);
+        
         if (startMonthIndex === -1 || endMonthIndex === -1) {
+            console.log('Invalid month name - returning null');
             return null; // Invalid date format
         }
         
@@ -1112,18 +1121,33 @@ Task 3"></textarea></div>
         const endPercent = (endMonthIndex * MONTH_PERCENT) + ((endDay - 1) / 30 * MONTH_PERCENT);
         const width = Math.max(endPercent - left + DAY_PERCENT, DAY_PERCENT * 2); // At least 2 days
         
+        console.log('Calculated - left:', left, 'endPercent:', endPercent, 'width:', width);
+        
         return { left: snapToDay(left), width: snapToDay(width) };
     }
 
     // Update calendar bar from date change
     function updateCalendarFromDate(id, dateStr) {
         const bar = document.querySelector(`[data-id="${id}"]`);
-        if (!bar || !bar.classList.contains('bar')) return; // Only update bars, not diamonds
+        if (!bar) {
+            console.log('updateCalendarFromDate: bar not found for id:', id);
+            return;
+        }
+        if (!bar.classList.contains('bar')) {
+            console.log('updateCalendarFromDate: element is not a bar (diamond), skipping:', id);
+            return; // Only update bars, not diamonds
+        }
         
+        console.log('updateCalendarFromDate called with:', id, dateStr);
         const result = parseDateToPercent(dateStr);
+        console.log('parseDateToPercent result:', result);
+        
         if (result) {
             bar.style.left = result.left + '%';
             bar.style.width = result.width + '%';
+            console.log('Updated bar style - left:', result.left + '%', 'width:', result.width + '%');
+        } else {
+            console.log('parseDateToPercent returned null - invalid date format');
         }
     }
 
@@ -1294,6 +1318,7 @@ Task 3"></textarea></div>
                 }
                 
                 // Update calendar bar position from date change
+                console.log('About to call updateCalendarFromDate with:', currentItemId, date.textContent);
                 updateCalendarFromDate(currentItemId, date.textContent);
             }
             markUnsaved();
