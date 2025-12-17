@@ -164,7 +164,11 @@
         .gantt-table { width: 100%; border-collapse: separate; border-spacing: 0; min-width: 1600px; table-layout: fixed; }
         .gantt-table th { background: var(--bg-panel); color: var(--text-secondary); font-size: 11px; text-transform: uppercase; padding: 15px 10px; font-weight: 700; border-bottom: 1px solid var(--border-subtle); border-right: 1px solid var(--border-subtle); position: sticky; top: 0; z-index: 10; }
         .gantt-table th:first-child { width: 300px; text-align: left; padding-left: 20px; position: sticky; left: 0; background: var(--bg-panel); z-index: 20; border-right: 2px solid var(--border-subtle); }
-        .gantt-row td { background: var(--bg-sticky); border-bottom: 1px solid var(--border-subtle); border-right: 1px dashed var(--border-subtle); height: 60px; padding: 4px; }
+        .gantt-row { cursor: pointer; }
+        .gantt-row td { background: var(--bg-sticky); border-bottom: 1px solid var(--border-subtle); border-right: 1px dashed var(--border-subtle); height: 60px; padding: 4px; transition: background 0.2s; }
+        .gantt-row:hover td { background: var(--bg-panel-hover); }
+        .gantt-row:hover .gantt-label-cell { background: var(--bg-panel-hover) !important; }
+        .sprint-block.highlight .sprint-card { box-shadow: 0 0 0 2px var(--brand-primary), 0 10px 40px -10px var(--brand-glow); }
         .gantt-label-cell { position: sticky; left: 0; background: var(--bg-sticky) !important; z-index: 10; border-right: 2px solid var(--border-subtle) !important; padding: 0 20px !important; font-size: 13px; font-weight: 600; color: var(--text-primary); }
         .gantt-bar { height: 36px; border-radius: 6px; background: var(--grad-brand); font-size: 11px; color: white; font-weight: 600; display: flex; align-items: center; justify-content: center; cursor: grab; white-space: nowrap; position: relative; overflow: hidden; }
         .gantt-bar::after { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transform: skewX(-20deg); animation: shimmer 3s infinite; }
@@ -423,65 +427,65 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="gantt-row phase-1">
+                            <tr class="gantt-row phase-1" data-target="sprint-1">
                                 <td class="gantt-label-cell">01. Solvida Lite Product Launch</td>
                                 <td class="gantt-cell"><div class="gantt-bar">Sprint 1</div></td>
                                 <td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td>
                             </tr>
-                            <tr class="gantt-row phase-1">
+                            <tr class="gantt-row phase-1" data-target="sprint-2">
                                 <td class="gantt-label-cell">02. Frontend QA + EKS Migration</td>
                                 <td class="gantt-cell"></td>
                                 <td class="gantt-cell"><div class="gantt-bar">Sprint 2</div></td>
                                 <td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td>
                             </tr>
-                            <tr class="gantt-row phase-2">
+                            <tr class="gantt-row phase-2" data-target="sprint-3">
                                 <td class="gantt-label-cell">03. Fiat Settlement & Core</td>
                                 <td class="gantt-cell"></td><td class="gantt-cell"></td>
                                 <td class="gantt-cell"><div class="gantt-bar">Sprint 3</div></td>
                                 <td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td>
                             </tr>
-                            <tr class="gantt-row phase-2">
+                            <tr class="gantt-row phase-2" data-target="sprint-4">
                                 <td class="gantt-label-cell">04. Solvida Pro Complete</td>
                                 <td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td>
                                 <td class="gantt-cell"><div class="gantt-bar">Sprint 4</div></td>
                                 <td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td>
                             </tr>
-                            <tr class="gantt-row phase-2">
+                            <tr class="gantt-row phase-2" data-target="sprint-5">
                                 <td class="gantt-label-cell">05. UX & Brand Polish</td>
                                 <td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td>
                                 <td class="gantt-cell"><div class="gantt-bar">Sprint 5</div></td>
                                 <td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td>
                             </tr>
-                            <tr class="gantt-row phase-3">
+                            <tr class="gantt-row phase-3" data-target="sprint-6">
                                 <td class="gantt-label-cell">06. Admin Dashboard</td>
                                 <td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td>
                                 <td class="gantt-cell"><div class="gantt-bar">Sprint 6</div></td>
                                 <td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td>
                             </tr>
-                            <tr class="gantt-row phase-3">
+                            <tr class="gantt-row phase-3" data-target="sprint-7">
                                 <td class="gantt-label-cell">07. Security & Support</td>
                                 <td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td>
                                 <td class="gantt-cell"><div class="gantt-bar">Sprint 7</div></td>
                                 <td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td>
                             </tr>
-                            <tr class="gantt-row phase-4">
+                            <tr class="gantt-row phase-4" data-target="sprint-8">
                                 <td class="gantt-label-cell">08. Website Additions</td>
                                 <td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td>
                                 <td class="gantt-cell"><div class="gantt-bar">Sprint 8</div></td>
                                 <td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td>
                             </tr>
-                            <tr class="gantt-row phase-4">
+                            <tr class="gantt-row phase-4" data-target="sprint-9">
                                 <td class="gantt-label-cell">09. Regional Expansion</td>
                                 <td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td>
                                 <td class="gantt-cell"><div class="gantt-bar">Sprint 9</div></td>
                                 <td class="gantt-cell"></td><td class="gantt-cell"></td>
                             </tr>
-                            <tr class="gantt-row phase-5">
+                            <tr class="gantt-row phase-5" data-target="sprint-10">
                                 <td class="gantt-label-cell">10. Staking & Earn</td>
                                 <td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td>
                                 <td class="gantt-cell"><div class="gantt-bar">Sprint 10</div></td><td class="gantt-cell"></td>
                             </tr>
-                            <tr class="gantt-row phase-5">
+                            <tr class="gantt-row phase-5" data-target="sprint-11">
                                 <td class="gantt-label-cell">11. Card + Final Ops</td>
                                 <td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td><td class="gantt-cell"></td>
                                 <td class="gantt-cell"><div class="gantt-bar">Sprint 11</div></td>
@@ -494,7 +498,7 @@
 
         <div class="timeline-wrapper">
             
-            <div class="sprint-block phase-1">
+            <div class="sprint-block phase-1" id="sprint-1">
                 <div class="sprint-dot"></div>
                 <div class="sprint-card">
                     <div class="card-header">
@@ -541,7 +545,7 @@
                 </div>
             </div>
 
-            <div class="sprint-block phase-1">
+            <div class="sprint-block phase-1" id="sprint-2">
                 <div class="sprint-dot"></div>
                 <div class="sprint-card">
                     <div class="card-header">
@@ -590,7 +594,7 @@
                 </div>
             </div>
 
-            <div class="sprint-block phase-1">
+            <div class="sprint-block phase-1" id="sprint-3">
                 <div class="sprint-dot"></div>
                 <div class="sprint-card">
                     <div class="card-header">
@@ -641,7 +645,7 @@
                 </div>
             </div>
 
-            <div class="sprint-block phase-2">
+            <div class="sprint-block phase-2" id="sprint-4">
                 <div class="sprint-dot"></div>
                 <div class="sprint-card">
                     <div class="card-header">
@@ -679,7 +683,7 @@
                 </div>
             </div>
 
-            <div class="sprint-block phase-2">
+            <div class="sprint-block phase-2" id="sprint-5">
                 <div class="sprint-dot"></div>
                 <div class="sprint-card">
                     <div class="card-header">
@@ -716,7 +720,7 @@
                 </div>
             </div>
 
-            <div class="sprint-block phase-3">
+            <div class="sprint-block phase-3" id="sprint-6">
                 <div class="sprint-dot"></div>
                 <div class="sprint-card">
                     <div class="card-header">
@@ -753,7 +757,7 @@
                 </div>
             </div>
 
-            <div class="sprint-block phase-3">
+            <div class="sprint-block phase-3" id="sprint-7">
                 <div class="sprint-dot"></div>
                 <div class="sprint-card">
                     <div class="card-header">
@@ -790,7 +794,7 @@
                 </div>
             </div>
 
-            <div class="sprint-block phase-4">
+            <div class="sprint-block phase-4" id="sprint-8">
                 <div class="sprint-dot"></div>
                 <div class="sprint-card">
                     <div class="card-header">
@@ -827,7 +831,7 @@
                 </div>
             </div>
 
-            <div class="sprint-block phase-4">
+            <div class="sprint-block phase-4" id="sprint-9">
                 <div class="sprint-dot"></div>
                 <div class="sprint-card">
                     <div class="card-header">
@@ -864,7 +868,7 @@
                 </div>
             </div>
 
-            <div class="sprint-block phase-5">
+            <div class="sprint-block phase-5" id="sprint-10">
                 <div class="sprint-dot"></div>
                 <div class="sprint-card">
                     <div class="card-header">
@@ -901,7 +905,7 @@
                 </div>
             </div>
 
-            <div class="sprint-block phase-5">
+            <div class="sprint-block phase-5" id="sprint-11">
                 <div class="sprint-dot"></div>
                 <div class="sprint-card">
                     <div class="card-header">
@@ -1262,6 +1266,23 @@
                 });
             });
         }
+        
+        // Gantt row click navigation
+        document.querySelectorAll('.gantt-row[data-target]').forEach(row => {
+            row.addEventListener('click', (e) => {
+                // Don't navigate if in edit mode and clicking on a draggable bar
+                if (editMode && e.target.closest('.gantt-bar')) return;
+                
+                const targetId = row.dataset.target;
+                const targetEl = document.getElementById(targetId);
+                if (targetEl) {
+                    targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    // Brief highlight effect
+                    targetEl.classList.add('highlight');
+                    setTimeout(() => targetEl.classList.remove('highlight'), 2000);
+                }
+            });
+        });
         
         // Initial init
         initializeDragDrop();
