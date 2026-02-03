@@ -160,6 +160,44 @@
         .sprint-section {
             margin-bottom: 24px;
         }
+
+        .previous-sprints {
+            margin-top: 24px;
+        }
+
+        .previous-toggle {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #cbd5f5;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .previous-toggle:hover {
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .previous-toggle span {
+            color: #94a3b8;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .previous-list {
+            margin-top: 12px;
+            display: none;
+        }
+
+        .previous-list.open {
+            display: block;
+        }
         
         .sprint-card {
             background: rgba(255, 255, 255, 0.03);
@@ -426,6 +464,14 @@
                 <p>Loading sprint data from Asana...</p>
             </div>
         </div>
+
+        <div class="previous-sprints">
+            <button class="previous-toggle" type="button" id="previousToggle">
+                Previous Sprints
+                <span id="previousCount">0</span>
+            </button>
+            <div id="previousList" class="previous-list"></div>
+        </div>
         
         <div class="legend">
             <div class="legend-item">
@@ -557,12 +603,18 @@
 
                 // Build sprint cards (newest first)
                 const sprintSection = document.getElementById('sprintSection');
+                const previousList = document.getElementById('previousList');
+                const previousCount = document.getElementById('previousCount');
+                const previousToggle = document.getElementById('previousToggle');
                 const visibleSprints = sprints.filter((sprint) => (
                     sprint.number !== null &&
                     sprint.number >= currentSprintNumber &&
                     sprint.number <= currentSprintNumber + 2
                 ));
                 const reversedSprints = [...(visibleSprints.length ? visibleSprints : sprints)].reverse();
+                const previousSprints = sprints.filter((sprint) => (
+                    sprint.number !== null && sprint.number < currentSprintNumber
+                )).reverse();
                 
                 let html = '';
                 reversedSprints.forEach((sprint, index) => {
@@ -595,6 +647,37 @@
                 
                 sprintSection.innerHTML = html;
 
+                let previousHtml = '';
+                previousSprints.forEach((sprint) => {
+                    const hasTasks = sprint.total > 0;
+                    const percentage = hasTasks ? sprint.percentage : 0;
+                    const colorClass = hasTasks ? getColorClass(percentage) : 'empty';
+
+                    previousHtml += `
+                        <div class="sprint-card ${hasTasks ? '' : 'empty'}">
+                            <div class="sprint-header">
+                                <div>
+                                    <span class="sprint-name">${sprint.displayName}</span>
+                                </div>
+                                <span class="sprint-dates">${sprint.dates}</span>
+                            </div>
+                            <div class="sprint-stats">
+                                <div class="sprint-percentage percentage ${colorClass}">${percentage}%</div>
+                                <div class="progress-container">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill ${colorClass}" style="width: ${percentage}%"></div>
+                                    </div>
+                                </div>
+                                <div class="task-count">${sprint.completed} / ${sprint.total}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                previousList.innerHTML = previousHtml || '<div class="loading">No previous sprints yet.</div>';
+                previousCount.textContent = `${previousSprints.length}`;
+                previousToggle.disabled = previousSprints.length === 0;
+
             } catch (error) {
                 console.error('Error loading sprint data:', error);
                 document.getElementById('sprintSection').innerHTML = `
@@ -611,6 +694,12 @@
 
         // Auto-refresh every 60 seconds
         setInterval(loadSprintData, 60000);
+
+        const previousToggle = document.getElementById('previousToggle');
+        previousToggle.addEventListener('click', () => {
+            const previousList = document.getElementById('previousList');
+            previousList.classList.toggle('open');
+        });
     </script>
 </body>
 </html>
