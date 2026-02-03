@@ -557,7 +557,12 @@
 
                 // Build sprint cards (newest first)
                 const sprintSection = document.getElementById('sprintSection');
-                const reversedSprints = [...sprints].reverse();
+                const visibleSprints = sprints.filter((sprint) => (
+                    sprint.number !== null &&
+                    sprint.number >= currentSprintNumber &&
+                    sprint.number <= currentSprintNumber + 2
+                ));
+                const reversedSprints = [...(visibleSprints.length ? visibleSprints : sprints)].reverse();
                 
                 let html = '';
                 reversedSprints.forEach((sprint, index) => {
