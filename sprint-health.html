@@ -6,7 +6,7 @@
     <title>Auwave Sprint Health Tracker | Solvida</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,22 +14,61 @@
             box-sizing: border-box;
         }
         
+        :root {
+            --bg-deep: #050507;
+            --bg-panel: #0E0E12;
+            --bg-panel-hover: #16161D;
+            --bg-sticky: #09090b;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-active: rgba(255, 255, 255, 0.2);
+            --text-primary: #F2F2F2;
+            --text-secondary: #9CA3AF;
+            --text-tertiary: #6B7280;
+            --brand-primary: #6366f1;
+            --brand-glow: rgba(99, 102, 241, 0.4);
+            --accent-cyan: #22d3ee;
+            --accent-green: #10b981;
+            --accent-orange: #f97316;
+            --grid-color: rgba(255, 255, 255, 0.05);
+            --shadow-card: 0 10px 30px -10px rgba(0,0,0,0.5);
+            --grad-brand: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            --grad-surface: radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.08), transparent 25%),
+                            radial-gradient(circle at 85% 30%, rgba(168, 85, 247, 0.08), transparent 25%);
+        }
+
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #0a0a0f 0%, #12121a 50%, #0d1117 100%);
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-deep);
+            background-image: var(--grad-surface);
             min-height: 100vh;
-            color: #e0e0e0;
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
+                              linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+            pointer-events: none;
         }
 
         /* Navigation - matching existing roadmap site */
         .nav-container {
-            background: rgba(10, 10, 15, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 16px 40px;
+            background: var(--bg-sticky);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 18px 40px;
             position: sticky;
             top: 0;
             z-index: 100;
+            backdrop-filter: blur(12px);
         }
 
         .nav-inner {
@@ -41,13 +80,14 @@
         }
 
         .nav-brand {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
         }
 
         .nav-brand span {
-            background: linear-gradient(90deg, #00d9ff, #00ff88);
+            background: var(--grad-brand);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -55,33 +95,40 @@
 
         .nav-tabs {
             display: flex;
-            gap: 8px;
+            gap: 6px;
+            background: var(--bg-panel);
+            padding: 4px;
+            border-radius: 10px;
+            border: 1px solid var(--border-subtle);
         }
 
         .nav-tab {
-            padding: 10px 20px;
+            padding: 8px 14px;
             border-radius: 8px;
             text-decoration: none;
-            color: #888;
-            font-size: 0.9rem;
-            font-weight: 500;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
             transition: all 0.2s;
         }
 
         .nav-tab:hover {
-            color: #fff;
+            color: var(--text-primary);
             background: rgba(255, 255, 255, 0.05);
         }
 
         .nav-tab.active {
-            color: #00d9ff;
-            background: rgba(0, 217, 255, 0.1);
+            color: #fff;
+            background: var(--brand-primary);
+            box-shadow: 0 6px 14px -8px var(--brand-glow);
         }
         
         .dashboard {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 40px;
+            padding: 45px 24px 60px;
         }
         
         .header {
@@ -90,9 +137,9 @@
         }
         
         .header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            background: linear-gradient(90deg, #00d9ff, #00ff88);
+            font-size: 2.4rem;
+            font-weight: 800;
+            background: var(--grad-brand);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -100,12 +147,12 @@
         }
         
         .header .subtitle {
-            color: #888;
+            color: var(--text-secondary);
             font-size: 1rem;
         }
         
         .header .updated {
-            color: #666;
+            color: var(--text-tertiary);
             font-size: 0.85rem;
             margin-top: 8px;
             display: flex;
@@ -117,7 +164,7 @@
         .live-dot {
             width: 8px;
             height: 8px;
-            background: #00ff88;
+            background: var(--accent-green);
             border-radius: 50%;
             animation: pulse 2s infinite;
         }
@@ -135,11 +182,12 @@
         }
         
         .summary-card {
-            background: rgba(255, 255, 255, 0.05);
+            background: var(--bg-panel);
             border-radius: 16px;
             padding: 24px;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-subtle);
+            box-shadow: var(--shadow-card);
         }
         
         .summary-card .value {
@@ -149,13 +197,13 @@
         }
         
         .summary-card .label {
-            color: #888;
+            color: var(--text-secondary);
             font-size: 0.9rem;
         }
         
-        .summary-card.current .value { color: #00d9ff; }
+        .summary-card.current .value { color: var(--accent-cyan); }
         .summary-card.total .value { color: #a855f7; }
-        .summary-card.completed .value { color: #00ff88; }
+        .summary-card.completed .value { color: var(--accent-green); }
         
         .sprint-section {
             margin-bottom: 24px;
@@ -167,27 +215,30 @@
 
         .previous-toggle {
             width: 100%;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: #cbd5f5;
+            background: var(--bg-panel);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-primary);
             padding: 12px 16px;
             border-radius: 12px;
-            font-size: 0.9rem;
-            font-weight: 600;
+            font-size: 0.85rem;
+            font-weight: 700;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         .previous-toggle:hover {
-            background: rgba(255, 255, 255, 0.06);
+            border-color: var(--border-active);
+            background: var(--bg-panel-hover);
         }
 
         .previous-toggle span {
-            color: #94a3b8;
-            font-size: 0.8rem;
-            font-weight: 500;
+            color: var(--text-tertiary);
+            font-size: 0.75rem;
+            font-weight: 600;
         }
 
         .previous-list {
@@ -200,17 +251,19 @@
         }
         
         .sprint-card {
-            background: rgba(255, 255, 255, 0.03);
+            background: var(--bg-panel);
             border-radius: 16px;
             padding: 24px;
             margin-bottom: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid var(--border-subtle);
+            box-shadow: var(--shadow-card);
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
         }
         
         .sprint-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(0, 217, 255, 0.1);
+            border-color: var(--border-active);
+            box-shadow: 0 12px 32px -12px var(--brand-glow);
         }
         
         .sprint-header {
@@ -221,14 +274,14 @@
         }
         
         .sprint-name {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #fff;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-primary);
         }
         
         .sprint-dates {
             font-size: 0.85rem;
-            color: #888;
+            color: var(--text-secondary);
         }
         
         .sprint-stats {
@@ -248,11 +301,12 @@
         }
         
         .progress-bar {
-            height: 24px;
-            background: rgba(255, 255, 255, 0.1);
+            height: 22px;
+            background: rgba(255, 255, 255, 0.08);
             border-radius: 12px;
             overflow: hidden;
             position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.06);
         }
         
         .progress-fill {
@@ -280,7 +334,7 @@
         
         .task-count {
             font-size: 0.9rem;
-            color: #888;
+            color: var(--text-secondary);
             min-width: 80px;
             text-align: right;
         }
@@ -299,13 +353,13 @@
         .percentage.empty { color: #9ca3af; }
         
         .current-sprint {
-            border: 2px solid #00d9ff;
-            box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
+            border: 2px solid var(--brand-primary);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.25);
         }
 
         .sprint-card.empty {
-            opacity: 0.6;
-            border-color: rgba(156, 163, 175, 0.4);
+            opacity: 0.55;
+            border-color: rgba(148, 163, 184, 0.3);
             box-shadow: none;
         }
 
@@ -316,13 +370,15 @@
         }
         
         .current-badge {
-            background: linear-gradient(90deg, #00d9ff, #00ff88);
-            color: #000;
+            background: var(--grad-brand);
+            color: #fff;
             padding: 4px 12px;
             border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
+            font-size: 0.7rem;
+            font-weight: 700;
             margin-left: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
         
         .legend {
@@ -338,7 +394,7 @@
             align-items: center;
             gap: 8px;
             font-size: 0.85rem;
-            color: #888;
+            color: var(--text-secondary);
         }
         
         .legend-color {
@@ -356,27 +412,27 @@
             text-align: center;
             margin-top: 40px;
             padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #666;
+            border-top: 1px solid var(--border-subtle);
+            color: var(--text-tertiary);
             font-size: 0.85rem;
         }
         
         .footer a {
-            color: #00d9ff;
+            color: var(--accent-cyan);
             text-decoration: none;
         }
 
         .loading {
             text-align: center;
             padding: 60px;
-            color: #888;
+            color: var(--text-secondary);
         }
 
         .loading-spinner {
             width: 40px;
             height: 40px;
-            border: 3px solid rgba(0, 217, 255, 0.2);
-            border-top-color: #00d9ff;
+            border: 3px solid rgba(99, 102, 241, 0.2);
+            border-top-color: var(--brand-primary);
             border-radius: 50%;
             animation: spin 1s linear infinite;
             margin: 0 auto 16px;
