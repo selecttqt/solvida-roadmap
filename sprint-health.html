@@ -252,15 +252,29 @@
         .progress-fill.good { background: linear-gradient(90deg, #00d9ff, #00a8cc); }
         .progress-fill.warning { background: linear-gradient(90deg, #ffd93d, #ff9f1c); }
         .progress-fill.danger { background: linear-gradient(90deg, #ff6b6b, #ee5a5a); }
+        .progress-fill.empty { background: linear-gradient(90deg, #4b5563, #6b7280); }
         
         .percentage.excellent { color: #00ff88; }
         .percentage.good { color: #00d9ff; }
         .percentage.warning { color: #ffd93d; }
         .percentage.danger { color: #ff6b6b; }
+        .percentage.empty { color: #9ca3af; }
         
         .current-sprint {
             border: 2px solid #00d9ff;
             box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
+        }
+
+        .sprint-card.empty {
+            opacity: 0.6;
+            border-color: rgba(156, 163, 175, 0.4);
+            box-shadow: none;
+        }
+
+        .sprint-card.empty .sprint-name,
+        .sprint-card.empty .sprint-dates,
+        .sprint-card.empty .task-count {
+            color: #9ca3af;
         }
         
         .current-badge {
@@ -465,48 +479,107 @@
             });
         }
 
+        function getSprintNumber(name) {
+            const match = name.match(/Sprint\s+(\d+)/i);
+            return match ? Number(match[1]) : null;
+        }
+
+        function getCurrentSprintNumber(today) {
+            const sprintStarts = [
+                { number: 7, date: '2026-02-03' },
+                { number: 8, date: '2026-02-10' },
+                { number: 9, date: '2026-02-17' },
+                { number: 10, date: '2026-02-24' },
+                { number: 11, date: '2026-03-03' },
+                { number: 12, date: '2026-03-10' }
+            ];
+
+            const sprintSevenStart = new Date(`${sprintStarts[0].date}T00:00:00`);
+            if (today < sprintSevenStart) {
+                return 6;
+            }
+
+            let current = 6;
+            sprintStarts.forEach((entry) => {
+                const startDate = new Date(`${entry.date}T00:00:00`);
+                if (today >= startDate) {
+                    current = entry.number;
+                }
+            });
+
+            return current;
+        }
+
+        function getDisplayName(sprint) {
+            const overrides = {
+                7: 'MVP Frontend Upgrades (Sprint 7)',
+                8: 'Solvida MVP LAUNCH TARGET (Sprint 8)'
+            };
+
+            const sprintNumber = sprint.number;
+            if (sprintNumber && overrides[sprintNumber]) {
+                return overrides[sprintNumber];
+            }
+
+            return sprint.name;
+        }
+
         async function loadSprintData() {
             try {
                 const response = await fetch(API_URL);
                 if (!response.ok) throw new Error('Failed to fetch data');
                 
                 const data = await response.json();
+                const today = new Date();
+                const currentSprintNumber = getCurrentSprintNumber(today);
+                const sprints = data.sprints.map((sprint) => {
+                    const number = getSprintNumber(sprint.name);
+                    return {
+                        ...sprint,
+                        number,
+                        displayName: getDisplayName({ ...sprint, number })
+                    };
+                });
                 
                 // Update summary cards
-                const currentSprint = data.sprints[data.sprints.length - 1];
-                document.getElementById('currentSprintPct').textContent = currentSprint.percentage + '%';
-                document.getElementById('currentSprintLabel').textContent = `Current Sprint (${currentSprint.name.replace('Sprint ', 'S')})`;
+                const currentSprint = sprints.find((sprint) => sprint.number === currentSprintNumber) || sprints[sprints.length - 1];
+                const currentHasTasks = currentSprint.total > 0;
+                const currentPercentage = currentHasTasks ? currentSprint.percentage : 0;
+                document.getElementById('currentSprintPct').textContent = currentPercentage + '%';
+                document.getElementById('currentSprintLabel').textContent = `Current Sprint (${currentSprint.displayName.replace('Sprint ', 'S')})`;
                 document.getElementById('totalTasks').textContent = data.summary.totalTasks;
                 document.getElementById('completedTasks').textContent = data.summary.totalCompleted;
                 document.getElementById('lastUpdated').textContent = 'Updated ' + formatDate(data.lastUpdated);
 
                 // Apply color to current sprint percentage
                 const currentPctEl = document.getElementById('currentSprintPct');
-                currentPctEl.className = 'value ' + getColorClass(currentSprint.percentage);
+                currentPctEl.className = 'value ' + (currentHasTasks ? getColorClass(currentPercentage) : 'empty');
 
                 // Build sprint cards (newest first)
                 const sprintSection = document.getElementById('sprintSection');
-                const reversedSprints = [...data.sprints].reverse();
+                const reversedSprints = [...sprints].reverse();
                 
                 let html = '';
                 reversedSprints.forEach((sprint, index) => {
-                    const isCurrent = index === 0;
-                    const colorClass = getColorClass(sprint.percentage);
+                    const isCurrent = sprint.number === currentSprintNumber;
+                    const hasTasks = sprint.total > 0;
+                    const percentage = hasTasks ? sprint.percentage : 0;
+                    const colorClass = hasTasks ? getColorClass(percentage) : 'empty';
                     
                     html += `
-                        <div class="sprint-card ${isCurrent ? 'current-sprint' : ''}">
+                        <div class="sprint-card ${isCurrent ? 'current-sprint' : ''} ${hasTasks ? '' : 'empty'}">
                             <div class="sprint-header">
                                 <div>
-                                    <span class="sprint-name">${sprint.name}</span>
+                                    <span class="sprint-name">${sprint.displayName}</span>
                                     ${isCurrent ? '<span class="current-badge">CURRENT</span>' : ''}
                                 </div>
                                 <span class="sprint-dates">${sprint.dates}</span>
                             </div>
                             <div class="sprint-stats">
-                                <div class="sprint-percentage percentage ${colorClass}">${sprint.percentage}%</div>
+                                <div class="sprint-percentage percentage ${colorClass}">${percentage}%</div>
                                 <div class="progress-container">
                                     <div class="progress-bar">
-                                        <div class="progress-fill ${colorClass}" style="width: ${sprint.percentage}%"></div>
+                                        <div class="progress-fill ${colorClass}" style="width: ${percentage}%"></div>
                                     </div>
                                 </div>
                                 <div class="task-count">${sprint.completed} / ${sprint.total}</div>
